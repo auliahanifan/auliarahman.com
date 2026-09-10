@@ -4,10 +4,11 @@ import Base from '../layouts/Base.astro';
 
 // ponytail: data kerja inline; pindah ke collection kalau sudah > 10 entri
 const work = [
-  { name: 'noice', tag: 'sekarang', desc: 'membangun produk audio untuk indonesia', date: '2025 — sekarang' },
-  { name: 'delegasi', tag: '$3m+ diproses', desc: 'arsitek platform pembayaran b2b', date: '2023 — 2025' },
-  { name: 'fix ai', tag: 'chrome extension', desc: 'ai agent untuk customer support, dibangun sebagai chrome extension', date: '2024 — 2025' },
-  { name: 'segarloka', tag: 'ai automation', desc: 'otomasi customer service berbasis ai', date: '2021 — 2025' },
+  { name: 'noice', tag: 'sekarang', desc: 'senior fullstack engineer. membangun produk audio untuk indonesia', date: 'sep 2025 — sekarang' },
+  { name: 'delegasi', tag: 'yc s22 · $3m+ diproses', desc: 'product engineer. platform pembayaran b2b, dari customer sampai operasional internal', date: 'jan 2023 — mei 2025' },
+  { name: 'bukuwarung', tag: 'fintech', desc: 'software engineer. membangun sistem e-wallet', date: 'jan 2022 — nov 2022' },
+  { name: 'traveloka', tag: 'fintech', desc: 'software engineer. sistem e-wallet dan e-bill', date: 'mei 2021 — jan 2022' },
+  { name: 'alterra', tag: 'erp', desc: 'software engineer. modul erp desktop untuk pdam dan tooling otomasi infra', date: 'okt 2019 — mar 2021' },
 ];
 
 const posts = (await getCollection('writing')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
@@ -30,7 +31,7 @@ const fmt = (d: Date) => d.toLocaleDateString('id-ID', { month: 'short', year: '
 
   <p class="lede">
     Saya software engineer di Noice. Fokus saya membangun <em>sistem yang bertahan di produksi</em>:
-    dari platform pembayaran B2B yang memproses jutaan dolar sampai otomasi customer service berbasis AI.
+    dari platform pembayaran B2B yang memproses jutaan dolar sampai sistem e-wallet di fintech dan travel.
     Suka backend, infrastruktur, dan hal-hal yang membuat produk benar-benar jalan.
   </p>
 
@@ -82,7 +83,7 @@ const fmt = (d: Date) => d.toLocaleDateString('id-ID', { month: 'short', year: '
     <span>© 2026 · no cookies · just a page</span>
     <nav>
       <a href="https://github.com/auliahanifan">github</a>
-      <a href="https://www.linkedin.com/in/auliahanifan/">linkedin</a>
+      <a href="https://www.linkedin.com/in/hanifan/">linkedin</a>
       <a href="https://x.com/auliahanifan">x</a>
     </nav>
   </footer>
