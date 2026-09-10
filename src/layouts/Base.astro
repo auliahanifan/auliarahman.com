@@ -111,9 +111,6 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   /* header */
   .name-row { display: flex; align-items: baseline; gap: 0.7rem; flex-wrap: wrap; margin-bottom: 0.5rem; }
   h1 { font-family: var(--mono); font-size: 15px; font-weight: 700; letter-spacing: -0.01em; }
-  .handle { font-family: var(--mono); font-size: 13px; color: var(--ink-3); }
-  .handle::before { content: '· '; color: var(--ink-4); }
-  .handle:hover { color: var(--ink); }
   .role { color: var(--ink-2); }
   .role a, .prose a { border-bottom: 1px solid var(--ink-4); padding-bottom: 1px; }
   .role a:hover, .prose a:hover { border-color: var(--ink); }
