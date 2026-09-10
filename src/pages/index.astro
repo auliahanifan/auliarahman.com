@@ -1,0 +1,89 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+
+// ponytail: data kerja inline; pindah ke collection kalau sudah > 10 entri
+const work = [
+  { name: 'noice', tag: 'sekarang', desc: 'membangun produk audio untuk indonesia', date: '2025 — sekarang' },
+  { name: 'delegasi', tag: '$3m+ diproses', desc: 'arsitek platform pembayaran b2b', date: '2023 — 2025' },
+  { name: 'fix ai', tag: 'chrome extension', desc: 'ai agent untuk customer support, dibangun sebagai chrome extension', date: '2024 — 2025' },
+  { name: 'segarloka', tag: 'ai automation', desc: 'otomasi customer service berbasis ai', date: '2021 — 2025' },
+];
+
+const posts = (await getCollection('writing')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const fmt = (d: Date) => d.toLocaleDateString('id-ID', { month: 'short', year: 'numeric' }).toLowerCase();
+---
+
+<Base
+  title="Aulia Hanifan — software engineer"
+  description="Software engineer di Noice. Backend, infrastruktur, dan sistem yang bertahan di produksi."
+>
+  <header>
+    <div class="name-row">
+      <h1>aulia hanifan</h1>
+      <a class="handle" href="https://github.com/auliahanifan">@auliahanifan</a>
+    </div>
+    <p class="role">
+      engineer di <a href="https://noice.id">noice</a>. sebelumnya delegasi, segarloka, fix ai.
+    </p>
+  </header>
+
+  <p class="lede">
+    Saya software engineer di Noice. Fokus saya membangun <em>sistem yang bertahan di produksi</em>:
+    dari platform pembayaran B2B yang memproses jutaan dolar sampai otomasi customer service berbasis AI.
+    Suka backend, infrastruktur, dan hal-hal yang membuat produk benar-benar jalan.
+  </p>
+
+  <section>
+    <div class="label">kerja</div>
+    {work.map((w) => (
+      <div class="row">
+        <div class="row-head">
+          <span class="row-title">{w.name}</span>
+          <span class="row-tag">{w.tag}</span>
+          <span class="row-date">{w.date}</span>
+        </div>
+        <div class="row-desc">{w.desc}</div>
+      </div>
+    ))}
+  </section>
+
+  <section>
+    <div class="label">tulisan</div>
+    {posts.map((p) => (
+      <a class="row" href={`/writing/${p.id}/`}>
+        <div class="row-head">
+          <span class="row-title">{p.data.title}</span>
+          <span class="row-date">{fmt(p.data.date)}</span>
+        </div>
+        <div class="row-desc">{p.data.description}</div>
+      </a>
+    ))}
+  </section>
+
+  <section>
+    <div class="label">saat ini</div>
+    <dl class="now">
+      <dt>lokasi</dt><dd>yogyakarta, indonesia</dd>
+      <dt>shipping</dt><dd>produk di noice</dd>
+      <dt>membaca</dt><dd>architecture decision records dan cara tim mengambil keputusan teknis</dd>
+    </dl>
+  </section>
+
+  <section>
+    <div class="contact">
+      <h2>ngopi di jogja?</h2>
+      <p>selalu senang ketemu orang yang lagi bikin sesuatu. backend, infra, ai agent, open source, startup.</p>
+      <a href="mailto:halo@auliarahman.com">halo@auliarahman.com →</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 · no cookies · just a page</span>
+    <nav>
+      <a href="https://github.com/auliahanifan">github</a>
+      <a href="https://www.linkedin.com/in/auliahanifan/">linkedin</a>
+      <a href="https://x.com/auliahanifan">x</a>
+    </nav>
+  </footer>
+</Base>
