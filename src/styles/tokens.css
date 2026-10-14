@@ -1,0 +1,79 @@
+/* Copied from Aulia Rahman Design System/tokens. Fonts are loaded in Base.astro. */
+/* Aulia Rahman — "Isometrik Kaca". Cool mist neutrals, ink, kobalt primary; spectrum (langit, ungu, mint, amber, koral) carries meaning in iso scenes. */
+:root{
+/* Abu — mist neutrals */
+--abu-0:#FFFFFF;--abu-50:#F4F5F7;--abu-100:#ECEEF2;--abu-200:#E1E4EA;--abu-300:#CDD2DB;--abu-400:#A3AAB7;
+/* Ink */
+--ink-400:#8A91A0;--ink-500:#636B7A;--ink-600:#4A5160;--ink-700:#2E333D;--ink-800:#1A1D24;--ink-900:#0B0D12;
+/* Kobalt — primary */
+--kobalt-50:#EEF1FF;--kobalt-100:#DCE2FF;--kobalt-200:#B9C5FF;--kobalt-300:#8EA1FF;--kobalt-400:#6680FF;--kobalt-500:#3A5BFF;--kobalt-600:#2B47DB;--kobalt-700:#2236AD;--kobalt-900:#121C5C;
+/* Mint — works / cocok */
+--mint-50:#E6F7F1;--mint-100:#C8EEDF;--mint-500:#25B892;--mint-600:#1C9576;--mint-800:#106049;
+/* Amber — focus / perlu diuji */
+--amber-50:#FFF5E0;--amber-100:#FFE7B3;--amber-500:#FFB224;--amber-600:#E09200;--amber-800:#8A5A00;
+/* Koral — risk / belum cocok */
+--koral-50:#FFEEE9;--koral-100:#FFD9CE;--koral-500:#FF6B47;--koral-600:#E04F2C;--koral-800:#8F2A12;
+
+/* Langit — integration / input */
+--langit-50:#E6F6FF;--langit-100:#C7EBFF;--langit-500:#2BB3FF;--langit-600:#0E93DB;--langit-800:#0B5480;
+/* Ungu — logic / rules */
+--ungu-50:#F2ECFE;--ungu-100:#E2D5FD;--ungu-500:#8B5CF6;--ungu-600:#7140E0;--ungu-800:#4C1D95;
+
+/* Verdict aliases */
+--cocok-100:var(--mint-100);--cocok-600:var(--mint-600);--cocok-800:var(--mint-800);
+--belum-100:var(--koral-100);--belum-600:var(--koral-600);--belum-800:var(--koral-800);
+--diuji-100:var(--amber-100);--diuji-600:var(--amber-800);
+--info-100:var(--kobalt-50);--info-600:var(--kobalt-600);
+
+/* Semantic */
+--bg-page:var(--abu-50);
+--bg-sunken:var(--abu-100);
+--surface-card:var(--abu-0);
+--surface-inverse:var(--ink-900);
+--surface-accent:var(--kobalt-500);
+--surface-highlight:var(--kobalt-100);
+--surface-hero:linear-gradient(180deg,var(--abu-50),var(--abu-0));
+--fg-1:var(--ink-900);
+--fg-2:var(--ink-600);
+--fg-3:var(--ink-500);
+--fg-inverse:var(--abu-0);
+--fg-on-accent:var(--abu-0);
+--fg-link:var(--kobalt-600);
+--text-body:var(--fg-1);
+--text-muted:var(--fg-2);
+--border-1:var(--abu-200);
+--border-2:var(--abu-100);
+--border-strong:var(--ink-900);
+--focus-ring:var(--kobalt-500);
+--iso-edge:rgba(255,255,255,.9);
+}
+:root{
+--font-display:'Geist',-apple-system,'Helvetica Neue',Arial,sans-serif;
+--font-body:'Geist',-apple-system,'Helvetica Neue',Arial,sans-serif;
+--font-mono:'Geist Mono',ui-monospace,Menlo,monospace;
+--fw-regular:400;/* @kind font */--fw-medium:500;/* @kind font */--fw-semibold:600;/* @kind font */--fw-bold:700;/* @kind font */
+--fs-11:11px;--fs-12:12px;--fs-14:14px;--fs-16:16px;--fs-18:18px;--fs-22:22px;--fs-28:28px;--fs-36:36px;--fs-48:48px;--fs-64:64px;--fs-88:88px;
+--lh-tight:1.0;/* @kind font */--lh-snug:1.1;/* @kind font */--lh-normal:1.5;/* @kind font */--lh-loose:1.65;/* @kind font */
+--ls-display:-0.045em;/* @kind font */--ls-heading:-0.03em;/* @kind font */--ls-body:-0.005em;/* @kind font */--ls-mono:0;/* @kind font */
+--type-hero-size:var(--fs-64);
+--type-h1-size:var(--fs-48);
+--type-h2-size:var(--fs-36);
+--type-h3-size:var(--fs-22);
+--type-body-size:var(--fs-16);
+--type-small-size:var(--fs-14);
+--type-eyebrow-size:var(--fs-12);
+}
+:root{
+--space-0:0;--space-1:2px;--space-2:4px;--space-3:8px;--space-4:12px;--space-5:16px;--space-6:24px;--space-7:32px;--space-8:48px;--space-9:64px;--space-10:96px;
+--radius-0:0;--radius-1:4px;--radius-2:8px;--radius-3:14px;--radius-4:20px;--radius-pill:999px;
+--border-w:1px;--border-w-strong:1px;
+--shadow-0:none;
+--shadow-hairline:inset 0 0 0 1px var(--abu-200);
+--shadow-1:0 1px 2px rgba(11,13,18,.05),0 2px 8px rgba(11,13,18,.04);
+--shadow-2:0 12px 32px rgba(11,13,18,.12),0 2px 6px rgba(11,13,18,.05);
+--shadow-focus:0 0 0 4px rgba(58,91,255,.22);
+--ease-out:cubic-bezier(.2,.7,.2,1);/* @kind other */
+--ease-in-out:cubic-bezier(.6,0,.3,1);/* @kind other */
+--dur-fast:120ms;/* @kind other */--dur-base:200ms;/* @kind other */--dur-slow:360ms;/* @kind other */
+--content-max:1120px;--prose-max:640px;
+}
