@@ -3,19 +3,13 @@ import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
 // ponytail: data kerja inline; pindah ke collection kalau sudah > 10 entri
+// layer = lapisan di iso stack (atas → bawah: kobalt, ungu, langit, mint)
 const work = [
-  { name: 'Noice', tag: 'Sekarang', date: 'Sep 2025 → sekarang', desc: 'Sistem di balik produk audio yang didengar jutaan orang Indonesia.' },
-  { name: 'Delegasi', tag: 'YC S22', date: 'Jan 2023 → Mei 2025', desc: 'Platform pembayaran B2B dari nol sampai memproses jutaan dolar.' },
-  { name: 'BukuWarung', tag: 'YC S20 · e-wallet', date: 'Jan 2022 → Nov 2022', desc: 'Dompet digital untuk jutaan warung: backend dan integrasi pembayaran.' },
-  { name: 'Traveloka', tag: 'E-wallet', date: 'Mei 2021 → Jan 2022', desc: 'Uang elektronik dan tagihan untuk pengguna Traveloka.' },
-  { name: 'Alterra', tag: 'ERP', date: 'Okt 2019 → Mar 2021', desc: 'ERP desktop untuk PDAM, plus tooling otomasi deploy untuk tim.' },
-];
-
-const layers = [
-  { label: 'Produk audio', note: 'Noice · sekarang', color: '#3A5BFF' },
-  { label: 'Pembayaran B2B', note: 'Delegasi · 2023–2025', color: '#8B5CF6' },
-  { label: 'E-wallet', note: 'BukuWarung, Traveloka', color: '#2BB3FF' },
-  { label: 'ERP & otomasi', note: 'Alterra · 2019–2021', color: '#25B892' },
+  { name: 'Noice', tag: 'Sekarang', layer: 'kobalt', date: 'Sep 2025 → sekarang', desc: 'Sistem di balik produk audio yang didengar jutaan orang Indonesia.' },
+  { name: 'Delegasi', tag: 'YC S22', layer: 'ungu', date: 'Jan 2023 → Mei 2025', desc: 'Platform pembayaran B2B dari nol sampai memproses jutaan dolar.' },
+  { name: 'BukuWarung', tag: 'YC S20 · e-wallet', layer: 'langit', date: 'Jan 2022 → Nov 2022', desc: 'Dompet digital untuk jutaan warung: backend dan integrasi pembayaran.' },
+  { name: 'Traveloka', tag: 'E-wallet', layer: 'langit', date: 'Mei 2021 → Jan 2022', desc: 'Uang elektronik dan tagihan untuk pengguna Traveloka.' },
+  { name: 'Alterra', tag: 'ERP', layer: 'mint', date: 'Okt 2019 → Mar 2021', desc: 'ERP desktop untuk PDAM, plus tooling otomasi deploy untuk tim.' },
 ];
 
 const now = [
@@ -33,69 +27,65 @@ const fmt = (d: Date) => d.toLocaleDateString('id-ID', { month: 'short', year: '
   description="Rumit jadi jelas, mahal jadi murah. Engineer di Noice dan AI trainer di Yogyakarta."
 >
   <section class="hero wrap">
-    <div class="hero-copy">
-      <div class="mono eyebrow">Product engineer · AI trainer · Yogyakarta</div>
-      <h1>Rumit jadi jelas, mahal jadi murah.</h1>
-      <p class="lede">Saya Aulia Rahman Hanifan, engineer di <a href="https://noice.id">Noice</a> dan AI trainer. Tujuh tahun di startup: pembayaran B2B, e-wallet, ERP, dan sekarang produk audio. Setiap hari saya memakai AI untuk semua itu.</p>
-      <div class="actions">
-        <a class="btn btn-accent" href="#kerja">Lihat perjalanan kerja
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
-        <a class="btn btn-light" href="mailto:halo@auliarahman.com">
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-          Kirim email
-        </a>
-      </div>
+    <div class="mono eyebrow">Product engineer · AI trainer · Yogyakarta</div>
+    <h1>Rumit jadi jelas, mahal jadi murah.</h1>
+    <p class="lede">Saya Aulia Rahman Hanifan, engineer di <a href="https://noice.id">Noice</a> dan AI trainer. Tujuh tahun di startup: pembayaran B2B, e-wallet, ERP, dan sekarang produk audio. Setiap hari saya memakai AI untuk semua itu.</p>
+    <div class="actions">
+      <a class="btn btn-accent" href="#kerja">Lihat perjalanan kerja
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+      <a class="btn btn-light" href="mailto:halo@auliarahman.com">
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+        Kirim email
+      </a>
     </div>
-    <figure class="stack">
-      <figcaption class="mono">Lapisan yang pernah saya bangun · 2019 → 2026</figcaption>
-      <div class="stack-body">
-        <svg class="iso" width="151" height="186" viewBox="-75.548 -100.3 151.096 186.3" aria-hidden="true">
-          <g stroke="rgba(255,255,255,.9)" stroke-width="1" stroke-linejoin="round" fill-opacity="0.9">
-            <polygon points="-67.5,39 0,78 0,71.5 -67.5,32.5" fill="#209e7e"/>
-            <polygon points="67.5,39 0,78 0,71.5 67.5,32.5" fill="#1b8469"/>
-            <polygon points="0,-6.5 67.5,32.5 0,71.5 -67.5,32.5" fill="#25B892"/>
-            <polygon points="-67.5,10.4 0,49.4 0,42.9 -67.5,3.9" fill="#259adb"/>
-            <polygon points="67.5,10.4 0,49.4 0,42.9 67.5,3.9" fill="#1f81b8"/>
-            <polygon points="0,-35.1 67.5,3.9 0,42.9 -67.5,3.9" fill="#2BB3FF"/>
-            <polygon points="-67.5,-18.2 0,20.8 0,14.3 -67.5,-24.7" fill="#784fd4"/>
-            <polygon points="67.5,-18.2 0,20.8 0,14.3 67.5,-24.7" fill="#6442b1"/>
-            <polygon points="0,-63.7 67.5,-24.7 0,14.3 -67.5,-24.7" fill="#8B5CF6"/>
-            <polygon points="-67.5,-46.8 0,-7.8 0,-14.3 -67.5,-53.3" fill="#324edb"/>
-            <polygon points="67.5,-46.8 0,-7.8 0,-14.3 67.5,-53.3" fill="#2a42b8"/>
-            <polygon points="0,-92.3 67.5,-53.3 0,-14.3 -67.5,-53.3" fill="#3A5BFF"/>
-            <g fill-opacity="1">
-              <polygon points="-13.5,-53.3 0,-45.5 0,-61.1 -13.5,-68.9" fill="#db991f"/>
-              <polygon points="13.5,-53.3 0,-45.5 0,-61.1 13.5,-68.9" fill="#b8801a"/>
-              <polygon points="0,-76.7 13.5,-68.9 0,-61.1 -13.5,-68.9" fill="#FFB224"/>
-            </g>
-          </g>
-        </svg>
-        <ul class="legend">
-          {layers.map((l) => (
-            <li>
-              <span class="swatch" style={`background:${l.color}`}></span>
-              <span>{l.label}<span class="note">{l.note}</span></span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </figure>
   </section>
 
   <section id="kerja" class="band">
     <div class="wrap kerja">
       <div class="kerja-intro">
-        <div class="mono">01 / 04</div>
-        <h2>Kerja</h2>
-        <p>Lima tempat, satu kebiasaan: membongkar sistem sampai jelas cara kerjanya.</p>
+        <div class="kerja-text">
+          <div class="mono">01 / 04</div>
+          <h2>Kerja</h2>
+          <p>Lima tempat, satu kebiasaan: membongkar sistem sampai jelas cara kerjanya. Tiap tempat jadi satu lapisan.</p>
+        </div>
+        <svg class="iso" viewBox="-75.548 -100.3 151.096 186.3" role="img" aria-label="Tumpukan empat lapisan: ERP di dasar, lalu e-wallet, pembayaran B2B, dan produk audio di puncak">
+          <g stroke="rgba(255,255,255,.9)" stroke-width="1" stroke-linejoin="round" fill-opacity="0.9">
+            <g class="layer" data-layer="mint">
+              <polygon points="-67.5,39 0,78 0,71.5 -67.5,32.5" fill="#209e7e"/>
+              <polygon points="67.5,39 0,78 0,71.5 67.5,32.5" fill="#1b8469"/>
+              <polygon points="0,-6.5 67.5,32.5 0,71.5 -67.5,32.5" fill="#25B892"/>
+            </g>
+            <g class="layer" data-layer="langit">
+              <polygon points="-67.5,10.4 0,49.4 0,42.9 -67.5,3.9" fill="#259adb"/>
+              <polygon points="67.5,10.4 0,49.4 0,42.9 67.5,3.9" fill="#1f81b8"/>
+              <polygon points="0,-35.1 67.5,3.9 0,42.9 -67.5,3.9" fill="#2BB3FF"/>
+            </g>
+            <g class="layer" data-layer="ungu">
+              <polygon points="-67.5,-18.2 0,20.8 0,14.3 -67.5,-24.7" fill="#784fd4"/>
+              <polygon points="67.5,-18.2 0,20.8 0,14.3 67.5,-24.7" fill="#6442b1"/>
+              <polygon points="0,-63.7 67.5,-24.7 0,14.3 -67.5,-24.7" fill="#8B5CF6"/>
+            </g>
+            <g class="layer" data-layer="kobalt">
+              <polygon points="-67.5,-46.8 0,-7.8 0,-14.3 -67.5,-53.3" fill="#324edb"/>
+              <polygon points="67.5,-46.8 0,-7.8 0,-14.3 67.5,-53.3" fill="#2a42b8"/>
+              <polygon points="0,-92.3 67.5,-53.3 0,-14.3 -67.5,-53.3" fill="#3A5BFF"/>
+              <g fill-opacity="1">
+                <polygon points="-13.5,-53.3 0,-45.5 0,-61.1 -13.5,-68.9" fill="#db991f"/>
+                <polygon points="13.5,-53.3 0,-45.5 0,-61.1 13.5,-68.9" fill="#b8801a"/>
+                <polygon points="0,-76.7 13.5,-68.9 0,-61.1 -13.5,-68.9" fill="#FFB224"/>
+              </g>
+            </g>
+          </g>
+        </svg>
       </div>
       <ol class="jobs">
         {work.map((w) => (
-          <li class="job">
+          <li class="job" data-layer={w.layer}>
             <div class="mono job-date">{w.date}</div>
             <div class="job-main">
               <div class="job-head">
+                <span class="dot" aria-hidden="true"></span>
                 <span class="job-name">{w.name}</span>
                 <span class="mono pill">{w.tag}</span>
               </div>
@@ -177,33 +167,34 @@ const fmt = (d: Date) => d.toLocaleDateString('id-ID', { month: 'short', year: '
   .btn-accent:hover, .btn-dark:hover { color: #fff; }
   .btn-light:hover { color: var(--ink-900); }
 
-  /* hero */
-  .hero {
-    padding-top: 32px; padding-bottom: 72px;
-    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 40px; align-items: center;
-  }
-  .hero-copy { display: flex; flex-direction: column; gap: 24px; max-width: 560px; min-width: 0; }
-  h1 { font-size: clamp(40px, 6vw, 72px); letter-spacing: var(--ls-display); line-height: 1.02; }
-  .lede { font-size: 18px; line-height: 1.55; color: var(--ink-700); text-wrap: pretty; }
-  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
-
-  .stack {
-    background: var(--surface-hero); border-radius: var(--radius-4); box-shadow: var(--shadow-hairline);
-    padding: clamp(20px, 5vw, 32px); display: flex; flex-direction: column; gap: 16px; min-height: 380px; min-width: 0;
-  }
-  .stack figcaption { font-size: 13px; }
-  .stack-body { flex: 1; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 24px 28px; }
-  .iso { overflow: visible; }
-  .legend { list-style: none; display: flex; flex-direction: column; gap: 18px; font-family: var(--font-mono); font-size: 12px; color: var(--fg-1); }
-  .legend li { display: flex; gap: 10px; align-items: flex-start; }
-  .swatch { width: 10px; height: 10px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(11,13,18,.15); margin-top: 3px; flex: none; }
-  .note { display: block; color: var(--fg-3); }
+  /* hero — tipografi saja */
+  .hero { padding-top: clamp(40px, 9vw, 96px); padding-bottom: clamp(56px, 10vw, 112px); display: flex; flex-direction: column; gap: 24px; }
+  h1 { font-size: clamp(44px, 9vw, 104px); letter-spacing: var(--ls-display); line-height: 0.98; max-width: 14ch; }
+  .lede { font-size: clamp(17px, 2vw, 20px); line-height: 1.55; color: var(--ink-700); text-wrap: pretty; max-width: 600px; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
 
   /* kerja */
   .band { background: var(--abu-0); border-top: 1px solid var(--abu-200); border-bottom: 1px solid var(--abu-200); }
   .kerja { padding-top: 72px; padding-bottom: 72px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 40px; }
-  .kerja-intro { display: flex; flex-direction: column; gap: 12px; max-width: 320px; }
+  .kerja-intro { display: flex; flex-direction: column; gap: 40px; max-width: 320px; position: sticky; top: 32px; align-self: start; }
+  .kerja-text { display: flex; flex-direction: column; gap: 12px; }
   .kerja-intro p { line-height: 1.5; color: var(--ink-700); }
+
+  /* iso stack sebagai peta kerja: hover baris → lapisannya naik, sisanya meredup */
+  .iso { width: 200px; height: auto; overflow: visible; }
+  .layer { transition: transform var(--dur-base) var(--ease-out), opacity var(--dur-base) var(--ease-out); }
+  .kerja:has(.job:hover) .layer { opacity: 0.22; }
+  .kerja:has(.job[data-layer='kobalt']:hover) .layer[data-layer='kobalt'],
+  .kerja:has(.job[data-layer='ungu']:hover) .layer[data-layer='ungu'],
+  .kerja:has(.job[data-layer='langit']:hover) .layer[data-layer='langit'],
+  .kerja:has(.job[data-layer='mint']:hover) .layer[data-layer='mint'] { opacity: 1; transform: translateY(-8px); }
+  @media (prefers-reduced-motion: reduce) { .layer { transition: opacity var(--dur-base) linear; } .kerja .layer { transform: none !important; } }
+
+  .dot { width: 10px; height: 10px; border-radius: 3px; flex: none; box-shadow: inset 0 0 0 1px rgba(11,13,18,.15); }
+  .job[data-layer='kobalt'] .dot { background: #3A5BFF; }
+  .job[data-layer='ungu'] .dot { background: #8B5CF6; }
+  .job[data-layer='langit'] .dot { background: #2BB3FF; }
+  .job[data-layer='mint'] .dot { background: #25B892; }
   .jobs { list-style: none; min-width: 0; }
   .job { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 8px 24px; padding: 20px 0; border-top: 1px solid var(--abu-200); }
   .job-date { font-size: 13px; padding-top: 4px; }
@@ -247,13 +238,14 @@ const fmt = (d: Date) => d.toLocaleDateString('id-ID', { month: 'short', year: '
 
   @media (max-width: 760px) {
     .kerja { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-top: 56px; padding-bottom: 56px; }
-    .hero { padding-bottom: 56px; }
+    .kerja-intro { position: static; max-width: none; flex-direction: row; align-items: center; justify-content: space-between; gap: 20px; }
+    .kerja-text { max-width: 360px; }
+    .iso { width: clamp(84px, 24vw, 140px); }
     .duo { padding-top: 56px; padding-bottom: 56px; }
   }
   @media (max-width: 560px) {
     .job { grid-template-columns: minmax(0, 1fr); gap: 4px; }
     .job-date { padding-top: 0; }
-    .stack { min-height: 0; }
     .lede, .contact p { font-size: 17px; }
     .now { padding: 4px 20px; }
     .now-row { grid-template-columns: 20px minmax(0, 1fr); gap: 2px 12px; }
