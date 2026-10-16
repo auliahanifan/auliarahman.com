@@ -4,85 +4,265 @@ import Base from '../layouts/Base.astro';
 
 // ponytail: data kerja inline; pindah ke collection kalau sudah > 10 entri
 const work = [
-  { name: 'noice', tag: 'sekarang', desc: 'sistem di balik produk audio yang didengar jutaan orang indonesia', date: 'sep 2025 — sekarang' },
-  { name: 'delegasi', tag: 'yc s22', desc: 'platform pembayaran b2b dari nol sampai memproses jutaan dolar', date: 'jan 2023 — mei 2025' },
-  { name: 'bukuwarung', tag: 'yc s20 · e-wallet', desc: 'dompet digital untuk jutaan warung, backend dan integrasi pembayaran', date: 'jan 2022 — nov 2022' },
-  { name: 'traveloka', tag: 'e-wallet', desc: 'uang elektronik dan tagihan untuk pengguna traveloka', date: 'mei 2021 — jan 2022' },
-  { name: 'alterra', tag: 'erp', desc: 'erp desktop untuk pdam, plus tooling otomasi deploy untuk tim', date: 'okt 2019 — mar 2021' },
+  { name: 'Noice', tag: 'Sekarang', date: 'Sep 2025 → sekarang', desc: 'Sistem di balik produk audio yang didengar jutaan orang Indonesia.' },
+  { name: 'Delegasi', tag: 'YC S22', date: 'Jan 2023 → Mei 2025', desc: 'Platform pembayaran B2B dari nol sampai memproses jutaan dolar.' },
+  { name: 'BukuWarung', tag: 'YC S20 · e-wallet', date: 'Jan 2022 → Nov 2022', desc: 'Dompet digital untuk jutaan warung: backend dan integrasi pembayaran.' },
+  { name: 'Traveloka', tag: 'E-wallet', date: 'Mei 2021 → Jan 2022', desc: 'Uang elektronik dan tagihan untuk pengguna Traveloka.' },
+  { name: 'Alterra', tag: 'ERP', date: 'Okt 2019 → Mar 2021', desc: 'ERP desktop untuk PDAM, plus tooling otomasi deploy untuk tim.' },
+];
+
+const layers = [
+  { label: 'Produk audio', note: 'Noice · sekarang', color: '#3A5BFF' },
+  { label: 'Pembayaran B2B', note: 'Delegasi · 2023–2025', color: '#8B5CF6' },
+  { label: 'E-wallet', note: 'BukuWarung, Traveloka', color: '#2BB3FF' },
+  { label: 'ERP & otomasi', note: 'Alterra · 2019–2021', color: '#25B892' },
+];
+
+const now = [
+  { icon: 'pin', k: 'Lokasi', v: 'Yogyakarta, Indonesia' },
+  { icon: 'wrench', k: 'Shipping', v: 'Produk di Noice' },
+  { icon: 'users', k: 'Mengajar', v: 'Pelatihan AI untuk tim dan perusahaan' },
 ];
 
 const posts = (await getCollection('writing')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const fmt = (d: Date) => d.toLocaleDateString('id-ID', { month: 'short', year: 'numeric' }).toLowerCase();
+const fmt = (d: Date) => d.toLocaleDateString('id-ID', { month: 'short', year: 'numeric' });
 ---
 
 <Base
-  title="aulia rahman hanifan — product engineer, educator, content creator"
-  description="Engineer 7 tahun, masih ngantor. Bongkar sistem yang diam-diam ngerugiin kamu, dari dalam."
+  title="Aulia Rahman Hanifan — product engineer & AI trainer"
+  description="Rumit jadi jelas, mahal jadi murah. Engineer di Noice dan AI trainer di Yogyakarta."
 >
-  <header>
-    <div class="name-row">
-      <h1>aulia rahman hanifan 🤖</h1>
-    </div>
-    <p class="role">
-      engineer di <a href="https://noice.id">noice</a> dan ai trainer. sebelumnya delegasi, bukuwarung, traveloka, alterra.
-    </p>
-  </header>
-
-  <p class="lede">
-    aku engineer 7 tahun di startup. kerjaanku: <em>bikin hal rumit jadi jelas, hal mahal jadi murah</em>.
-    pembayaran b2b, e-wallet, erp, sekarang produk audio. tiap hari pakai ai buat itu semua.
-  </p>
-
-  <section>
-    <div class="label">kerja</div>
-    {work.map((w) => (
-      <div class="row">
-        <div class="row-head">
-          <span class="row-title">{w.name}</span>
-          <span class="row-tag">{w.tag}</span>
-          <span class="row-date">{w.date}</span>
-        </div>
-        <div class="row-desc">{w.desc}</div>
+  <section class="hero wrap">
+    <div class="hero-copy">
+      <div class="mono eyebrow">Product engineer · AI trainer · Yogyakarta</div>
+      <h1>Rumit jadi jelas, mahal jadi murah.</h1>
+      <p class="lede">Saya Aulia Rahman Hanifan, engineer di <a href="https://noice.id">Noice</a> dan AI trainer. Tujuh tahun di startup: pembayaran B2B, e-wallet, ERP, dan sekarang produk audio. Setiap hari saya memakai AI untuk semua itu.</p>
+      <div class="actions">
+        <a class="btn btn-accent" href="#kerja">Lihat perjalanan kerja
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a class="btn btn-light" href="mailto:halo@auliarahman.com">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Kirim email
+        </a>
       </div>
-    ))}
+    </div>
+    <figure class="stack">
+      <figcaption class="mono">Lapisan yang pernah saya bangun · 2019 → 2026</figcaption>
+      <div class="stack-body">
+        <svg class="iso" width="151" height="186" viewBox="-75.548 -100.3 151.096 186.3" aria-hidden="true">
+          <g stroke="rgba(255,255,255,.9)" stroke-width="1" stroke-linejoin="round" fill-opacity="0.9">
+            <polygon points="-67.5,39 0,78 0,71.5 -67.5,32.5" fill="#209e7e"/>
+            <polygon points="67.5,39 0,78 0,71.5 67.5,32.5" fill="#1b8469"/>
+            <polygon points="0,-6.5 67.5,32.5 0,71.5 -67.5,32.5" fill="#25B892"/>
+            <polygon points="-67.5,10.4 0,49.4 0,42.9 -67.5,3.9" fill="#259adb"/>
+            <polygon points="67.5,10.4 0,49.4 0,42.9 67.5,3.9" fill="#1f81b8"/>
+            <polygon points="0,-35.1 67.5,3.9 0,42.9 -67.5,3.9" fill="#2BB3FF"/>
+            <polygon points="-67.5,-18.2 0,20.8 0,14.3 -67.5,-24.7" fill="#784fd4"/>
+            <polygon points="67.5,-18.2 0,20.8 0,14.3 67.5,-24.7" fill="#6442b1"/>
+            <polygon points="0,-63.7 67.5,-24.7 0,14.3 -67.5,-24.7" fill="#8B5CF6"/>
+            <polygon points="-67.5,-46.8 0,-7.8 0,-14.3 -67.5,-53.3" fill="#324edb"/>
+            <polygon points="67.5,-46.8 0,-7.8 0,-14.3 67.5,-53.3" fill="#2a42b8"/>
+            <polygon points="0,-92.3 67.5,-53.3 0,-14.3 -67.5,-53.3" fill="#3A5BFF"/>
+            <g fill-opacity="1">
+              <polygon points="-13.5,-53.3 0,-45.5 0,-61.1 -13.5,-68.9" fill="#db991f"/>
+              <polygon points="13.5,-53.3 0,-45.5 0,-61.1 13.5,-68.9" fill="#b8801a"/>
+              <polygon points="0,-76.7 13.5,-68.9 0,-61.1 -13.5,-68.9" fill="#FFB224"/>
+            </g>
+          </g>
+        </svg>
+        <ul class="legend">
+          {layers.map((l) => (
+            <li>
+              <span class="swatch" style={`background:${l.color}`}></span>
+              <span>{l.label}<span class="note">{l.note}</span></span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </figure>
   </section>
 
-  <section>
-    <div class="label">tulisan</div>
-    {posts.map((p) => (
-      <a class="row" href={`/writing/${p.id}/`}>
-        <div class="row-head">
-          <span class="row-title">{p.data.title}</span>
-          <span class="row-date">{fmt(p.data.date)}</span>
-        </div>
-        <div class="row-desc">{p.data.description}</div>
-      </a>
-    ))}
-  </section>
-
-  <section>
-    <div class="label">saat ini</div>
-    <dl class="now">
-      <dt>lokasi</dt><dd>yogyakarta, indonesia</dd>
-      <dt>shipping</dt><dd>produk di noice</dd>
-      <dt>ngajar</dt><dd>pelatihan ai untuk tim dan perusahaan</dd>
-    </dl>
-  </section>
-
-  <section>
-    <div class="contact">
-      <h2>ngopi di jogja?</h2>
-      <p>aku selalu senang ketemu orang yang lagi bikin sesuatu. backend, infra, ai agent, open source, startup. kalau kamu salah satunya, tulis email.</p>
-      <a href="mailto:halo@auliarahman.com">halo@auliarahman.com →</a>
+  <section id="kerja" class="band">
+    <div class="wrap kerja">
+      <div class="kerja-intro">
+        <div class="mono">01 / 04</div>
+        <h2>Kerja</h2>
+        <p>Lima tempat, satu kebiasaan: membongkar sistem sampai jelas cara kerjanya.</p>
+      </div>
+      <ol class="jobs">
+        {work.map((w) => (
+          <li class="job">
+            <div class="mono job-date">{w.date}</div>
+            <div class="job-main">
+              <div class="job-head">
+                <span class="job-name">{w.name}</span>
+                <span class="mono pill">{w.tag}</span>
+              </div>
+              <p>{w.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
     </div>
   </section>
 
-  <footer>
-    <span>© 2026 · no cookies · just a page</span>
-    <nav>
-      <a href="https://github.com/auliahanifan">github</a>
-      <a href="https://www.linkedin.com/in/hanifan/">linkedin</a>
-      <a href="https://x.com/auliarahmanhf">x</a>
-    </nav>
-  </footer>
+  <div class="wrap duo">
+    <section id="tulisan">
+      <div class="sec-head">
+        <h2>Tulisan</h2>
+        <span class="mono">02 / 04</span>
+      </div>
+      {posts.map((p) => (
+        <a class="card post-card" href={`/writing/${p.id}/`}>
+          <span class="mono date">{fmt(p.data.date)}</span>
+          <span class="post-card-title">{p.data.title}</span>
+          <span class="post-card-desc">{p.data.description}</span>
+          <span class="more">Baca tulisan <span class="mono-arrow">→</span></span>
+        </a>
+      ))}
+    </section>
+    <section id="saat-ini">
+      <div class="sec-head">
+        <h2>Saat ini</h2>
+        <span class="mono">03 / 04</span>
+      </div>
+      <dl class="card now">
+        {now.map((it) => (
+          <div class="now-row">
+            <svg class="ic now-ic" viewBox="0 0 24 24" aria-hidden="true">
+              {it.icon === 'pin' && <><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></>}
+              {it.icon === 'wrench' && <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>}
+              {it.icon === 'users' && <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>}
+            </svg>
+            <dt class="mono">{it.k}</dt>
+            <dd>{it.v}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  </div>
+
+  <section id="kontak" class="wrap">
+    <div class="contact">
+      <span class="mono">04 / 04</span>
+      <h2>Ngopi di Jogja?</h2>
+      <p>Saya selalu senang bertemu orang yang sedang membangun sesuatu: backend, infra, AI agent, open source, startup. Kalau Anda salah satunya, silakan kirim email.</p>
+      <a class="btn btn-dark" href="mailto:halo@auliarahman.com">halo@auliarahman.com
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
 </Base>
+
+<style>
+  h1, h2 { font-weight: 600; text-wrap: balance; }
+  h2 { font-size: clamp(30px, 5vw, 36px); letter-spacing: var(--ls-heading); line-height: 1.1; }
+  .mono { font-size: 14px; }
+  .ic { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  /* buttons — glass, per desain */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 52px; padding: 0 22px; border-radius: var(--radius-pill);
+    font-size: 17px; font-weight: 500; letter-spacing: -0.01em; white-space: nowrap;
+    backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    transition: transform var(--dur-fast) var(--ease-out), filter var(--dur-fast) var(--ease-out);
+  }
+  .btn:hover { filter: brightness(1.05); }
+  .btn:active { transform: translateY(1px); }
+  .btn-accent { background: rgba(58,91,255,.78); color: #fff; border: 1px solid rgba(255,255,255,.45); box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 8px 24px rgba(58,91,255,.28); }
+  .btn-light { background: rgba(255,255,255,.55); color: var(--ink-900); border: 1px solid rgba(255,255,255,.9); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 6px 20px rgba(11,13,18,.08); }
+  .btn-dark { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.28); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 8px 24px rgba(0,0,0,.3); }
+  .btn-accent:hover, .btn-dark:hover { color: #fff; }
+  .btn-light:hover { color: var(--ink-900); }
+
+  /* hero */
+  .hero {
+    padding-top: 32px; padding-bottom: 72px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: 40px; align-items: center;
+  }
+  .hero-copy { display: flex; flex-direction: column; gap: 24px; max-width: 560px; min-width: 0; }
+  h1 { font-size: clamp(40px, 6vw, 72px); letter-spacing: var(--ls-display); line-height: 1.02; }
+  .lede { font-size: 18px; line-height: 1.55; color: var(--ink-700); text-wrap: pretty; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+
+  .stack {
+    background: var(--surface-hero); border-radius: var(--radius-4); box-shadow: var(--shadow-hairline);
+    padding: clamp(20px, 5vw, 32px); display: flex; flex-direction: column; gap: 16px; min-height: 380px; min-width: 0;
+  }
+  .stack figcaption { font-size: 13px; }
+  .stack-body { flex: 1; display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 24px 28px; }
+  .iso { overflow: visible; }
+  .legend { list-style: none; display: flex; flex-direction: column; gap: 18px; font-family: var(--font-mono); font-size: 12px; color: var(--fg-1); }
+  .legend li { display: flex; gap: 10px; align-items: flex-start; }
+  .swatch { width: 10px; height: 10px; border-radius: 3px; box-shadow: inset 0 0 0 1px rgba(11,13,18,.15); margin-top: 3px; flex: none; }
+  .note { display: block; color: var(--fg-3); }
+
+  /* kerja */
+  .band { background: var(--abu-0); border-top: 1px solid var(--abu-200); border-bottom: 1px solid var(--abu-200); }
+  .kerja { padding-top: 72px; padding-bottom: 72px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 40px; }
+  .kerja-intro { display: flex; flex-direction: column; gap: 12px; max-width: 320px; }
+  .kerja-intro p { line-height: 1.5; color: var(--ink-700); }
+  .jobs { list-style: none; min-width: 0; }
+  .job { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 8px 24px; padding: 20px 0; border-top: 1px solid var(--abu-200); }
+  .job-date { font-size: 13px; padding-top: 4px; }
+  .job-main { display: flex; flex-direction: column; gap: 6px; }
+  .job-head { display: flex; align-items: center; gap: 6px 10px; flex-wrap: wrap; }
+  .job-name { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+  .pill { font-size: 12px; color: var(--ink-600); background: var(--abu-100); border-radius: var(--radius-pill); padding: 3px 10px; }
+  .job p { line-height: 1.5; color: var(--ink-700); text-wrap: pretty; }
+
+  /* tulisan + saat ini */
+  .duo { padding-top: 72px; padding-bottom: 72px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 48px 24px; }
+  .duo section { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+  .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .card { background: var(--abu-0); border-radius: var(--radius-3); box-shadow: var(--shadow-hairline); }
+  .post-card {
+    display: flex; flex-direction: column; gap: 12px; padding: 24px; color: var(--ink-900);
+    transition: box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
+  }
+  .post-card:hover { box-shadow: var(--shadow-1), var(--shadow-hairline); transform: translateY(-2px); color: var(--ink-900); }
+  .post-card .date { font-size: 13px; }
+  .post-card-title { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+  .post-card-desc { line-height: 1.5; color: var(--ink-700); }
+  .more { font-size: 15px; color: var(--kobalt-500); }
+  .mono-arrow { font-family: var(--font-mono); }
+
+  .now { padding: 8px 24px; }
+  .now-row { display: grid; grid-template-columns: 20px 96px minmax(0, 1fr); gap: 12px 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--abu-100); }
+  .now-row:last-child { border-bottom: 0; }
+  .now-ic { color: var(--kobalt-500); }
+  .now dt { font-size: 13px; }
+
+  /* kontak */
+  #kontak { padding-bottom: 48px; }
+  .contact {
+    background: var(--ink-900); color: var(--abu-0); border-radius: var(--radius-4);
+    padding: clamp(28px, 6vw, 64px); display: flex; flex-direction: column; gap: 20px; align-items: flex-start;
+  }
+  .contact .mono { color: var(--abu-300); }
+  .contact h2 { font-size: clamp(36px, 5vw, 56px); letter-spacing: var(--ls-display); line-height: 1.05; }
+  .contact p { max-width: 560px; font-size: 18px; line-height: 1.55; color: var(--abu-200); text-wrap: pretty; }
+
+  @media (max-width: 760px) {
+    .kerja { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-top: 56px; padding-bottom: 56px; }
+    .hero { padding-bottom: 56px; }
+    .duo { padding-top: 56px; padding-bottom: 56px; }
+  }
+  @media (max-width: 560px) {
+    .job { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+    .job-date { padding-top: 0; }
+    .stack { min-height: 0; }
+    .lede, .contact p { font-size: 17px; }
+    .now { padding: 4px 20px; }
+    .now-row { grid-template-columns: 20px minmax(0, 1fr); gap: 2px 12px; }
+    .now-row dt { grid-column: 2; }
+    .now-row .now-ic { grid-row: span 2; align-self: start; margin-top: 2px; }
+    .now-row dd { grid-column: 2; }
+  }
+  @media (max-width: 400px) {
+    .actions .btn { flex: 1 1 100%; }
+    .contact .btn { font-size: 15px; padding: 0 18px; }
+  }
+</style>
