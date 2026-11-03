@@ -2,6 +2,7 @@
 title: halo, ini halaman pertama
 description: kenapa aku bikin situs ini dan apa yang bakal aku tulis di sini
 date: 2026-09-10
+draft: true
 ---
 
 Situs ini sengaja dibuat sesederhana mungkin: satu kolom, dua font, tanpa cookie, tanpa tracker. Halaman yang bisa kamu baca habis dalam satu tarikan napas.
