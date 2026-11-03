@@ -9,7 +9,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "pdf": "astro build && (python3 -m http.server 4340 -d dist >/dev/null 2>&1 & P=$!; sleep 4; '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --no-pdf-header-footer --print-to-pdf=public/aulia-rahman-ai-training-program.pdf --virtual-time-budget=5000 http://localhost:4340/program/; kill $P)"
   },
   "dependencies": {
     "astro": "^7.3.2"
