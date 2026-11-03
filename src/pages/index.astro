@@ -1,55 +1,87 @@
 ---
-import { getCollection } from 'astro:content';
 import Base from '../layouts/Base.astro';
 
 // ponytail: data kerja inline; pindah ke collection kalau sudah > 10 entri
 // layer = lapisan di iso stack (atas → bawah: kobalt, ungu, langit, mint)
+// h = tinggi logo (px), diatur per logo supaya bobot visualnya seimbang
 const work = [
-  { name: 'Noice', tag: 'Sekarang', layer: 'kobalt', date: 'Sep 2025 → sekarang', desc: 'Sistem di balik produk audio yang didengar jutaan orang Indonesia.' },
-  { name: 'Delegasi', tag: 'YC S22', layer: 'ungu', date: 'Jan 2023 → Mei 2025', desc: 'Platform pembayaran B2B dari nol sampai memproses jutaan dolar.' },
-  { name: 'BukuWarung', tag: 'YC S20 · e-wallet', layer: 'langit', date: 'Jan 2022 → Nov 2022', desc: 'Dompet digital untuk jutaan warung: backend dan integrasi pembayaran.' },
-  { name: 'Traveloka', tag: 'E-wallet', layer: 'langit', date: 'Mei 2021 → Jan 2022', desc: 'Uang elektronik dan tagihan untuk pengguna Traveloka.' },
-  { name: 'Alterra', tag: 'ERP', layer: 'mint', date: 'Okt 2019 → Mar 2021', desc: 'ERP desktop untuk PDAM, plus tooling otomasi deploy untuk tim.' },
+  { name: 'Noice', logo: '/logos/noice.svg', h: 24, tag: 'Current', layer: 'kobalt', desc: 'The systems behind an audio product heard by millions of Indonesians.' },
+  { name: 'Delegasi', logo: '/logos/delegasi.png', h: 28, tag: 'YC S22', layer: 'ungu', desc: 'A B2B payments platform, from zero to processing millions of dollars.' },
+  { name: 'BukuWarung', logo: '/logos/bukuwarung.png', h: 40, tag: 'YC S20 · e-wallet', layer: 'langit', desc: 'A digital wallet for millions of small shops: backend and payment integrations.' },
+  { name: 'Traveloka', logo: '/logos/traveloka.png', h: 24, tag: 'E-wallet', layer: 'langit', desc: 'Electronic money and bill payments for Traveloka users.' },
+  { name: 'Alterra', logo: '/logos/alterra.svg', h: 26, tag: 'ERP', layer: 'mint', desc: 'Desktop ERP for PDAM (regional water utilities), plus deploy automation tooling for the team.' },
 ];
 
-const now = [
-  { icon: 'pin', k: 'Lokasi', v: 'Yogyakarta, Indonesia' },
-  { icon: 'wrench', k: 'Shipping', v: 'Produk di Noice' },
-  { icon: 'users', k: 'Mengajar', v: 'Pelatihan AI untuk tim dan perusahaan' },
+const mailto = 'mailto:arahmanhanifan@gmail.com';
+const mailtoTraining = `${mailto}?subject=${encodeURIComponent('AI training for our team')}`;
+
+const offers = [
+  // TODO(owner): format pelatihan (durasi, jumlah peserta, onsite/online). Jangan tampilkan angka sebelum dikonfirmasi.
+  { layer: 'kobalt', title: 'AI Training for Teams', desc: 'Hands-on programs for business, operations, and management teams. Material is tailored to participants’ work and industry, not generic theory.' },
+  { layer: 'ungu', title: 'Tech & AI Consulting', desc: 'For companies without an in-house tech team: where AI is worth using, what to build or buy, and what to tackle first.' },
+  { layer: 'mint', title: 'Product Engineering', desc: 'Product development from backend to full-stack, with product thinking from day one.' },
 ];
 
-const posts = (await getCollection('writing')).sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const fmt = (d: Date) => d.toLocaleDateString('id-ID', { month: 'short', year: 'numeric' });
+const proof = [
+  { k: '500+', v: 'AI webinar participants, as a speaker' },
+  { k: 'Lead trainer', v: 'and curriculum author for a corporate AI training program' },
+  { k: '7+ years', v: 'building products at startups' },
+];
+
 ---
 
 <Base
-  title="Aulia Rahman Hanifan — product engineer & AI trainer"
-  description="Rumit jadi jelas, mahal jadi murah. Engineer di Noice dan AI trainer di Yogyakarta."
+  title="Aulia Rahman: AI Trainer, AI Consultant & Product Engineer"
+  description="Corporate AI training, technology consulting, and product engineering for teams and companies. Seven years building products at startups."
 >
-  <section class="hero wrap">
-    <div class="mono eyebrow">Product engineer · AI trainer · Yogyakarta</div>
-    <h1>Rumit jadi jelas, mahal jadi murah.</h1>
-    <p class="lede">Saya Aulia Rahman Hanifan, engineer di <a href="https://noice.id">Noice</a> dan AI trainer. Tujuh tahun di startup: pembayaran B2B, e-wallet, ERP, dan sekarang produk audio. Setiap hari saya memakai AI untuk semua itu.</p>
-    <div class="actions">
-      <a class="btn btn-accent" href="#kerja">Lihat perjalanan kerja
-        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
-      <a class="btn btn-light" href="mailto:halo@auliarahman.com">
-        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
-        Kirim email
-      </a>
+  <section class="hero-band">
+    <div class="hero wrap">
+      <img class="photo" src="/aulia.jpg" width="400" height="400" alt="Aulia Rahman" />
+      <div class="mono eyebrow">Corporate AI Trainer · Tech &amp; AI Consultant · Senior Product Engineer</div>
+      <h1>Complex made clear.<br /> Costly made cheap.</h1>
+      <p class="lede">Corporate AI training, technology consulting, and product engineering. Seven years building products at startups, from seed to scale.</p>
+      <div class="actions">
+        <a class="btn btn-accent" href={mailtoTraining}>Discuss training for your team
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a class="btn btn-light" href={mailto}>
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          Send an email
+        </a>
+      </div>
     </div>
+    <a class="scroll-cue mono" href="#services">What I offer <span aria-hidden="true">↓</span></a>
   </section>
 
-  <section id="kerja" class="band">
+  <section id="services" class="wrap offers-sec">
+    <div class="sec-head">
+      <h2>What I offer</h2>
+      <span class="mono">01 / 03</span>
+    </div>
+    <div class="offers">
+      {offers.map((o) => (
+        <div class="card offer" data-layer={o.layer}>
+          <h3><span class="dot" aria-hidden="true"></span>{o.title}</h3>
+          <p>{o.desc}</p>
+        </div>
+      ))}
+    </div>
+    <ul class="proof" aria-label="Track record">
+      {proof.map((p) => (
+        <li><strong>{p.k}</strong> <span>{p.v}</span></li>
+      ))}
+    </ul>
+  </section>
+
+  <section id="work" class="band">
     <div class="wrap kerja">
       <div class="kerja-intro">
         <div class="kerja-text">
-          <div class="mono">01 / 04</div>
-          <h2>Kerja</h2>
-          <p>Lima tempat, satu kebiasaan: membongkar sistem sampai jelas cara kerjanya. Tiap tempat jadi satu lapisan.</p>
+          <div class="mono">02 / 03</div>
+          <h2>Work</h2>
+          <p>Seven years building products at startups. That’s why I teach and advise from real experience, not theory.</p>
         </div>
-        <svg class="iso" viewBox="-75.548 -100.3 151.096 186.3" role="img" aria-label="Tumpukan empat lapisan: ERP di dasar, lalu e-wallet, pembayaran B2B, dan produk audio di puncak">
+        <svg class="iso" viewBox="-75.548 -100.3 151.096 186.3" role="img" aria-label="A stack of four layers: ERP at the base, then e-wallet, B2B payments, and the audio product on top">
           <g stroke="rgba(255,255,255,.9)" stroke-width="1" stroke-linejoin="round" fill-opacity="0.9">
             <g class="layer" data-layer="mint">
               <polygon points="-67.5,39 0,78 0,71.5 -67.5,32.5" fill="#209e7e"/>
@@ -82,11 +114,9 @@ const fmt = (d: Date) => d.toLocaleDateString('id-ID', { month: 'short', year: '
       <ol class="jobs">
         {work.map((w) => (
           <li class="job" data-layer={w.layer}>
-            <div class="mono job-date">{w.date}</div>
             <div class="job-main">
               <div class="job-head">
-                <span class="dot" aria-hidden="true"></span>
-                <span class="job-name">{w.name}</span>
+                <img class="job-logo" src={w.logo} alt={w.name} style={`height: ${w.h}px`} loading="lazy" />
                 <span class="mono pill">{w.tag}</span>
               </div>
               <p>{w.desc}</p>
@@ -97,50 +127,26 @@ const fmt = (d: Date) => d.toLocaleDateString('id-ID', { month: 'short', year: '
     </div>
   </section>
 
-  <div class="wrap duo">
-    <section id="tulisan">
-      <div class="sec-head">
-        <h2>Tulisan</h2>
-        <span class="mono">02 / 04</span>
-      </div>
-      {posts.map((p) => (
-        <a class="card post-card" href={`/writing/${p.id}/`}>
-          <span class="mono date">{fmt(p.data.date)}</span>
-          <span class="post-card-title">{p.data.title}</span>
-          <span class="post-card-desc">{p.data.description}</span>
-          <span class="more">Baca tulisan <span class="mono-arrow">→</span></span>
-        </a>
-      ))}
-    </section>
-    <section id="saat-ini">
-      <div class="sec-head">
-        <h2>Saat ini</h2>
-        <span class="mono">03 / 04</span>
-      </div>
-      <dl class="card now">
-        {now.map((it) => (
-          <div class="now-row">
-            <svg class="ic now-ic" viewBox="0 0 24 24" aria-hidden="true">
-              {it.icon === 'pin' && <><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></>}
-              {it.icon === 'wrench' && <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>}
-              {it.icon === 'users' && <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></>}
-            </svg>
-            <dt class="mono">{it.k}</dt>
-            <dd>{it.v}</dd>
-          </div>
-        ))}
-      </dl>
-    </section>
-  </div>
-
-  <section id="kontak" class="wrap">
+  <section id="contact" class="wrap">
     <div class="contact">
-      <span class="mono">04 / 04</span>
-      <h2>Ngopi di Jogja?</h2>
-      <p>Saya selalu senang bertemu orang yang sedang membangun sesuatu: backend, infra, AI agent, open source, startup. Kalau Anda salah satunya, silakan kirim email.</p>
-      <a class="btn btn-dark" href="mailto:halo@auliarahman.com">halo@auliarahman.com
-        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
+      <span class="mono">03 / 03 · Yogyakarta, Indonesia</span>
+      <h2>Contact</h2>
+      <div class="paths">
+        <div class="path">
+          <h3>For companies</h3>
+          <p>Discuss AI training or consulting for your team.</p>
+          <a class="btn btn-accent" href={mailtoTraining}>Discuss training
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div class="path">
+          <h3>For recruiters and fellow builders</h3>
+          <p>Product engineering roles, collaboration, or coffee in Jogja.</p>
+          <a class="btn btn-dark" href={mailto}>Send an email
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
     </div>
   </section>
 </Base>
@@ -161,17 +167,37 @@ const fmt = (d: Date) => d.toLocaleDateString('id-ID', { month: 'short', year: '
   }
   .btn:hover { filter: brightness(1.05); }
   .btn:active { transform: translateY(1px); }
-  .btn-accent { background: rgba(58,91,255,.78); color: #fff; border: 1px solid rgba(255,255,255,.45); box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 8px 24px rgba(58,91,255,.28); }
+  .btn-accent { background: rgba(58,91,255,.95); color: #fff; border: 1px solid rgba(255,255,255,.45); box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 8px 24px rgba(58,91,255,.28); }
   .btn-light { background: rgba(255,255,255,.55); color: var(--ink-900); border: 1px solid rgba(255,255,255,.9); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 6px 20px rgba(11,13,18,.08); }
   .btn-dark { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.28); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 8px 24px rgba(0,0,0,.3); }
   .btn-accent:hover, .btn-dark:hover { color: #fff; }
   .btn-light:hover { color: var(--ink-900); }
 
-  /* hero — tipografi saja */
-  .hero { padding-top: clamp(16px, 3vw, 40px); padding-bottom: clamp(56px, 7vw, 88px); display: flex; flex-direction: column; gap: 20px; }
-  h1 { font-size: clamp(40px, 6.5vw, 76px); letter-spacing: var(--ls-display); line-height: 0.98; max-width: 14ch; }
+  /* hero */
+  /* ponytail: 112px = tinggi header di Base.astro (20 + 72 + 20); ubah kalau header berubah */
+  .hero-band { background: var(--surface-hero); border-bottom: 1px solid var(--abu-200); min-height: calc(100svh - 112px); display: flex; align-items: center; position: relative; }
+  .scroll-cue { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); font-size: 13px; color: var(--ink-500); display: inline-flex; align-items: center; gap: 6px; padding: 8px; }
+  .scroll-cue:hover { color: var(--kobalt-600); }
+  .hero { width: 100%; padding-top: 32px; padding-bottom: 64px; display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 48px; row-gap: 20px; align-items: start; }
+  .hero > :not(.photo) { grid-column: 1; }
+  .photo { grid-column: 2; grid-row: 1 / span 4; align-self: center; width: clamp(240px, 28vw, 380px); height: auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-4); box-shadow: var(--shadow-2); }
+  h1 { font-size: clamp(32px, 4.6vw, 68px); letter-spacing: var(--ls-display); line-height: 1; }
   .lede { font-size: clamp(17px, 2vw, 20px); line-height: 1.55; color: var(--ink-700); text-wrap: pretty; max-width: 600px; }
   .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+
+  /* layanan + bukti */
+  .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .card { background: var(--abu-0); border-radius: var(--radius-3); box-shadow: var(--shadow-hairline); }
+  .offers-sec { padding-top: 72px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 20px; }
+  .offers { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .offer { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .offer h3 { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+  .offer p { line-height: 1.5; color: var(--ink-700); text-wrap: pretty; }
+  .proof { list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px 24px; padding-top: 24px; border-top: 1px solid var(--abu-200); }
+  .proof li { line-height: 1.45; color: var(--ink-700); text-wrap: pretty; }
+  .proof strong { display: block; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink-900); }
+
+  @media (min-width: 700px) { .offers, .proof { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 
   /* kerja */
   .band { background: var(--abu-0); border-top: 1px solid var(--abu-200); border-bottom: 1px solid var(--abu-200); }
@@ -191,70 +217,52 @@ const fmt = (d: Date) => d.toLocaleDateString('id-ID', { month: 'short', year: '
   @media (prefers-reduced-motion: reduce) { .layer { transition: opacity var(--dur-base) linear; } .kerja .layer { transform: none !important; } }
 
   .dot { width: 10px; height: 10px; border-radius: 3px; flex: none; box-shadow: inset 0 0 0 1px rgba(11,13,18,.15); }
-  .job[data-layer='kobalt'] .dot { background: #3A5BFF; }
-  .job[data-layer='ungu'] .dot { background: #8B5CF6; }
-  .job[data-layer='langit'] .dot { background: #2BB3FF; }
-  .job[data-layer='mint'] .dot { background: #25B892; }
+  [data-layer='kobalt'] .dot { background: #3A5BFF; }
+  [data-layer='ungu'] .dot { background: #8B5CF6; }
+  [data-layer='langit'] .dot { background: #2BB3FF; }
+  [data-layer='mint'] .dot { background: #25B892; }
   .jobs { list-style: none; min-width: 0; }
-  .job { display: grid; grid-template-columns: 160px minmax(0, 1fr); gap: 8px 24px; padding: 20px 0; border-top: 1px solid var(--abu-200); }
-  .job-date { font-size: 13px; padding-top: 4px; }
+  .job { padding: 20px 0; border-top: 1px solid var(--abu-200); }
   .job-main { display: flex; flex-direction: column; gap: 6px; }
   .job-head { display: flex; align-items: center; gap: 6px 10px; flex-wrap: wrap; }
-  .job-name { font-size: 20px; font-weight: 600; letter-spacing: -0.02em; }
+  .job-head { min-height: 40px; }
+  .job-logo { width: auto; max-width: 160px; }
   .pill { font-size: 12px; color: var(--ink-600); background: var(--abu-100); border-radius: var(--radius-pill); padding: 3px 10px; }
   .job p { line-height: 1.5; color: var(--ink-700); text-wrap: pretty; }
 
-  /* tulisan + saat ini */
-  .duo { padding-top: 72px; padding-bottom: 72px; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr)); gap: 48px 24px; }
-  .duo section { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
-  .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
-  .card { background: var(--abu-0); border-radius: var(--radius-3); box-shadow: var(--shadow-hairline); }
-  .post-card {
-    display: flex; flex-direction: column; gap: 12px; padding: 24px; color: var(--ink-900);
-    transition: box-shadow var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out);
-  }
-  .post-card:hover { box-shadow: var(--shadow-1), var(--shadow-hairline); transform: translateY(-2px); color: var(--ink-900); }
-  .post-card .date { font-size: 13px; }
-  .post-card-title { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
-  .post-card-desc { line-height: 1.5; color: var(--ink-700); }
-  .more { font-size: 15px; color: var(--kobalt-500); }
-  .mono-arrow { font-family: var(--font-mono); }
-
-  .now { padding: 8px 24px; }
-  .now-row { display: grid; grid-template-columns: 20px 96px minmax(0, 1fr); gap: 12px 16px; align-items: center; padding: 16px 0; border-bottom: 1px solid var(--abu-100); }
-  .now-row:last-child { border-bottom: 0; }
-  .now-ic { color: var(--kobalt-500); }
-  .now dt { font-size: 13px; }
 
   /* kontak */
-  #kontak { padding-bottom: 48px; }
+  #contact { margin-top: 72px; padding-bottom: 48px; }
   .contact {
     background: var(--ink-900); color: var(--abu-0); border-radius: var(--radius-4);
     padding: clamp(28px, 6vw, 64px); display: flex; flex-direction: column; gap: 20px; align-items: flex-start;
   }
   .contact .mono { color: var(--abu-300); }
   .contact h2 { font-size: clamp(36px, 5vw, 56px); letter-spacing: var(--ls-display); line-height: 1.05; }
+  .paths { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 32px; width: 100%; margin-top: 8px; }
+  .path { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; }
+  .path h3 { font-size: 22px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
+  .path .btn { margin-top: auto; }
+  .path p { margin-bottom: 8px; }
   .contact p { max-width: 560px; font-size: 18px; line-height: 1.55; color: var(--abu-200); text-wrap: pretty; }
 
   @media (max-width: 760px) {
+    .hero { grid-template-columns: minmax(0, 1fr); }
+    .photo { grid-column: 1; grid-row: auto; width: 96px; border-radius: var(--radius-3); box-shadow: var(--shadow-1); }
+    .offers-sec { padding-top: 56px; padding-bottom: 56px; }
     .kerja { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-top: 56px; padding-bottom: 56px; }
     .kerja-intro { position: static; max-width: none; flex-direction: row; align-items: center; justify-content: space-between; gap: 20px; }
     .kerja-text { max-width: 360px; }
     .iso { width: clamp(84px, 24vw, 140px); }
-    .duo { padding-top: 56px; padding-bottom: 56px; }
+    #contact { margin-top: 56px; }
   }
   @media (max-width: 560px) {
-    .job { grid-template-columns: minmax(0, 1fr); gap: 4px; }
-    .job-date { padding-top: 0; }
+    h1 { font-size: min(8.6vw, 40px); }
+    .scroll-cue { display: none; }
     .lede, .contact p { font-size: 17px; }
-    .now { padding: 4px 20px; }
-    .now-row { grid-template-columns: 20px minmax(0, 1fr); gap: 2px 12px; }
-    .now-row dt { grid-column: 2; }
-    .now-row .now-ic { grid-row: span 2; align-self: start; margin-top: 2px; }
-    .now-row dd { grid-column: 2; }
   }
   @media (max-width: 400px) {
-    .actions .btn { flex: 1 1 100%; }
+    .actions .btn { flex: 1 1 100%; white-space: normal; text-align: center; padding: 10px 18px; }
     .contact .btn { font-size: 15px; padding: 0 18px; }
   }
 </style>

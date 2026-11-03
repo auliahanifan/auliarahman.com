@@ -9,12 +9,12 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const date = post.data.date.toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+const date = post.data.date.toLocaleDateString('en-US', { day: 'numeric', month: 'long', year: 'numeric' });
 ---
 
 <Base title={`${post.data.title} — Aulia Rahman Hanifan`} description={post.data.description}>
   <div class="wrap post">
-    <a class="back" href="/#tulisan">← Semua tulisan</a>
+    <a class="back" href="/">← Home</a>
     <h1 class="post-title">{post.data.title}</h1>
     <div class="post-meta">{date}</div>
     <article class="prose">

@@ -9,7 +9,7 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
-<html lang="id">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -31,21 +31,20 @@ const canonical = new URL(Astro.url.pathname, Astro.site);
   </head>
   <body>
     <header class="site-head wrap">
-      <a href="/" class="sig" aria-label="Aulia Rahman, beranda">
+      <a href="/" class="sig" aria-label="Aulia Rahman, home">
         <img src="/signature.svg" width="112" height="72" alt="" />
       </a>
       <nav>
-        <a href="/#kerja">Kerja</a>
-        <a href="/#tulisan">Tulisan</a>
-        <a href="/#saat-ini">Saat ini</a>
-        <a href="/#kontak">Kontak</a>
+        <a href="/#services">Services</a>
+        <a href="/#work">Work</a>
+        <a href="/#contact">Contact</a>
       </nav>
     </header>
     <main>
       <slot />
     </main>
     <footer class="site-foot wrap">
-      <span>© 2026 · tanpa cookie · cukup satu halaman</span>
+      <span>© 2026 · no cookies · just one page</span>
       <nav>
         <a href="https://github.com/auliahanifan">GitHub</a>
         <a href="https://www.linkedin.com/in/hanifan/">LinkedIn</a>
