@@ -16,7 +16,7 @@ const mailtoTraining = `${mailto}?subject=${encodeURIComponent('AI training for 
 
 const offers = [
   // TODO(owner): format pelatihan (durasi, jumlah peserta, onsite/online). Jangan tampilkan angka sebelum dikonfirmasi.
-  { layer: 'kobalt', title: 'AI Training for Teams', link: { href: 'https://www.pelatihanai.com/', label: 'Lead trainer at PelatihanAI' }, desc: 'Hands-on programs for business, operations, and management teams. Material is tailored to participants’ work and industry, not generic theory.' },
+  { layer: 'kobalt', title: 'AI Training for Teams', desc: 'Hands-on programs for business, operations, and management teams. Material is tailored to participants’ work and industry, not generic theory.' },
   { layer: 'ungu', title: 'Tech & AI Consulting', desc: 'For companies without an in-house tech team: where AI is worth using, what to build or buy, and what to tackle first.' },
   { layer: 'mint', title: 'Product Engineering', desc: 'Senior product engineering for startups: payments, wallets, and consumer apps at scale.' },
 ];
@@ -63,7 +63,6 @@ const proof = [
         <div class="card offer" data-layer={o.layer}>
           <h3><span class="dot" aria-hidden="true"></span>{o.title}</h3>
           <p>{o.desc}</p>
-          {o.link && <a class="offer-link" href={o.link.href}>{o.link.label} <span aria-hidden="true">→</span></a>}
         </div>
       ))}
     </div>
@@ -172,7 +171,6 @@ const proof = [
   .offer { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
   .offer h3 { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
   .offer p { line-height: 1.5; color: var(--ink-700); text-wrap: pretty; }
-  .offer-link { margin-top: auto; padding-top: 6px; font-size: 15px; font-weight: 500; }
   .proof { list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px 24px; padding-top: 24px; border-top: 1px solid var(--abu-200); }
   .proof li { line-height: 1.45; color: var(--ink-700); text-wrap: pretty; }
   .proof strong { display: block; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink-900); }
