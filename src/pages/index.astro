@@ -15,16 +15,34 @@ const mailto = 'mailto:arahmanhanifan@gmail.com';
 const mailtoTraining = `${mailto}?subject=${encodeURIComponent('AI training for our team')}`;
 
 const offers = [
-  // TODO(owner): format pelatihan (durasi, jumlah peserta, onsite/online). Jangan tampilkan angka sebelum dikonfirmasi.
+  // TODO(owner): durasi dan jumlah peserta per sesi. Jangan tampilkan angka sebelum dikonfirmasi.
   { layer: 'kobalt', title: 'AI Training for Teams', desc: 'Hands-on programs for business, operations, and management teams. Material is tailored to participants’ work and industry, not generic theory.' },
   { layer: 'ungu', title: 'Tech & AI Consulting', desc: 'For companies without an in-house tech team: where AI is worth using, what to build or buy, and what to tackle first.' },
   { layer: 'mint', title: 'Product Engineering', desc: 'Senior product engineering for startups: payments, wallets, and consumer apps at scale.' },
 ];
 
-const proof = [
-  { k: '500+', v: 'AI webinar participants, as a speaker' },
-  { k: 'Lead trainer', v: 'and curriculum author for a corporate AI training program' },
-  { k: '7+ years', v: 'building products at startups' },
+// Kurikulum = IP milik Aulia (Pasal 9 ayat 2 PKS ABAD); contoh kasus klien tidak ditampilkan.
+const modules = [
+  { tone: 'kobalt', title: 'Know the tool', desc: 'Claude’s strengths and limits, so expectations are right from the start.' },
+  { tone: 'ungu', title: 'Prompts that work', desc: 'Write a complete prompt or let Claude interview you, then check the output for hallucinations, numbers, and sources.' },
+  { tone: 'langit', title: 'Right tool, right job', desc: 'Chat or Cowork, with use cases mapped to each function, live demos, and hands-on practice.' },
+  { tone: 'mint', title: 'From one-off to repeatable', desc: 'Plugins, skills, and connectors that turn a good prompt into a way of working.' },
+  { tone: 'amber', title: 'Safe data habits', desc: 'What can go into AI: a green, yellow, red framework, Indonesia’s PDP Law, anonymization, and privacy settings.' },
+];
+
+// Format & deliverables dari proposal/PKS (Pasal 2 ayat 5–6).
+const format = ['Hands-on in your team’s own accounts', 'Examples tailored to your industry', '1:1 support during practice', 'Onsite or online'];
+const takeaways = [
+  { icon: 'slides', title: 'Slides', desc: 'The full deck as a PDF.' },
+  { icon: 'library', title: 'Prompt library', desc: 'Ready-to-use templates for daily work.' },
+  { icon: 'guide', title: 'Practice guide', desc: 'Exercises with safe sample data.' },
+];
+
+// Klien sengaja anonim.
+const delivered = [
+  { who: 'A mining & resources company', how: 'Onsite' },
+  { who: 'A public figure’s secretariat team', how: 'Online' },
+  { who: '500+ webinar participants', how: 'Taalenta · Leviq' },
 ];
 
 ---
@@ -56,7 +74,7 @@ const proof = [
   <section id="services" class="wrap offers-sec">
     <div class="sec-head">
       <h2>What I offer</h2>
-      <span class="mono">01 / 03</span>
+      <span class="mono">01 / 04</span>
     </div>
     <div class="offers">
       {offers.map((o) => (
@@ -66,18 +84,68 @@ const proof = [
         </div>
       ))}
     </div>
-    <ul class="proof" aria-label="Track record">
-      {proof.map((p) => (
-        <li><strong>{p.k}</strong> <span>{p.v}</span></li>
-      ))}
-    </ul>
+  </section>
+
+  <section id="training" class="program-band">
+    <div class="wrap program-grid">
+      <div class="program-intro">
+        <div class="mono">02 / 04 · Training program</div>
+        <h2>Claude for everyday work</h2>
+        <p class="program-lede">Built to leave your team with effective, safe Claude habits, not just a demo.</p>
+        <ul class="format">
+          {format.map((f) => (
+            <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{f}</li>
+          ))}
+        </ul>
+        <a class="btn btn-accent" href={mailtoTraining}>Discuss training for your team
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="program-main">
+        <ol class="card modules" aria-label="Curriculum">
+          {modules.map((m, i) => (
+            <li class="module" data-tone={m.tone}>
+              <span class="module-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+              <div>
+                <h3>{m.title}</h3>
+                <p>{m.desc}</p>
+              </div>
+            </li>
+          ))}
+        </ol>
+        <div class="takeaways-wrap">
+          <span class="mono">Your team leaves with</span>
+          <ul class="takeaways">
+            {takeaways.map((t) => (
+              <li class="card takeaway">
+                <svg class="ic" viewBox="0 0 24 24" aria-hidden="true">
+                  {t.icon === 'slides' && <><rect width="20" height="14" x="2" y="3" rx="2"/><path d="M8 21h8"/><path d="M12 17v4"/></>}
+                  {t.icon === 'library' && <><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/><path d="M8 7h8"/><path d="M8 11h6"/></>}
+                  {t.icon === 'guide' && <><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></>}
+                </svg>
+                <strong>{t.title}</strong>
+                <span>{t.desc}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div class="delivered">
+          <span class="mono">Delivered to</span>
+          <ul>
+            {delivered.map((d) => (
+              <li><span>{d.who}</span><span class="mono">{d.how}</span></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 
   <section id="work" class="band">
     <div class="wrap kerja">
       <div class="kerja-intro">
         <div class="kerja-text">
-          <div class="mono">02 / 03</div>
+          <div class="mono">03 / 04</div>
           <h2>Work</h2>
           <p>Five startups, from day one to millions of users. That’s why I teach and advise from real experience, not theory.</p>
         </div>
@@ -100,7 +168,7 @@ const proof = [
 
   <section id="contact" class="wrap">
     <div class="contact">
-      <span class="mono">03 / 03 · Yogyakarta, Indonesia</span>
+      <span class="mono">04 / 04 · Yogyakarta, Indonesia</span>
       <h2>Contact</h2>
       <div class="paths">
         <div class="path">
@@ -165,17 +233,55 @@ const proof = [
 
   /* layanan + bukti */
   .sec-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; }
+  .sec-head > .mono { white-space: nowrap; }
   .card { background: var(--abu-0); border-radius: var(--radius-3); box-shadow: var(--shadow-hairline); }
   .offers-sec { padding-top: 72px; padding-bottom: 72px; display: flex; flex-direction: column; gap: 20px; }
   .offers { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .offer { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
   .offer h3 { display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.2; }
   .offer p { line-height: 1.5; color: var(--ink-700); text-wrap: pretty; }
-  .proof { list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px 24px; padding-top: 24px; border-top: 1px solid var(--abu-200); }
-  .proof li { line-height: 1.45; color: var(--ink-700); text-wrap: pretty; }
-  .proof strong { display: block; font-size: 22px; font-weight: 600; letter-spacing: -0.02em; color: var(--ink-900); }
-
-  @media (min-width: 700px) { .offers, .proof { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  /* training program: band kobalt-50 = produk utama */
+  .program-band { background: var(--kobalt-50); border-top: 1px solid var(--kobalt-100); }
+  .program-grid { padding-top: 72px; padding-bottom: 72px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; }
+  .program-intro { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+  .program-intro .mono { color: var(--kobalt-700); }
+  .program-lede { font-size: 18px; line-height: 1.5; color: var(--ink-700); text-wrap: pretty; max-width: 420px; }
+  .format { list-style: none; display: flex; flex-direction: column; gap: 10px; margin: 4px 0 8px; }
+  .format li { display: flex; align-items: center; gap: 10px; line-height: 1.4; color: var(--ink-800); }
+  .format .ic { width: 18px; height: 18px; color: var(--kobalt-600); }
+  .program-main { display: flex; flex-direction: column; gap: 28px; min-width: 0; }
+  .modules { list-style: none; padding: 8px 24px; box-shadow: var(--shadow-1), var(--shadow-hairline); }
+  .module { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--abu-100); }
+  .module:last-child { border-bottom: 0; }
+  .module-num { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; font-family: var(--font-mono); font-size: 13px; font-weight: 500; }
+  .module[data-tone='kobalt'] .module-num { background: var(--kobalt-50); color: var(--kobalt-700); }
+  .module[data-tone='ungu'] .module-num { background: var(--ungu-50); color: var(--ungu-800); }
+  .module[data-tone='langit'] .module-num { background: var(--langit-50); color: var(--langit-800); }
+  .module[data-tone='mint'] .module-num { background: var(--mint-50); color: var(--mint-800); }
+  .module[data-tone='amber'] .module-num { background: var(--amber-50); color: var(--amber-800); }
+  .module h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 4px; }
+  .module p { line-height: 1.5; color: var(--ink-700); text-wrap: pretty; }
+  .takeaways-wrap, .delivered { display: flex; flex-direction: column; gap: 12px; }
+  .takeaways { list-style: none; display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .takeaway { padding: 18px 20px; display: grid; grid-template-columns: 22px minmax(0, 1fr); gap: 2px 12px; align-items: start; align-content: start; }
+  .takeaway .ic { grid-row: span 2; width: 22px; height: 22px; color: var(--kobalt-600); margin-top: 1px; }
+  .takeaway strong { font-weight: 600; letter-spacing: -0.01em; }
+  .takeaway span { font-size: 15px; line-height: 1.45; color: var(--ink-600); }
+  .delivered ul { list-style: none; }
+  .delivered li { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2px 16px; padding: 12px 0; border-top: 1px solid var(--kobalt-100); line-height: 1.4; }
+  .delivered li .mono { font-size: 13px; }
+  @media (min-width: 640px) {
+    .takeaways { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .takeaway { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+    .takeaway .ic { grid-row: auto; margin-bottom: 4px; }
+    .delivered ul { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 24px; }
+    .delivered li { flex-direction: column; justify-content: flex-start; }
+  }
+  @media (min-width: 960px) {
+    .program-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1.75fr); gap: 56px; padding-top: 88px; padding-bottom: 88px; }
+    .program-intro { position: sticky; top: 32px; align-self: start; }
+    .modules { padding: 8px 32px; }
+  }
 
   /* kerja */
   .band { background: var(--abu-0); border-top: 1px solid var(--abu-200); border-bottom: 1px solid var(--abu-200); }
@@ -219,6 +325,7 @@ const proof = [
     .hero { grid-template-columns: minmax(0, 1fr); }
     .photo { grid-column: 1; grid-row: auto; width: 96px; border-radius: var(--radius-3); box-shadow: var(--shadow-1); }
     .offers-sec { padding-top: 56px; padding-bottom: 56px; }
+    .program-grid { padding-top: 56px; padding-bottom: 56px; }
     .kerja { grid-template-columns: minmax(0, 1fr); gap: 24px; padding-top: 56px; padding-bottom: 56px; }
     .kerja-intro { position: static; max-width: 480px; }
     #contact { margin-top: 56px; }
@@ -229,7 +336,7 @@ const proof = [
     .lede, .contact p { font-size: 17px; }
   }
   @media (max-width: 400px) {
-    .actions .btn { flex: 1 1 100%; white-space: normal; text-align: center; padding: 10px 18px; }
+    .actions .btn, .program-intro .btn { flex: 1 1 100%; align-self: stretch; white-space: normal; text-align: center; padding: 10px 18px; }
     .contact .btn { font-size: 15px; padding: 0 18px; }
   }
 </style>
