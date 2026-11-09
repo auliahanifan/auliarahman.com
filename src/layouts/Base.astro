@@ -48,6 +48,17 @@ const person = {
       href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Geist+Mono:wght@400;500;600&display=swap"
       rel="stylesheet"
     />
+    <script>
+      import { StatsigClient } from '@statsig/js-client';
+      import { StatsigSessionReplayPlugin } from '@statsig/session-replay';
+      import { StatsigAutoCapturePlugin } from '@statsig/web-analytics';
+
+      new StatsigClient(
+        'client-aiYClkckIVOVI4v7Gur6hxZBhRHqPnVTDCN3fHsQhxF',
+        {},
+        { plugins: [new StatsigSessionReplayPlugin(), new StatsigAutoCapturePlugin()] },
+      ).initializeAsync();
+    </script>
   </head>
   <body>
     <header class="site-head wrap">

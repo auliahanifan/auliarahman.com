@@ -13,6 +13,9 @@
     "pdf": "astro build && (python3 -m http.server 4340 -d dist >/dev/null 2>&1 & P=$!; sleep 4; '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' --headless=new --no-pdf-header-footer --print-to-pdf=public/aulia-rahman-ai-training-program.pdf --virtual-time-budget=5000 http://localhost:4340/program/; kill $P)"
   },
   "dependencies": {
+    "@statsig/js-client": "^3.33.8",
+    "@statsig/session-replay": "^3.33.8",
+    "@statsig/web-analytics": "^3.33.8",
     "astro": "^7.3.2"
   },
   "allowScripts": {
