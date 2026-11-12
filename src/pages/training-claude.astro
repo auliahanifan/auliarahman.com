@@ -30,6 +30,30 @@ const modules = [
   { tone: 'amber', title: 'Kebiasaan aman soal data', desc: 'Data apa yang boleh masuk ke AI: kerangka hijau, kuning, merah, UU PDP, anonimisasi, dan pengaturan privasi.' },
 ];
 
+// Contoh agenda 3 jam. Diambil dari silabus pelatihan nyata, tanpa nama klien dan contoh khusus industri.
+// mod = indeks di `modules`, judul modul ikut dari sana supaya tidak ganda.
+const agenda = [
+  { time: '00.00 – 00.05', title: 'Pembukaan dan tujuan sesi', form: 'Pengantar', min: 5 },
+  { time: '00.05 – 00.25', mod: 0, form: 'Paparan dan diskusi', min: 20,
+    result: 'Bisa menjelaskan secara ringkas apa itu Claude, apa bedanya dari alternatif, dan di mana batasnya.' },
+  { time: '00.25 – 01.10', mod: 1, form: 'Paparan, demo, latihan', min: 45,
+    practice: 'Setiap peserta mengerjakan satu tugas nyata dengan dua pendekatan: prompt lengkap sekali jalan, dan Claude mewawancarai dulu. Lalu hasilnya dibandingkan.',
+    result: 'Kumpulan prompt awal untuk pekerjaan masing-masing.' },
+  { time: '01.10 – 01.20', title: 'Jeda', min: 10, rest: true },
+  { time: '01.20 – 02.00', mod: 2, form: 'Demo dan latihan', min: 40,
+    practice: 'Demo satu tugas kerja utuh, dari file mentah sampai hasil jadi. Peserta lalu menjalankan satu tugas dari pekerjaannya sendiri.',
+    result: 'Tahu kapan memakai chat dan kapan memakai agen, plus tiga tugas berulang yang layak dibantu AI.' },
+  { time: '02.00 – 02.30', mod: 3, form: 'Demo dan latihan', min: 30,
+    practice: 'Demo memasang dan memakai plugin pada satu tugas rutin. Peserta merumuskan satu pekerjaan berulang yang cocok dijadikan skill.',
+    result: 'Satu kandidat skill untuk unit kerja masing-masing.' },
+  { time: '02.30 – 02.55', mod: 4, form: 'Diskusi dan latihan', min: 25,
+    practice: 'Memilah contoh kasus ke tiga kategori (hijau, kuning, merah) dan mendiskusikan alasannya.',
+    result: 'Kerangka tiga kategori yang bisa jadi bahan awal pedoman penggunaan AI di kantormu.' },
+  { time: '02.55 – 03.00', title: 'Penutup dan langkah lanjut', form: 'Rangkuman', min: 5 },
+];
+
+const prepare = ['Laptop untuk tiap peserta', 'Akun Claude', 'Koneksi internet', 'Ruang dengan layar atau proyektor'];
+
 const format = [
   'Di akun Claude peserta sendiri',
   'Praktik langsung, bukan sekadar demo',
@@ -117,6 +141,37 @@ const steps = [
           </li>
         ))}
       </ol>
+    </div>
+  </section>
+
+  <section id="agenda" class="wrap agendasec">
+    <div class="agenda-head">
+      <div class="mono">Contoh agenda</div>
+      <h2>Satu sesi 3 jam, seperti ini jalannya</h2>
+      <p>Ini contoh, bukan paket baku. Urutan, durasi, dan latihannya kusesuaikan dengan pesertanya dan kerjaan mereka.</p>
+    </div>
+    <ol class="card agenda" aria-label="Contoh agenda sesi 3 jam">
+      {agenda.map((a) => (
+        <li class:list={['slot', { rest: a.rest }]}>
+          <span class="mono slot-time">{a.time}</span>
+          <div class="slot-body">
+            <div class="slot-title">
+              {a.mod !== undefined && <span class="mono slot-mod">Modul {a.mod + 1}</span>}
+              <strong>{a.mod !== undefined ? modules[a.mod].title : a.title}</strong>
+              <span class="mono slot-meta">{a.form ? `${a.form} · ` : ''}{a.min} menit</span>
+            </div>
+            {a.practice && <p><span class="mono tag">Latihan</span>{a.practice}</p>}
+            {a.result && <p><span class="mono tag">Hasil</span>{a.result}</p>}
+          </div>
+        </li>
+      ))}
+      <li class="slot total"><span class="mono slot-time">Total</span><div class="slot-body"><strong>180 menit</strong></div></li>
+    </ol>
+    <div class="prepare">
+      <span class="mono">Yang perlu disiapkan</span>
+      <ul class="chips">
+        {prepare.map((p) => <li>{p}</li>)}
+      </ul>
     </div>
   </section>
 
@@ -239,6 +294,27 @@ const steps = [
   .module h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 4px; }
   .module p { line-height: 1.5; color: var(--ink-700); text-wrap: pretty; }
 
+  /* agenda */
+  .agendasec { padding-top: 72px; padding-bottom: 8px; display: flex; flex-direction: column; gap: 28px; }
+  .agenda-head { display: flex; flex-direction: column; gap: 12px; max-width: 640px; }
+  .agenda-head .mono, .prepare > .mono { color: var(--kobalt-700); }
+  .agenda-head p { font-size: 18px; line-height: 1.5; color: var(--ink-700); text-wrap: pretty; }
+  .agenda { list-style: none; padding: 4px 28px; box-shadow: var(--shadow-1), var(--shadow-hairline); }
+  .slot { display: grid; grid-template-columns: 140px minmax(0, 1fr); gap: 4px 24px; padding: 18px 0; border-bottom: 1px solid var(--abu-100); }
+  .slot:last-child { border-bottom: 0; }
+  .slot-time { color: var(--ink-500); font-size: 13px; padding-top: 3px; white-space: nowrap; }
+  .slot-body { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+  .slot-title { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; }
+  .slot-title strong { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; }
+  .slot-mod { font-size: 12px; color: var(--kobalt-700); background: var(--kobalt-50); border-radius: var(--radius-pill); padding: 2px 10px; }
+  .slot-meta { font-size: 13px; color: var(--ink-500); }
+  .slot-body p { line-height: 1.5; color: var(--ink-700); text-wrap: pretty; }
+  .tag { display: inline-block; font-size: 12px; color: var(--ink-500); margin-right: 10px; min-width: 52px; }
+  .slot.rest { padding: 12px 0; }
+  .slot.rest .slot-title strong, .slot.rest .slot-meta { color: var(--ink-500); font-weight: 500; }
+  .slot.total .slot-time { color: var(--kobalt-700); }
+  .prepare { display: flex; flex-direction: column; gap: 10px; }
+
   /* format */
   .formatsec { padding-top: 72px; padding-bottom: 72px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 48px; align-items: start; }
   .format-col { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
@@ -277,7 +353,14 @@ const steps = [
     .takeaways, .steps { grid-template-columns: minmax(0, 1fr); }
     .steps { gap: 16px; }
   }
+  @media (max-width: 640px) {
+    .agenda { padding: 4px 18px; }
+    .slot { grid-template-columns: minmax(0, 1fr); gap: 6px; }
+    .slot-time { padding-top: 0; }
+    .tag { display: block; margin: 0 0 2px; }
+  }
   @media (max-width: 760px) {
+    .agendasec { padding-top: 56px; }
     .hero { grid-template-columns: minmax(0, 1fr); padding-bottom: 56px; }
     .photo { grid-column: 1; grid-row: auto; width: 96px; border-radius: var(--radius-3); box-shadow: var(--shadow-1); }
     .about, .program-grid, .formatsec { padding-top: 56px; padding-bottom: 56px; }
