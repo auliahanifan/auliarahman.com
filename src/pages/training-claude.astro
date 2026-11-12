@@ -1,0 +1,292 @@
+---
+import Base from '../layouts/Base.astro';
+
+const whatsapp = 'https://wa.me/6285121038080';
+const wa = `${whatsapp}?text=${encodeURIComponent('Halo kak Aulia, saya tertarik dengan training Claude privat. Boleh minta gambaran materi dan formatnya?')}`;
+
+// ponytail: logo diduplikasi dari index.astro; pindah ke data bersama kalau daftar ini berubah
+const logos = [
+  { name: 'Noice', src: '/logos/noice.svg', h: 24 },
+  { name: 'Delegasi', src: '/logos/delegasi.png', h: 28 },
+  { name: 'BukuWarung', src: '/logos/bukuwarung.png', h: 40 },
+  { name: 'Traveloka', src: '/logos/traveloka.png', h: 24 },
+  { name: 'Alterra', src: '/logos/alterra.svg', h: 26 },
+];
+
+// Klien sengaja anonim, sama seperti di beranda.
+const delivered = [
+  { who: 'Perusahaan tambang dan sumber daya', how: 'Tatap muka' },
+  { who: 'Tim sekretariat seorang tokoh publik', how: 'Online' },
+  { who: 'Lebih dari 500 peserta webinar', how: 'Taalenta · Leviq' },
+];
+
+const tasks = ['Email dan balasan', 'Notulen rapat', 'Laporan dan rekap', 'Riset dan pembanding', 'Presentasi dan dokumen'];
+
+const modules = [
+  { tone: 'kobalt', title: 'Kenali alatnya', desc: 'Apa yang bisa dan tidak bisa dilakukan Claude, supaya ekspektasi pas sejak awal.' },
+  { tone: 'ungu', title: 'Lebih dari sekadar kumpulan prompt', desc: 'Cara kerja sederhana yang hasilnya bagus tanpa menumpuk template, plus cara memeriksa jawaban: halusinasi, angka, dan sumber.' },
+  { tone: 'langit', title: 'Alat yang tepat untuk tugas yang tepat', desc: 'Chat, agen, atau aplikasi yang terhubung, dipetakan ke tugas tiap fungsi, dengan demo langsung dan latihan.' },
+  { tone: 'mint', title: 'Dari sekali pakai jadi berulang', desc: 'Skills, plugin, dan konektor yang mengubah satu prompt bagus jadi cara kerja.' },
+  { tone: 'amber', title: 'Kebiasaan aman soal data', desc: 'Data apa yang boleh masuk ke AI: kerangka hijau, kuning, merah, UU PDP, anonimisasi, dan pengaturan privasi.' },
+];
+
+const format = [
+  'Di akun Claude peserta sendiri',
+  'Praktik langsung, bukan sekadar demo',
+  'Contoh disesuaikan dengan bidang kerjamu',
+  'Didampingi 1:1 saat latihan',
+  'Durasi dan jumlah peserta fleksibel',
+  'Tatap muka di Jabodetabek atau online',
+];
+
+const takeaways = [
+  { title: 'Slide', desc: 'Materi lengkap dalam bentuk PDF.' },
+  { title: 'Contoh prompt', desc: 'Sebagai referensi. Setelah sesi, pesertanya tidak bergantung pada contoh itu.' },
+  { title: 'Panduan latihan', desc: 'Latihan dengan data contoh yang aman.' },
+];
+
+const steps = [
+  { title: 'Ngobrol singkat', desc: 'Soal dirimu atau timmu, kerjaan sehari-hari, dan apa yang ingin diubah.' },
+  { title: 'Proposal yang disesuaikan', desc: 'Kurikulum, contoh, dan format yang pas dengan pesertanya.' },
+  { title: 'Sesinya', desc: 'Di tempatmu atau online. Kamu siapkan ruang dan perangkat, aku bawa programnya.' },
+];
+---
+
+<Base
+  title="Training Claude untuk Kerja Kantor · Aulia Rahman"
+  description="Training Claude privat, disesuaikan dengan kerjaan pesertanya. Untuk perorangan sampai satu tim, tatap muka di Jabodetabek atau online."
+  lang="id"
+  noindex
+>
+  <section class="hero-band">
+    <div class="hero wrap">
+      <img class="photo" src="/aulia.jpg" width="400" height="400" alt="Aulia Rahman Hanifan" fetchpriority="high" />
+      <div class="mono eyebrow">Training Claude · Privat · Jabodetabek</div>
+      <h1>Training Claude untuk kerja kantor</h1>
+      <p class="lede">Sesi privat yang disesuaikan dengan kerjaan pesertanya, dari satu orang sampai satu tim. Dikerjakan langsung di tugas nyata, bukan contoh yang dikarang.</p>
+      <div class="actions">
+        <a class="btn btn-accent" href={wa}>Ngobrol lewat WhatsApp
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <a class="btn btn-light" href="#materi">Lihat materinya</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap about">
+    <div class="about-text">
+      <div class="mono">Yang mengajar</div>
+      <h2>Aku Aulia, product engineer yang sekarang melatih tim memakai AI.</h2>
+      <p>Tujuh tahun membangun produk di lima startup, dua di antaranya didukung YC. Karena itu yang kuajarkan datang dari praktik kerja, bukan dari teori.</p>
+      <ul class="logos" aria-label="Tempat aku pernah bekerja">
+        {logos.map((l) => (
+          <li><img src={l.src} alt={l.name} style={`height: ${l.h}px`} loading="lazy" /></li>
+        ))}
+      </ul>
+    </div>
+    <div class="delivered">
+      <span class="mono">Sudah dipakai oleh</span>
+      <ul>
+        {delivered.map((d) => (
+          <li><span>{d.who}</span><span class="mono">{d.how}</span></li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section id="materi" class="program-band">
+    <div class="wrap program-grid">
+      <div class="program-intro">
+        <div class="mono">Yang dilatih</div>
+        <h2>Tugas kantor yang dikerjakan ulang bersama Claude</h2>
+        <p class="program-lede">Materi disusun dari kerjaan pesertanya, jadi contohnya selalu dokumen dan situasi yang mereka temui sendiri.</p>
+        <ul class="chips" aria-label="Contoh tugas">
+          {tasks.map((t) => <li>{t}</li>)}
+        </ul>
+      </div>
+      <ol class="card modules" aria-label="Kurikulum">
+        {modules.map((m, i) => (
+          <li class="module" data-tone={m.tone}>
+            <span class="module-num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <div>
+              <h3>{m.title}</h3>
+              <p>{m.desc}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="wrap formatsec">
+    <div class="format-col">
+      <div class="mono">Formatnya</div>
+      <h2>Privat, dan pas dengan kerjaanmu</h2>
+      <ul class="format">
+        {format.map((f) => (
+          <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{f}</li>
+        ))}
+      </ul>
+    </div>
+    <div class="sub">
+      <div class="takeaways-wrap">
+        <span class="mono">Yang dibawa pulang</span>
+        <ul class="takeaways">
+          {takeaways.map((t) => (
+            <li class="card takeaway"><strong>{t.title}</strong><span>{t.desc}</span></li>
+          ))}
+        </ul>
+      </div>
+      <div class="steps-wrap">
+        <span class="mono">Alurnya</span>
+        <ol class="steps">
+          {steps.map((s, i) => (
+            <li><span class="mono step-num">Langkah {i + 1}</span><strong>{s.title}</strong><span>{s.desc}</span></li>
+          ))}
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap cta-sec">
+    <div class="contact">
+      <span class="mono">Yogyakarta · Jabodetabek · Online</span>
+      <h2>Mau ngobrol dulu?</h2>
+      <p>Ceritakan siapa pesertanya dan kerjaan apa yang ingin dipangkas waktunya. Belum perlu tahu harga atau jadwal, nanti kita susun bareng.</p>
+      <a class="btn btn-dark" href={wa}>Ngobrol lewat WhatsApp
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  h1, h2 { font-weight: 600; text-wrap: balance; }
+  h2 { font-size: clamp(28px, 5vw, 36px); letter-spacing: var(--ls-heading); line-height: 1.1; }
+  .mono { font-size: 14px; }
+  .ic { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .card { background: var(--abu-0); border-radius: var(--radius-3); box-shadow: var(--shadow-hairline); }
+
+  /* buttons, sama dengan beranda */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 52px; padding: 12px 22px; border-radius: var(--radius-pill);
+    max-width: 100%; font-size: 17px; font-weight: 500; letter-spacing: -0.01em; text-align: center; text-wrap: balance;
+    user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent;
+    backdrop-filter: blur(14px) saturate(1.4); -webkit-backdrop-filter: blur(14px) saturate(1.4);
+    transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .btn:active { transform: scale(.98); }
+  .btn:focus-visible { transition: none; }
+  .btn-accent .ic { transition: transform var(--dur-fast) var(--ease-out); }
+  .btn-accent { background: rgba(58,91,255,.95); color: #fff; border: 1px solid rgba(255,255,255,.45); box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 8px 24px rgba(58,91,255,.28); }
+  .btn-light { background: rgba(255,255,255,.55); color: var(--ink-900); border: 1px solid rgba(255,255,255,.9); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 6px 20px rgba(11,13,18,.08); }
+  .btn-dark { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.28); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 8px 24px rgba(0,0,0,.3); }
+  .btn-accent:active, .btn-dark:active { color: #fff; }
+  .btn-light:active { color: var(--ink-900); }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-accent:hover { background: var(--kobalt-600); color: #fff; }
+    .btn-accent:hover:not(:focus-visible) .ic { transform: translateX(3px); }
+    .btn-dark:hover { background: rgba(255,255,255,.2); color: #fff; }
+    .btn-light:hover { background: var(--abu-0); color: var(--ink-900); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .btn-accent .ic { transition: none; }
+    .btn:active, .btn-accent:hover:not(:focus-visible) .ic { transform: none; }
+  }
+
+  /* hero */
+  .hero-band { background: var(--surface-hero); border-bottom: 1px solid var(--abu-200); }
+  .hero { padding-top: 32px; padding-bottom: 72px; display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 48px; row-gap: 20px; align-items: start; }
+  .hero > :not(.photo) { grid-column: 1; }
+  .photo { grid-column: 2; grid-row: 1 / span 4; align-self: center; width: clamp(240px, 28vw, 340px); height: auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-4); box-shadow: var(--shadow-2); }
+  h1 { font-size: clamp(32px, 4.6vw, 60px); letter-spacing: var(--ls-display); line-height: 1.02; }
+  .eyebrow { color: var(--ink-500); }
+  .lede { font-size: clamp(17px, 2vw, 20px); line-height: 1.55; color: var(--ink-700); text-wrap: pretty; max-width: 600px; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+
+  /* tentang + bukti */
+  .about { padding-top: 72px; padding-bottom: 72px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 48px; align-items: start; }
+  .about-text { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+  .about-text .mono, .delivered .mono { color: var(--kobalt-700); }
+  .about-text p { font-size: 18px; line-height: 1.55; color: var(--ink-700); text-wrap: pretty; max-width: 560px; }
+  .logos { list-style: none; display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px; margin-top: 8px; }
+  .logos img { width: auto; max-width: 140px; }
+  .delivered { display: flex; flex-direction: column; gap: 12px; }
+  .delivered ul { list-style: none; }
+  .delivered li { display: flex; flex-direction: column; gap: 2px; padding: 14px 0; border-top: 1px solid var(--abu-200); line-height: 1.4; }
+  .delivered li .mono { font-size: 13px; color: var(--ink-500); }
+
+  /* materi */
+  .program-band { background: var(--kobalt-50); border-top: 1px solid var(--kobalt-100); border-bottom: 1px solid var(--kobalt-100); }
+  .program-grid { padding-top: 72px; padding-bottom: 72px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 48px; }
+  .program-intro { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; position: sticky; top: 32px; align-self: start; }
+  .program-intro .mono { color: var(--kobalt-700); }
+  .program-lede { font-size: 18px; line-height: 1.5; color: var(--ink-700); text-wrap: pretty; max-width: 420px; }
+  .chips { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+  .chips li { font-size: 14px; color: var(--kobalt-700); background: var(--abu-0); border: 1px solid var(--kobalt-100); border-radius: var(--radius-pill); padding: 6px 12px; line-height: 1.3; }
+  .modules { list-style: none; padding: 8px 28px; box-shadow: var(--shadow-1), var(--shadow-hairline); min-width: 0; }
+  .module { display: grid; grid-template-columns: 36px minmax(0, 1fr); gap: 16px; padding: 18px 0; border-bottom: 1px solid var(--abu-100); }
+  .module:last-child { border-bottom: 0; }
+  .module-num { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; font-family: var(--font-mono); font-size: 13px; font-weight: 500; }
+  .module[data-tone='kobalt'] .module-num { background: var(--kobalt-50); color: var(--kobalt-700); }
+  .module[data-tone='ungu'] .module-num { background: var(--ungu-50); color: var(--ungu-800); }
+  .module[data-tone='langit'] .module-num { background: var(--langit-50); color: var(--langit-800); }
+  .module[data-tone='mint'] .module-num { background: var(--mint-50); color: var(--mint-800); }
+  .module[data-tone='amber'] .module-num { background: var(--amber-50); color: var(--amber-800); }
+  .module h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; margin-bottom: 4px; }
+  .module p { line-height: 1.5; color: var(--ink-700); text-wrap: pretty; }
+
+  /* format */
+  .formatsec { padding-top: 72px; padding-bottom: 72px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.5fr); gap: 48px; align-items: start; }
+  .format-col { display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+  .format-col .mono, .takeaways-wrap > .mono, .steps .step-num { color: var(--kobalt-700); }
+  .format { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 4px; }
+  .format li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; line-height: 1.45; color: var(--ink-800); }
+  .format .ic { width: 18px; height: 18px; margin-top: 2px; color: var(--kobalt-600); }
+  .sub { display: flex; flex-direction: column; gap: 32px; min-width: 0; }
+  .takeaways-wrap, .steps-wrap { display: flex; flex-direction: column; gap: 12px; }
+  .steps-wrap > .mono { color: var(--kobalt-700); }
+  .takeaways { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+  .takeaway { padding: 18px 20px; display: flex; flex-direction: column; gap: 6px; }
+  .takeaway strong { font-weight: 600; letter-spacing: -0.01em; }
+  .takeaway span { font-size: 15px; line-height: 1.45; color: var(--ink-600); text-wrap: pretty; }
+  .steps { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; }
+  .steps li { display: flex; flex-direction: column; gap: 4px; padding-top: 14px; border-top: 2px solid var(--kobalt-500); line-height: 1.45; }
+  .steps .step-num { font-size: 12px; }
+  .steps strong { font-weight: 600; letter-spacing: -0.01em; }
+  .steps li > span:last-child { font-size: 15px; color: var(--ink-600); text-wrap: pretty; }
+
+  /* cta */
+  .cta-sec { padding-bottom: 48px; }
+  .contact {
+    background: var(--ink-900); color: var(--abu-0); border-radius: var(--radius-4);
+    padding: clamp(28px, 6vw, 64px); display: flex; flex-direction: column; gap: 20px; align-items: flex-start;
+  }
+  .contact .mono { color: var(--abu-300); }
+  .contact h2 { font-size: clamp(34px, 5vw, 52px); letter-spacing: var(--ls-display); line-height: 1.05; }
+  .contact p { max-width: 560px; font-size: 18px; line-height: 1.55; color: var(--abu-200); text-wrap: pretty; }
+
+  @media (max-width: 900px) {
+    .about, .program-grid, .formatsec { grid-template-columns: minmax(0, 1fr); gap: 32px; }
+    .program-intro { position: static; }
+  }
+  @media (max-width: 640px) {
+    .takeaways, .steps { grid-template-columns: minmax(0, 1fr); }
+    .steps { gap: 16px; }
+  }
+  @media (max-width: 760px) {
+    .hero { grid-template-columns: minmax(0, 1fr); padding-bottom: 56px; }
+    .photo { grid-column: 1; grid-row: auto; width: 96px; border-radius: var(--radius-3); box-shadow: var(--shadow-1); }
+    .about, .program-grid, .formatsec { padding-top: 56px; padding-bottom: 56px; }
+  }
+  @media (max-width: 560px) {
+    h1 { font-size: min(8.6vw, 40px); }
+    .lede, .contact p, .about-text p { font-size: 17px; }
+    .modules { padding: 4px 18px; }
+  }
+  @media (max-width: 400px) {
+    .actions .btn { flex: 1 1 100%; }
+    .contact .btn { font-size: 15px; padding: 10px 18px; }
+  }
+</style>

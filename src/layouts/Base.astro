@@ -2,9 +2,11 @@
 interface Props {
   title: string;
   description: string;
+  noindex?: boolean;
+  lang?: string;
 }
 import '../styles/tokens.css';
-const { title, description } = Astro.props;
+const { title, description, noindex = false, lang = 'en' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL('/og.jpg', Astro.site);
 const person = {
@@ -20,10 +22,11 @@ const person = {
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang={lang}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
+    {noindex && <meta name="robots" content="noindex" />}
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
@@ -76,7 +79,7 @@ const person = {
       <slot />
     </main>
     <footer class="site-foot wrap">
-      <span>© 2026 · no cookies · just one page</span>
+      <span>© 2026 · just one page</span>
       <nav aria-label="Social links">
         <a href="https://github.com/auliahanifan">GitHub</a>
         <a href="https://www.linkedin.com/in/hanifan/">LinkedIn</a>
