@@ -2,27 +2,27 @@
 import Base from '../layouts/Base.astro';
 
 const whatsapp = 'https://wa.me/6285121038080';
-const wa = `${whatsapp}?text=${encodeURIComponent('Halo kak Aulia, saya tertarik dengan sesi training Claude yang gratis. Boleh tahu jadwal yang masih tersedia?')}`;
+const wa = `${whatsapp}?text=${encodeURIComponent('Halo, saya tertarik dengan sesi training Claude yang gratis. Mohon informasi jadwal yang masih tersedia.')}`;
 
-const heroPoints = ['Gratis, jumlah sesinya terbatas', 'Praktik dengan contoh pekerjaan sehari-hari', 'Tatap muka di Jogja, maksimal 15 peserta'];
+const heroPoints = ['Gratis, jumlah sesi terbatas', 'Praktik dengan contoh pekerjaan sehari-hari', 'Tatap muka di Yogyakarta, maksimal 15 peserta'];
 
 // Program percontohan: syarat dan pembagian tanggung jawab.
 const pilotGet = [
   '3 jam praktik dengan contoh dari pekerjaan sehari-hari peserta',
   'Contoh prompt awal untuk pekerjaan peserta',
 ];
-const pilotAsk = ['Izin memotret dan merekam sesi', 'Satu testimoni singkat sesudahnya', 'Izin memakai logo organisasimu di portofolio'];
-const pilotPrepare = ['Tempat dengan layar atau proyektor', 'Laptop dan akun Claude untuk tiap peserta', 'Transport, kalau sesinya di luar Jogja'];
+const pilotAsk = ['Izin memotret dan merekam sesi', 'Satu testimoni singkat sesudahnya', 'Izin menggunakan logo organisasi Anda di portofolio'];
+const pilotPrepare = ['Tempat dengan layar atau proyektor', 'Laptop dan akun Claude untuk tiap peserta', 'Transportasi, jika sesi berlangsung di luar Yogyakarta'];
 
 // Diambil dari bagian "Hasil" di silabus.
 const outcomes = [
-  { title: 'Tiga pekerjaan rutin yang bisa dipercepat dengan AI', desc: 'Dicoba langsung dengan contoh dari pekerjaan peserta.' },
+  { title: 'Tiga pekerjaan rutin yang dapat dipercepat dengan AI', desc: 'Dicoba langsung dengan contoh dari pekerjaan peserta.' },
   { title: 'Cara menulis instruksi yang hasilnya bagus', desc: 'Dicoba dengan dua pendekatan, lalu hasilnya dibandingkan. Peserta juga membawa pulang contoh prompt awal.' },
-  { title: 'Satu pekerjaan berulang yang bisa dibuat lebih praktis', desc: 'Peserta memilih satu pekerjaan rutin yang cocok dijadikan skill di Claude, jadi instruksi yang sama tidak perlu diulang.' },
-  { title: 'Panduan data yang boleh dan tidak boleh dibagikan ke AI', desc: 'Pembagian hijau, kuning, merah. Bisa jadi bahan awal pedoman pemakaian AI di kantor.' },
+  { title: 'Satu pekerjaan berulang yang dapat dibuat lebih praktis', desc: 'Peserta memilih satu pekerjaan rutin yang cocok dijadikan skill di Claude, sehingga instruksi yang sama tidak perlu diulang.' },
+  { title: 'Panduan data yang boleh dan tidak boleh dibagikan ke AI', desc: 'Pembagian hijau, kuning, merah. Dapat menjadi bahan awal pedoman pemakaian AI di kantor.' },
 ];
 
-const lokasiOpts = ['Jogja', 'Di luar Jogja'];
+const lokasiOpts = ['Yogyakarta', 'Di luar Yogyakarta'];
 
 // ponytail: logo diduplikasi dari index.astro; pindah ke data bersama kalau daftar ini berubah
 const logos = [
@@ -43,10 +43,10 @@ const delivered = [
 const tasks = ['Email dan balasan', 'Notulen rapat', 'Laporan dan rekap', 'Riset dan pembanding', 'Presentasi dan dokumen'];
 
 const modules = [
-  { tone: 'kobalt', title: 'Kenalan dengan Claude', desc: 'Apa saja kemampuan dan keterbatasannya, supaya harapan peserta pas sejak awal.' },
-  { tone: 'ungu', title: 'Cara mendapatkan hasil yang lebih bagus', desc: 'Cara menulis instruksi yang jelas, plus cara memeriksa jawaban: halusinasi, angka, dan sumber.' },
-  { tone: 'langit', title: 'Kapan pakai chat, kapan pakai fitur lain', desc: 'Mana yang cocok untuk tiap jenis pekerjaan: percakapan biasa, atau Claude yang mengerjakan tugas berlangkah pada file. Ada demo langsung dan latihan.' },
-  { tone: 'mint', title: 'Supaya tidak mengulang instruksi yang sama', desc: 'Skills dan konektor: cara membuat Claude bekerja dengan standar yang kamu tetapkan dan terhubung ke aplikasi kerja, jadi hasilnya konsisten.' },
+  { tone: 'kobalt', title: 'Mengenal Claude', desc: 'Apa saja kemampuan dan keterbatasannya, agar harapan peserta sesuai sejak awal.' },
+  { tone: 'ungu', title: 'Cara memperoleh hasil yang lebih baik', desc: 'Cara menulis instruksi yang jelas, plus cara memeriksa jawaban: halusinasi, angka, dan sumber.' },
+  { tone: 'langit', title: 'Kapan menggunakan chat, kapan menggunakan fitur lain', desc: 'Mana yang cocok untuk tiap jenis pekerjaan: percakapan biasa, atau Claude yang mengerjakan tugas berlangkah pada file. Ada demo langsung dan latihan.' },
+  { tone: 'mint', title: 'Agar tidak mengulang instruksi yang sama', desc: 'Skills dan konektor: cara membuat Claude bekerja dengan standar yang Anda tetapkan dan terhubung ke aplikasi kerja, sehingga hasilnya konsisten.' },
   { tone: 'amber', title: 'Data apa yang boleh dimasukkan ke AI', desc: 'Pembagian hijau, kuning, merah, UU PDP, anonimisasi, dan pengaturan privasi.' },
 ];
 
@@ -56,20 +56,20 @@ const agenda = [
   { time: '00.00 – 00.05', title: 'Pembukaan, tujuan sesi, dan aturan dasar data', form: 'Pengantar', min: 5,
     result: 'Peserta tahu batas data sebelum mulai berlatih.' },
   { time: '00.05 – 00.25', mod: 0, form: 'Paparan dan diskusi', min: 20,
-    result: 'Bisa menjelaskan secara ringkas apa itu Claude, apa bedanya dari alternatif, dan di mana batasnya.' },
+    result: 'Dapat menjelaskan secara ringkas apa itu Claude, perbedaannya dari alternatif, dan batasannya.' },
   { time: '00.25 – 01.10', mod: 1, form: 'Paparan, demo, latihan', min: 45,
-    practice: 'Setiap peserta mengerjakan satu tugas nyata dengan dua pendekatan: prompt lengkap sekali jalan, dan Claude mewawancarai dulu. Lalu hasilnya dibandingkan.',
+    practice: 'Setiap peserta mengerjakan satu tugas nyata dengan dua pendekatan: prompt lengkap sekali jalan, dan Claude mewawancarai peserta terlebih dahulu. Kemudian hasilnya dibandingkan.',
     result: 'Kumpulan prompt awal untuk pekerjaan masing-masing.' },
   { time: '01.10 – 01.20', title: 'Jeda', min: 10, rest: true },
   { time: '01.20 – 02.00', mod: 2, form: 'Demo dan latihan', min: 40,
     practice: 'Demo satu tugas kerja utuh, dari file mentah sampai hasil jadi. Peserta lalu menjalankan satu tugas dari pekerjaannya sendiri.',
-    result: 'Tahu fitur Claude mana yang cocok untuk tiap jenis pekerjaan, plus tiga pekerjaan rutin yang bisa dipercepat.' },
+    result: 'Peserta mengetahui fitur Claude yang cocok untuk tiap jenis pekerjaan, serta tiga pekerjaan rutin yang dapat dipercepat.' },
   { time: '02.00 – 02.30', mod: 3, form: 'Demo dan latihan', min: 30,
     practice: 'Demo memasang dan memakai plugin pada satu tugas rutin. Peserta merumuskan satu pekerjaan berulang yang cocok dijadikan skill.',
     result: 'Satu pekerjaan rutin yang cocok dijadikan skill.' },
   { time: '02.30 – 02.55', mod: 4, form: 'Diskusi dan latihan', min: 25,
     practice: 'Memilah contoh kasus ke tiga kategori (hijau, kuning, merah) dan mendiskusikan alasannya.',
-    result: 'Panduan tiga kategori yang bisa jadi bahan awal pedoman pemakaian AI di kantor.' },
+    result: 'Panduan tiga kategori yang dapat menjadi bahan awal pedoman pemakaian AI di kantor.' },
   { time: '02.55 – 03.00', title: 'Penutup dan langkah lanjut', form: 'Rangkuman', min: 5 },
 ];
 
@@ -81,7 +81,7 @@ const format = [
   'Contoh disesuaikan dengan bidang kerja tim',
   'Didampingi 1:1 saat latihan',
   'Durasi dan jumlah peserta fleksibel',
-  'Tatap muka di Jogja',
+  'Tatap muka di Yogyakarta',
 ];
 
 const takeaways = [
@@ -91,15 +91,15 @@ const takeaways = [
 ];
 
 const steps = [
-  { title: 'Ngobrol singkat', desc: 'Soal tim, pekerjaan sehari-hari, dan apa yang ingin diubah.' },
+  { title: 'Diskusi singkat', desc: 'Soal tim, pekerjaan sehari-hari, dan apa yang ingin diubah.' },
   { title: 'Proposal yang disesuaikan', desc: 'Kurikulum, contoh, dan format yang pas dengan pesertanya.' },
-  { title: 'Sesinya', desc: 'Di tempatmu. Kamu siapkan ruang dan perangkat, aku bawa programnya.' },
+  { title: 'Pelaksanaan sesi', desc: 'Di lokasi Anda. Anda menyiapkan ruang dan perangkat, saya membawa programnya.' },
 ];
 ---
 
 <Base
   title="Training Claude untuk Kerja Kantor · Aulia Rahman"
-  description="Belajar pakai Claude untuk pekerjaan sehari-hari. Training di kantor untuk tim, gratis untuk beberapa sesi pertama, tatap muka di Jogja."
+  description="Belajar menggunakan Claude untuk pekerjaan sehari-hari. Training di kantor untuk tim, gratis untuk beberapa sesi pertama, tatap muka di Yogyakarta."
   lang="id"
   noindex
   ogImage="/og-training-claude.jpg"
@@ -108,9 +108,9 @@ const steps = [
   <section class="hero-band">
     <div class="hero wrap">
       <img class="photo" src="/aulia.jpg" width="400" height="400" alt="Aulia Rahman Hanifan" fetchpriority="high" />
-      <div class="mono eyebrow">Training Claude · Inhouse · Jogja</div>
-      <h1>Belajar pakai Claude untuk pekerjaan sehari-hari</h1>
-      <p class="lede">Training langsung di kantor, dengan materi yang disesuaikan untuk tim. Selama 3 jam, peserta praktik memakai contoh dari pekerjaan mereka, seperti menulis email, membuat notulen rapat, dan menyusun laporan.</p>
+      <div class="mono eyebrow">Training Claude · Inhouse · Yogyakarta</div>
+      <h1>Belajar menggunakan Claude untuk pekerjaan sehari-hari</h1>
+      <p class="lede">Training langsung di kantor Anda, dengan materi yang disesuaikan untuk tim. Selama 3 jam, peserta berpraktik dengan contoh dari pekerjaan mereka, seperti menulis email, membuat notulen rapat, dan menyusun laporan.</p>
       <div class="actions">
         <a class="btn btn-accent" href={wa}>Ambil sesi gratis
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -128,12 +128,12 @@ const steps = [
   <section id="percontohan" class="wrap pilot">
     <div class="pilot-head">
       <div class="mono">Sesi gratis</div>
-      <h2>Mau coba training Claude untuk tim? Gratis</h2>
-      <p>Aku sedang membuka beberapa sesi gratis untuk tim di Jogja. Paket ini pernah kubawakan seharga Rp8 juta. Sekarang aku ingin menambah pengalaman dan dokumentasi training tatap muka untuk portofolio, jadi sebagai gantinya aku minta izin dokumentasi, testimoni, dan logo. Durasi 3 jam, maksimal 15 peserta per sesi.</p>
+      <h2>Ingin mencoba training Claude untuk tim Anda? Gratis</h2>
+      <p>Saya sedang membuka beberapa sesi gratis untuk tim di Yogyakarta. Paket ini pernah saya bawakan seharga Rp8 juta. Saat ini saya ingin menambah pengalaman dan dokumentasi training tatap muka untuk portofolio, sehingga sebagai gantinya saya meminta izin dokumentasi, testimoni, dan logo. Durasi 3 jam, maksimal 15 peserta per sesi.</p>
     </div>
     <div class="pilot-grid">
       <div class="card pilot-card">
-        <span class="mono">Yang kamu dapat</span>
+        <span class="mono">Yang Anda dapatkan</span>
         <ul class="ticks">
           {pilotGet.map((t) => (
             <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{t}</li>
@@ -141,9 +141,9 @@ const steps = [
         </ul>
       </div>
       <div class="card pilot-card">
-        <span class="mono">Syaratnya</span>
+        <span class="mono">Persyaratan</span>
         <div class="pilot-sub">
-          <strong>Dari kamu</strong>
+          <strong>Dari Anda</strong>
           <ul class="ticks">
             {pilotAsk.map((t) => (
               <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{t}</li>
@@ -151,7 +151,7 @@ const steps = [
           </ul>
         </div>
         <div class="pilot-sub">
-          <strong>Disiapkan yang mengundang</strong>
+          <strong>Disiapkan oleh pihak yang mengundang</strong>
           <ul class="ticks">
             {pilotPrepare.map((t) => (
               <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{t}</li>
@@ -177,16 +177,16 @@ const steps = [
   <section class="wrap about">
     <div class="about-text">
       <div class="mono">Yang mengajar</div>
-      <h2>Aku Aulia, product engineer yang sekarang melatih tim memakai AI.</h2>
-      <p>Tujuh tahun membangun produk di lima startup, dua di antaranya didukung YC. Jadi contoh yang kuajarkan datang dari pengalaman kerja.</p>
-      <ul class="logos" aria-label="Tempat aku pernah bekerja">
+      <h2>Saya Aulia, product engineer yang kini melatih tim menggunakan AI.</h2>
+      <p>Tujuh tahun membangun produk di lima startup, dua di antaranya didukung YC. Karena itu, contoh yang saya ajarkan berasal dari pengalaman kerja.</p>
+      <ul class="logos" aria-label="Tempat saya pernah bekerja">
         {logos.map((l) => (
           <li><img src={l.src} alt={l.name} style={`height: ${l.h}px`} loading="lazy" /></li>
         ))}
       </ul>
     </div>
     <div class="delivered">
-      <span class="mono">Sudah dipakai oleh</span>
+      <span class="mono">Telah digunakan oleh</span>
       <ul>
         {delivered.map((d) => (
           <li><span>{d.who}</span>{d.how && <span class="mono">{d.how}</span>}</li>
@@ -199,8 +199,8 @@ const steps = [
     <div class="wrap program-grid">
       <div class="program-intro">
         <div class="mono">Yang dilatih</div>
-        <h2>Contoh pekerjaan yang kita coba bersama Claude</h2>
-        <p class="program-lede">Materi disesuaikan dengan pekerjaan pesertanya, jadi contohnya dokumen dan situasi yang memang mereka hadapi.</p>
+        <h2>Contoh pekerjaan yang dipraktikkan bersama Claude</h2>
+        <p class="program-lede">Materi disesuaikan dengan pekerjaan pesertanya, sehingga contohnya berupa dokumen dan situasi yang memang mereka hadapi.</p>
         <ul class="chips" aria-label="Contoh tugas">
           {tasks.map((t) => <li>{t}</li>)}
         </ul>
@@ -223,7 +223,7 @@ const steps = [
     <div class="agenda-head">
       <div class="mono">Contoh agenda</div>
       <h2>Apa saja yang dipelajari dalam 3 jam</h2>
-      <p>Ini contoh, bukan paket baku. Urutan, durasi, dan latihannya kusesuaikan dengan pesertanya dan kerjaan mereka.</p>
+      <p>Ini contoh, bukan paket baku. Urutan, durasi, dan latihan akan saya sesuaikan dengan peserta dan pekerjaan mereka.</p>
     </div>
     <ol class="card agenda" aria-label="Contoh agenda sesi 3 jam">
       {agenda.map((a) => (
@@ -270,7 +270,7 @@ const steps = [
         </ul>
       </div>
       <div class="steps-wrap">
-        <span class="mono">Alurnya</span>
+        <span class="mono">Alur pelaksanaan</span>
         <ol class="steps">
           {steps.map((s, i) => (
             <li><span class="mono step-num">Langkah {i + 1}</span><strong>{s.title}</strong><span>{s.desc}</span></li>
@@ -285,8 +285,8 @@ const steps = [
       <div class="contact-copy">
         <span class="mono">Yogyakarta · Tatap muka</span>
         <h2>Daftar sesi gratis</h2>
-        <p>Ceritakan organisasi, jumlah peserta, dan pekerjaan yang ingin dipercepat. Jumlah sesinya terbatas, jadi aku kabari lewat WhatsApp apakah cocok dan kapan jadwalnya.</p>
-        <a class="btn btn-dark" href={wa}>Atau langsung chat WhatsApp
+        <p>Silakan ceritakan organisasi, jumlah peserta, dan pekerjaan yang ingin dipercepat. Jumlah sesi terbatas, sehingga saya akan mengabari lewat WhatsApp mengenai kecocokan dan jadwalnya.</p>
+        <a class="btn btn-dark" href={wa}>Atau hubungi langsung lewat WhatsApp
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
@@ -300,23 +300,23 @@ const steps = [
           <input id="f-peserta" name="peserta" type="number" min="2" max="15" inputmode="numeric" placeholder="2 sampai 15 orang" />
         </div>
         <fieldset class="field">
-          <legend>Lokasi sesinya</legend>
+          <legend>Lokasi sesi</legend>
           <div class="opts">
             {lokasiOpts.map((o, i) => (
               <label><input type="radio" name="lokasi" value={o} checked={i === 0} /><span>{o}</span></label>
             ))}
           </div>
-          <small>Di luar Jogja, transport ditanggung yang mengundang.</small>
+          <small>Di luar Yogyakarta, biaya transportasi ditanggung pihak yang mengundang.</small>
         </fieldset>
         <div class="field">
           <label for="f-kerja">Pekerjaan yang ingin dipercepat</label>
           <textarea id="f-kerja" name="kerja" rows="3" placeholder="mis. notulen rapat, laporan mingguan, balas email klien"></textarea>
-          <small>Punya satu tugas nyata? Tulis di sini, nanti kita coba bareng saat ngobrol.</small>
+          <small>Punya satu tugas nyata? Tuliskan di sini, dan kita dapat mencobanya bersama saat berdiskusi.</small>
         </div>
         <a id="minta-wa" class="btn btn-accent" href={wa} data-base={whatsapp} target="_blank" rel="noopener">Kirim lewat WhatsApp
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <p class="form-note">Pesanmu tersusun otomatis, lalu terbuka di WhatsApp untuk kamu kirim.</p>
+        <p class="form-note">Pesan tersusun otomatis, lalu terbuka di WhatsApp untuk Anda kirim.</p>
       </form>
     </div>
   </section>
@@ -333,12 +333,12 @@ const steps = [
       const v = (k: string) => String(d.get(k) ?? '').trim();
       const lines = [
         v('nama')
-          ? `Halo kak Aulia, saya ${v('nama')}. Saya tertarik dengan sesi training Claude yang gratis.`
-          : 'Halo kak Aulia, saya tertarik dengan sesi training Claude yang gratis.',
+          ? `Halo, saya ${v('nama')}. Saya tertarik dengan sesi training Claude yang gratis.`
+          : 'Halo, saya tertarik dengan sesi training Claude yang gratis.',
         v('peserta') && `Jumlah peserta: ${v('peserta')} orang.`,
         `Lokasi: ${v('lokasi')}.`,
         v('kerja') && `Pekerjaan yang ingin dipercepat: ${v('kerja')}.`,
-        'Boleh tahu jadwal yang masih tersedia?',
+        'Mohon informasi jadwal yang masih tersedia.',
       ].filter(Boolean);
       link.href = `${base}?text=${encodeURIComponent(lines.join('\n'))}`;
     };
