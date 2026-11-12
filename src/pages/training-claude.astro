@@ -2,9 +2,18 @@
 import Base from '../layouts/Base.astro';
 
 const whatsapp = 'https://wa.me/6285121038080';
-const wa = `${whatsapp}?text=${encodeURIComponent('Halo kak Aulia, saya tertarik dengan training Claude privat. Boleh ngobrol 15 menit dulu?')}`;
+const wa = `${whatsapp}?text=${encodeURIComponent('Halo kak Aulia, saya tertarik dengan program percontohan training Claude yang gratis. Boleh tahu slot yang tersedia?')}`;
 
-const heroPoints = ['Ngobrol awal 15 menit, gratis', 'Dikerjakan di tugas nyatamu', 'Tanya jawab 2 minggu sesudahnya'];
+const heroPoints = ['Slot percontohan gratis, jumlahnya terbatas', 'Dikerjakan di tugas nyatamu', 'Tanya jawab 2 minggu sesudahnya'];
+
+// Program percontohan: syarat dan pembagian tanggung jawab.
+const pilotGet = [
+  '3 jam praktik langsung di tugas kerja tim sendiri',
+  'Kumpulan prompt untuk pekerjaanmu',
+  'Grup tanya jawab WhatsApp 2 minggu sesudahnya',
+];
+const pilotAsk = ['Izin memotret dan merekam sesi', 'Satu testimoni singkat sesudahnya', 'Izin memakai logo organisasimu di portofolio'];
+const pilotPrepare = ['Tempat dengan layar atau proyektor', 'Laptop dan akun Claude untuk tiap peserta', 'Transport, kalau sesinya di luar Jogja'];
 
 // Diambil dari bagian "Hasil" di silabus.
 const outcomes = [
@@ -14,8 +23,8 @@ const outcomes = [
   { title: 'Kerangka data yang aman', desc: 'Hijau, kuning, merah: bahan awal pedoman pemakaian AI di kantormu.' },
 ];
 
-const pesertaOpts = ['Saya sendiri', 'Tim kecil (2–15 orang)', 'Lebih dari 15 orang'];
-const targetOpts = ['Secepatnya', 'Dalam 1 bulan', '1–3 bulan lagi'];
+const pesertaOpts = ['Tim (2–15 orang)', 'Saya sendiri'];
+const lokasiOpts = ['Jogja', 'Di luar Jogja'];
 
 // ponytail: logo diduplikasi dari index.astro; pindah ke data bersama kalau daftar ini berubah
 const logos = [
@@ -74,7 +83,7 @@ const format = [
   'Didampingi 1:1 saat latihan',
   'Grup tanya jawab WhatsApp 2 minggu setelah sesi',
   'Durasi dan jumlah peserta fleksibel',
-  'Tatap muka di Jabodetabek atau online',
+  'Tatap muka di Jogja, atau online',
 ];
 
 const takeaways = [
@@ -92,7 +101,7 @@ const steps = [
 
 <Base
   title="Training Claude untuk Kerja Kantor · Aulia Rahman"
-  description="Training Claude privat, disesuaikan dengan kerjaan pesertanya. Untuk perorangan sampai satu tim, tatap muka di Jabodetabek atau online."
+  description="Training Claude privat, disesuaikan dengan kerjaan pesertanya. Program percontohan: slot gratis untuk tim, tatap muka di Jogja."
   lang="id"
   noindex
   ogImage="/og-training-claude.jpg"
@@ -101,11 +110,11 @@ const steps = [
   <section class="hero-band">
     <div class="hero wrap">
       <img class="photo" src="/aulia.jpg" width="400" height="400" alt="Aulia Rahman Hanifan" fetchpriority="high" />
-      <div class="mono eyebrow">Training Claude · Privat · Jabodetabek</div>
+      <div class="mono eyebrow">Training Claude · Privat · Jogja</div>
       <h1>Training Claude yang langsung dipakai di kerjaanmu</h1>
       <p class="lede">Sesi privat untuk satu orang sampai satu tim. Kamu mengerjakan tugas nyatamu sendiri bersama Claude, lalu pulang dengan prompt yang siap dipakai besok pagi.</p>
       <div class="actions">
-        <a class="btn btn-accent" href={wa}>Ngobrol 15 menit, gratis
+        <a class="btn btn-accent" href={wa}>Ambil slot gratis
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
         <a class="btn btn-light" href="#agenda">Lihat agenda 3 jam</a>
@@ -115,6 +124,43 @@ const steps = [
           <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{p}</li>
         ))}
       </ul>
+    </div>
+  </section>
+
+  <section id="percontohan" class="wrap pilot">
+    <div class="pilot-head">
+      <div class="mono">Program percontohan</div>
+      <h2>Slot gratis untuk tim, sebagai bahan portofolio</h2>
+      <p>Paket ini pernah kubawakan seharga Rp8 juta. Sekarang kubuka beberapa slot gratis untuk menyusun portofolio training tatap muka. Maksimal 15 orang per sesi.</p>
+    </div>
+    <div class="pilot-grid">
+      <div class="card pilot-card">
+        <span class="mono">Yang kamu dapat</span>
+        <ul class="ticks">
+          {pilotGet.map((t) => (
+            <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{t}</li>
+          ))}
+        </ul>
+      </div>
+      <div class="card pilot-card">
+        <span class="mono">Syaratnya</span>
+        <div class="pilot-sub">
+          <strong>Dari kamu</strong>
+          <ul class="ticks">
+            {pilotAsk.map((t) => (
+              <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{t}</li>
+            ))}
+          </ul>
+        </div>
+        <div class="pilot-sub">
+          <strong>Disiapkan yang mengundang</strong>
+          <ul class="ticks">
+            {pilotPrepare.map((t) => (
+              <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{t}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -239,17 +285,17 @@ const steps = [
   <section id="minta" class="wrap cta-sec">
     <div class="contact">
       <div class="contact-copy">
-        <span class="mono">Yogyakarta · Jabodetabek · Online</span>
-        <h2>Ngobrol 15 menit, gratis</h2>
-        <p>Ceritakan siapa pesertanya dan kerjaan apa yang ingin dipangkas waktunya. Belum perlu tahu harga atau jadwal, nanti kita susun bareng.</p>
+        <span class="mono">Yogyakarta · Online</span>
+        <h2>Ambil slot percontohan</h2>
+        <p>Ceritakan organisasimu, jumlah pesertanya, dan kerjaan yang ingin dipangkas waktunya. Slotnya terbatas, jadi kukabari lewat WhatsApp apakah cocok dan kapan jadwalnya.</p>
         <a class="btn btn-dark" href={wa}>Atau langsung chat WhatsApp
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
       </div>
       <form id="minta-form" class="form" autocomplete="off">
         <div class="field">
-          <label for="f-nama">Nama</label>
-          <input id="f-nama" name="nama" type="text" autocomplete="name" placeholder="Nama kamu" />
+          <label for="f-nama">Nama dan organisasi</label>
+          <input id="f-nama" name="nama" type="text" autocomplete="name" placeholder="mis. Budi, Komunitas X" />
         </div>
         <fieldset class="field">
           <legend>Siapa pesertanya?</legend>
@@ -259,17 +305,19 @@ const steps = [
             ))}
           </div>
         </fieldset>
+        <fieldset class="field">
+          <legend>Lokasi sesinya</legend>
+          <div class="opts">
+            {lokasiOpts.map((o, i) => (
+              <label><input type="radio" name="lokasi" value={o} checked={i === 0} /><span>{o}</span></label>
+            ))}
+          </div>
+          <small>Di luar Jogja, transport ditanggung yang mengundang.</small>
+        </fieldset>
         <div class="field">
           <label for="f-kerja">Kerjaan yang ingin dipangkas waktunya</label>
           <textarea id="f-kerja" name="kerja" rows="3" placeholder="mis. notulen rapat, laporan mingguan, balas email klien"></textarea>
           <small>Punya satu tugas nyata? Tulis di sini, nanti kita coba bareng saat ngobrol.</small>
-        </div>
-        <div class="field">
-          <label for="f-target">Target mulai</label>
-          <select id="f-target" name="target">
-            <option value="">Belum ditentukan</option>
-            {targetOpts.map((o) => <option value={o}>{o}</option>)}
-          </select>
         </div>
         <a id="minta-wa" class="btn btn-accent" href={wa} data-base={whatsapp} target="_blank" rel="noopener">Kirim lewat WhatsApp
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -291,12 +339,12 @@ const steps = [
       const v = (k: string) => String(d.get(k) ?? '').trim();
       const lines = [
         v('nama')
-          ? `Halo kak Aulia, saya ${v('nama')}. Saya tertarik dengan training Claude privat.`
-          : 'Halo kak Aulia, saya tertarik dengan training Claude privat.',
+          ? `Halo kak Aulia, saya ${v('nama')}. Saya tertarik dengan program percontohan training Claude yang gratis.`
+          : 'Halo kak Aulia, saya tertarik dengan program percontohan training Claude yang gratis.',
         `Pesertanya: ${v('peserta')}.`,
+        `Lokasi: ${v('lokasi')}.`,
         v('kerja') && `Kerjaan yang ingin dipangkas waktunya: ${v('kerja')}.`,
-        v('target') && `Target mulai: ${v('target')}.`,
-        'Boleh ngobrol 15 menit dulu?',
+        'Boleh tahu slot yang tersedia?',
       ].filter(Boolean);
       link.href = `${base}?text=${encodeURIComponent(lines.join('\n'))}`;
     };
@@ -357,6 +405,20 @@ const steps = [
   .hero-points { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 4px; }
   .hero-points li { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; color: var(--ink-700); }
   .hero-points .ic { width: 16px; height: 16px; color: var(--kobalt-600); }
+
+  /* program percontohan */
+  .pilot { padding-top: 64px; padding-bottom: 8px; display: flex; flex-direction: column; gap: 24px; }
+  .pilot-head { display: flex; flex-direction: column; gap: 12px; max-width: 680px; }
+  .pilot-head .mono { color: var(--kobalt-700); }
+  .pilot-head p { font-size: 18px; line-height: 1.5; color: var(--ink-700); text-wrap: pretty; }
+  .pilot-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+  .pilot-card { padding: 22px 24px; display: flex; flex-direction: column; gap: 14px; border-top: 3px solid var(--kobalt-500); min-width: 0; }
+  .pilot-card > .mono { color: var(--kobalt-700); }
+  .pilot-sub { display: flex; flex-direction: column; gap: 8px; }
+  .pilot-sub strong { font-size: 14px; font-weight: 600; color: var(--ink-800); }
+  .ticks { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+  .ticks li { display: grid; grid-template-columns: 18px minmax(0, 1fr); gap: 10px; line-height: 1.45; color: var(--ink-800); }
+  .ticks .ic { width: 18px; height: 18px; margin-top: 2px; color: var(--kobalt-600); }
 
   /* hasil */
   .outcomesec { padding-top: 64px; padding-bottom: 8px; display: flex; flex-direction: column; gap: 24px; }
@@ -476,7 +538,7 @@ const steps = [
     .outcomes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 640px) {
-    .takeaways, .steps, .outcomes { grid-template-columns: minmax(0, 1fr); }
+    .takeaways, .steps, .outcomes, .pilot-grid { grid-template-columns: minmax(0, 1fr); }
     .steps { gap: 16px; }
   }
   @media (max-width: 640px) {
@@ -497,7 +559,9 @@ const steps = [
     .modules { padding: 4px 18px; }
     .contact { padding: 20px 16px; }
     .form { padding: 16px; }
-    .outcomesec { padding-top: 48px; }
+    .outcomesec, .pilot { padding-top: 48px; }
+    .pilot-head p { font-size: 17px; }
+    .pilot-card { padding: 18px; }
   }
   @media (max-width: 400px) {
     .actions .btn { flex: 1 1 100%; }
