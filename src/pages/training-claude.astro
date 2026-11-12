@@ -2,7 +2,20 @@
 import Base from '../layouts/Base.astro';
 
 const whatsapp = 'https://wa.me/6285121038080';
-const wa = `${whatsapp}?text=${encodeURIComponent('Halo kak Aulia, saya tertarik dengan training Claude privat. Boleh minta gambaran materi dan formatnya?')}`;
+const wa = `${whatsapp}?text=${encodeURIComponent('Halo kak Aulia, saya tertarik dengan training Claude privat. Boleh ngobrol 15 menit dulu?')}`;
+
+const heroPoints = ['Ngobrol awal 15 menit, gratis', 'Dikerjakan di tugas nyatamu', 'Tanya jawab 2 minggu sesudahnya'];
+
+// Diambil dari bagian "Hasil" di silabus.
+const outcomes = [
+  { title: 'Tiga tugas rutin yang layak dibantu AI', desc: 'Sudah dicoba langsung di kerjaanmu sendiri, bukan contoh karangan.' },
+  { title: 'Kumpulan prompt untuk pekerjaanmu', desc: 'Disusun sendiri lewat dua pendekatan, dan sudah kamu bandingkan hasilnya.' },
+  { title: 'Satu kandidat skill', desc: 'Satu pekerjaan berulang yang siap dibakukan jadi cara kerja tetap.' },
+  { title: 'Kerangka data yang aman', desc: 'Hijau, kuning, merah: bahan awal pedoman pemakaian AI di kantormu.' },
+];
+
+const pesertaOpts = ['Saya sendiri', 'Tim kecil (2–15 orang)', 'Lebih dari 15 orang'];
+const targetOpts = ['Secepatnya', 'Dalam 1 bulan', '1–3 bulan lagi'];
 
 // ponytail: logo diduplikasi dari index.astro; pindah ke data bersama kalau daftar ini berubah
 const logos = [
@@ -59,6 +72,7 @@ const format = [
   'Praktik langsung, bukan sekadar demo',
   'Contoh disesuaikan dengan bidang kerjamu',
   'Didampingi 1:1 saat latihan',
+  'Grup tanya jawab WhatsApp 2 minggu setelah sesi',
   'Durasi dan jumlah peserta fleksibel',
   'Tatap muka di Jabodetabek atau online',
 ];
@@ -88,15 +102,32 @@ const steps = [
     <div class="hero wrap">
       <img class="photo" src="/aulia.jpg" width="400" height="400" alt="Aulia Rahman Hanifan" fetchpriority="high" />
       <div class="mono eyebrow">Training Claude · Privat · Jabodetabek</div>
-      <h1>Training Claude untuk kerja kantor</h1>
-      <p class="lede">Sesi privat yang disesuaikan dengan kerjaan pesertanya, dari satu orang sampai satu tim. Dikerjakan langsung di tugas nyata, bukan contoh yang dikarang.</p>
+      <h1>Training Claude yang langsung dipakai di kerjaanmu</h1>
+      <p class="lede">Sesi privat untuk satu orang sampai satu tim. Kamu mengerjakan tugas nyatamu sendiri bersama Claude, lalu pulang dengan prompt yang siap dipakai besok pagi.</p>
       <div class="actions">
-        <a class="btn btn-accent" href={wa}>Ngobrol lewat WhatsApp
+        <a class="btn btn-accent" href={wa}>Ngobrol 15 menit, gratis
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <a class="btn btn-light" href="#materi">Lihat materinya</a>
+        <a class="btn btn-light" href="#agenda">Lihat agenda 3 jam</a>
       </div>
+      <ul class="hero-points">
+        {heroPoints.map((p) => (
+          <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{p}</li>
+        ))}
+      </ul>
     </div>
+  </section>
+
+  <section class="wrap outcomesec">
+    <div class="outcome-head">
+      <div class="mono">Hasil yang nyata</div>
+      <h2>Pulang dengan hasil yang bisa dipakai besok</h2>
+    </div>
+    <ul class="outcomes">
+      {outcomes.map((o) => (
+        <li class="card outcome"><strong>{o.title}</strong><span>{o.desc}</span></li>
+      ))}
+    </ul>
   </section>
 
   <section class="wrap about">
@@ -187,7 +218,7 @@ const steps = [
     </div>
     <div class="sub">
       <div class="takeaways-wrap">
-        <span class="mono">Yang dibawa pulang</span>
+        <span class="mono">Materi yang diterima</span>
         <ul class="takeaways">
           {takeaways.map((t) => (
             <li class="card takeaway"><strong>{t.title}</strong><span>{t.desc}</span></li>
@@ -205,17 +236,78 @@ const steps = [
     </div>
   </section>
 
-  <section class="wrap cta-sec">
+  <section id="minta" class="wrap cta-sec">
     <div class="contact">
-      <span class="mono">Yogyakarta · Jabodetabek · Online</span>
-      <h2>Mau ngobrol dulu?</h2>
-      <p>Ceritakan siapa pesertanya dan kerjaan apa yang ingin dipangkas waktunya. Belum perlu tahu harga atau jadwal, nanti kita susun bareng.</p>
-      <a class="btn btn-dark" href={wa}>Ngobrol lewat WhatsApp
-        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-      </a>
+      <div class="contact-copy">
+        <span class="mono">Yogyakarta · Jabodetabek · Online</span>
+        <h2>Ngobrol 15 menit, gratis</h2>
+        <p>Ceritakan siapa pesertanya dan kerjaan apa yang ingin dipangkas waktunya. Belum perlu tahu harga atau jadwal, nanti kita susun bareng.</p>
+        <a class="btn btn-dark" href={wa}>Atau langsung chat WhatsApp
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <form id="minta-form" class="form" autocomplete="off">
+        <div class="field">
+          <label for="f-nama">Nama</label>
+          <input id="f-nama" name="nama" type="text" autocomplete="name" placeholder="Nama kamu" />
+        </div>
+        <fieldset class="field">
+          <legend>Siapa pesertanya?</legend>
+          <div class="opts">
+            {pesertaOpts.map((o, i) => (
+              <label><input type="radio" name="peserta" value={o} checked={i === 0} /><span>{o}</span></label>
+            ))}
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="f-kerja">Kerjaan yang ingin dipangkas waktunya</label>
+          <textarea id="f-kerja" name="kerja" rows="3" placeholder="mis. notulen rapat, laporan mingguan, balas email klien"></textarea>
+          <small>Punya satu tugas nyata? Tulis di sini, nanti kita coba bareng saat ngobrol.</small>
+        </div>
+        <div class="field">
+          <label for="f-target">Target mulai</label>
+          <select id="f-target" name="target">
+            <option value="">Belum ditentukan</option>
+            {targetOpts.map((o) => <option value={o}>{o}</option>)}
+          </select>
+        </div>
+        <a id="minta-wa" class="btn btn-accent" href={wa} data-base={whatsapp} target="_blank" rel="noopener">Kirim lewat WhatsApp
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+        <p class="form-note">Pesanmu tersusun otomatis, lalu terbuka di WhatsApp untuk kamu kirim.</p>
+      </form>
     </div>
   </section>
 </Base>
+
+<script>
+  // Pesan WA disusun di browser dari isian form; tanpa JS, tombol tetap membuka pesan umum.
+  const form = document.querySelector<HTMLFormElement>('#minta-form');
+  const link = document.querySelector<HTMLAnchorElement>('#minta-wa');
+  if (form && link) {
+    const base = link.dataset.base ?? '';
+    const build = () => {
+      const d = new FormData(form);
+      const v = (k: string) => String(d.get(k) ?? '').trim();
+      const lines = [
+        v('nama')
+          ? `Halo kak Aulia, saya ${v('nama')}. Saya tertarik dengan training Claude privat.`
+          : 'Halo kak Aulia, saya tertarik dengan training Claude privat.',
+        `Pesertanya: ${v('peserta')}.`,
+        v('kerja') && `Kerjaan yang ingin dipangkas waktunya: ${v('kerja')}.`,
+        v('target') && `Target mulai: ${v('target')}.`,
+        'Boleh ngobrol 15 menit dulu?',
+      ].filter(Boolean);
+      link.href = `${base}?text=${encodeURIComponent(lines.join('\n'))}`;
+    };
+    form.addEventListener('input', build);
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      link.click();
+    });
+    build();
+  }
+</script>
 
 <style>
   h1, h2 { font-weight: 600; text-wrap: balance; }
@@ -256,11 +348,24 @@ const steps = [
   .hero-band { background: var(--surface-hero); border-bottom: 1px solid var(--abu-200); }
   .hero { padding-top: 32px; padding-bottom: 72px; display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 48px; row-gap: 20px; align-items: start; }
   .hero > :not(.photo) { grid-column: 1; }
-  .photo { grid-column: 2; grid-row: 1 / span 4; align-self: center; width: clamp(240px, 28vw, 340px); height: auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-4); box-shadow: var(--shadow-2); }
+  .photo { grid-column: 2; grid-row: 1 / span 5; align-self: center; width: clamp(240px, 28vw, 340px); height: auto; aspect-ratio: 1; object-fit: cover; border-radius: var(--radius-4); box-shadow: var(--shadow-2); }
   h1 { font-size: clamp(32px, 4.6vw, 60px); letter-spacing: var(--ls-display); line-height: 1.02; }
   .eyebrow { color: var(--ink-500); }
   .lede { font-size: clamp(17px, 2vw, 20px); line-height: 1.55; color: var(--ink-700); text-wrap: pretty; max-width: 600px; }
   .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+
+  .hero-points { list-style: none; display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 4px; }
+  .hero-points li { display: inline-flex; align-items: center; gap: 8px; font-size: 15px; color: var(--ink-700); }
+  .hero-points .ic { width: 16px; height: 16px; color: var(--kobalt-600); }
+
+  /* hasil */
+  .outcomesec { padding-top: 64px; padding-bottom: 8px; display: flex; flex-direction: column; gap: 24px; }
+  .outcome-head { display: flex; flex-direction: column; gap: 10px; max-width: 640px; }
+  .outcome-head .mono { color: var(--kobalt-700); }
+  .outcomes { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+  .outcome { padding: 20px; display: flex; flex-direction: column; gap: 8px; border-top: 3px solid var(--kobalt-500); }
+  .outcome strong { font-size: 17px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; }
+  .outcome span { font-size: 15px; line-height: 1.5; color: var(--ink-600); text-wrap: pretty; }
 
   /* tentang + bukti */
   .about { padding-top: 72px; padding-bottom: 72px; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 48px; align-items: start; }
@@ -339,18 +444,39 @@ const steps = [
   .cta-sec { padding-bottom: 48px; }
   .contact {
     background: var(--ink-900); color: var(--abu-0); border-radius: var(--radius-4);
-    padding: clamp(28px, 6vw, 64px); display: flex; flex-direction: column; gap: 20px; align-items: flex-start;
+    padding: clamp(28px, 6vw, 56px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr); gap: 40px; align-items: start;
   }
+  .contact-copy { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
   .contact .mono { color: var(--abu-300); }
   .contact h2 { font-size: clamp(34px, 5vw, 52px); letter-spacing: var(--ls-display); line-height: 1.05; }
-  .contact p { max-width: 560px; font-size: 18px; line-height: 1.55; color: var(--abu-200); text-wrap: pretty; }
+  .contact-copy p { max-width: 560px; font-size: 18px; line-height: 1.55; color: var(--abu-200); text-wrap: pretty; }
+
+  .form { background: var(--abu-0); color: var(--ink-900); border-radius: var(--radius-3); padding: clamp(18px, 4vw, 28px); display: grid; gap: 18px; min-width: 0; }
+  .field { border: 0; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+  .field label, .field legend { font-size: 14px; font-weight: 600; color: var(--ink-800); padding: 0; margin-bottom: 2px; }
+  .field input[type='text'], .field select, .field textarea {
+    width: 100%; font: inherit; font-size: 16px; color: var(--ink-900); background: var(--abu-50);
+    border: 1px solid var(--abu-300); border-radius: 10px; padding: 12px 14px; min-height: 48px;
+  }
+  .field textarea { min-height: 92px; resize: vertical; line-height: 1.45; }
+  .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-color: var(--kobalt-500); }
+  .field small { font-size: 13px; line-height: 1.4; color: var(--ink-500); }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opts label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 14px; border: 1px solid var(--abu-300); border-radius: 10px; background: var(--abu-50); font-size: 15px; font-weight: 500; color: var(--ink-800); cursor: pointer; margin: 0; }
+  .opts input { accent-color: var(--kobalt-500); width: 16px; height: 16px; flex: none; }
+  .opts label:has(input:checked) { border-color: var(--kobalt-500); background: var(--kobalt-50); color: var(--kobalt-700); }
+  .opts label:has(input:focus-visible) { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+  .form .btn { width: 100%; }
+  .form-note { font-size: 13px; line-height: 1.4; color: var(--ink-500); text-align: center; }
 
   @media (max-width: 900px) {
     .about, .program-grid, .formatsec { grid-template-columns: minmax(0, 1fr); gap: 32px; }
     .program-intro { position: static; }
+    .contact { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+    .outcomes { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 640px) {
-    .takeaways, .steps { grid-template-columns: minmax(0, 1fr); }
+    .takeaways, .steps, .outcomes { grid-template-columns: minmax(0, 1fr); }
     .steps { gap: 16px; }
   }
   @media (max-width: 640px) {
@@ -367,8 +493,11 @@ const steps = [
   }
   @media (max-width: 560px) {
     h1 { font-size: min(8.6vw, 40px); }
-    .lede, .contact p, .about-text p { font-size: 17px; }
+    .lede, .contact-copy p, .about-text p { font-size: 17px; }
     .modules { padding: 4px 18px; }
+    .contact { padding: 20px 16px; }
+    .form { padding: 16px; }
+    .outcomesec { padding-top: 48px; }
   }
   @media (max-width: 400px) {
     .actions .btn { flex: 1 1 100%; }
