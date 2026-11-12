@@ -4,13 +4,12 @@ import Base from '../layouts/Base.astro';
 const whatsapp = 'https://wa.me/6285121038080';
 const wa = `${whatsapp}?text=${encodeURIComponent('Halo kak Aulia, saya tertarik dengan program percontohan training Claude yang gratis. Boleh tahu slot yang tersedia?')}`;
 
-const heroPoints = ['Slot percontohan gratis, jumlahnya terbatas', 'Dikerjakan di tugas nyatamu', 'Tanya jawab 2 minggu sesudahnya'];
+const heroPoints = ['Slot percontohan gratis, jumlahnya terbatas', 'Dikerjakan di tugas nyatamu', 'Satu sesi 3 jam, tatap muka'];
 
 // Program percontohan: syarat dan pembagian tanggung jawab.
 const pilotGet = [
   '3 jam praktik langsung di tugas kerja tim sendiri',
   'Kumpulan prompt untuk pekerjaanmu',
-  'Grup tanya jawab WhatsApp 2 minggu sesudahnya',
 ];
 const pilotAsk = ['Izin memotret dan merekam sesi', 'Satu testimoni singkat sesudahnya', 'Izin memakai logo organisasimu di portofolio'];
 const pilotPrepare = ['Tempat dengan layar atau proyektor', 'Laptop dan akun Claude untuk tiap peserta', 'Transport, kalau sesinya di luar Jogja'];
@@ -23,7 +22,6 @@ const outcomes = [
   { title: 'Kerangka data yang aman', desc: 'Hijau, kuning, merah: bahan awal pedoman pemakaian AI di kantormu.' },
 ];
 
-const pesertaOpts = ['Tim (2–15 orang)', 'Saya sendiri'];
 const lokasiOpts = ['Jogja', 'Di luar Jogja'];
 
 // ponytail: logo diduplikasi dari index.astro; pindah ke data bersama kalau daftar ini berubah
@@ -81,7 +79,6 @@ const format = [
   'Praktik langsung, bukan sekadar demo',
   'Contoh disesuaikan dengan bidang kerjamu',
   'Didampingi 1:1 saat latihan',
-  'Grup tanya jawab WhatsApp 2 minggu setelah sesi',
   'Durasi dan jumlah peserta fleksibel',
   'Tatap muka di Jogja, atau online',
 ];
@@ -101,7 +98,7 @@ const steps = [
 
 <Base
   title="Training Claude untuk Kerja Kantor · Aulia Rahman"
-  description="Training Claude privat, disesuaikan dengan kerjaan pesertanya. Program percontohan: slot gratis untuk tim, tatap muka di Jogja."
+  description="Training Claude inhouse untuk tim, disesuaikan dengan kerjaan pesertanya. Program percontohan: slot gratis, tatap muka di Jogja."
   lang="id"
   noindex
   ogImage="/og-training-claude.jpg"
@@ -110,9 +107,9 @@ const steps = [
   <section class="hero-band">
     <div class="hero wrap">
       <img class="photo" src="/aulia.jpg" width="400" height="400" alt="Aulia Rahman Hanifan" fetchpriority="high" />
-      <div class="mono eyebrow">Training Claude · Privat · Jogja</div>
+      <div class="mono eyebrow">Training Claude · Inhouse · Jogja</div>
       <h1>Training Claude yang langsung dipakai di kerjaanmu</h1>
-      <p class="lede">Sesi privat untuk satu orang sampai satu tim. Kamu mengerjakan tugas nyatamu sendiri bersama Claude, lalu pulang dengan prompt yang siap dipakai besok pagi.</p>
+      <p class="lede">Sesi inhouse untuk timmu, di tempatmu. Setiap orang mengerjakan tugas nyatanya sendiri bersama Claude, lalu pulang dengan prompt yang siap dipakai besok pagi.</p>
       <div class="actions">
         <a class="btn btn-accent" href={wa}>Ambil slot gratis
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -255,7 +252,7 @@ const steps = [
   <section class="wrap formatsec">
     <div class="format-col">
       <div class="mono">Formatnya</div>
-      <h2>Privat, dan pas dengan kerjaanmu</h2>
+      <h2>Inhouse, dan pas dengan kerjaan timmu</h2>
       <ul class="format">
         {format.map((f) => (
           <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{f}</li>
@@ -297,14 +294,10 @@ const steps = [
           <label for="f-nama">Nama dan organisasi</label>
           <input id="f-nama" name="nama" type="text" autocomplete="name" placeholder="mis. Budi, Komunitas X" />
         </div>
-        <fieldset class="field">
-          <legend>Siapa pesertanya?</legend>
-          <div class="opts">
-            {pesertaOpts.map((o, i) => (
-              <label><input type="radio" name="peserta" value={o} checked={i === 0} /><span>{o}</span></label>
-            ))}
-          </div>
-        </fieldset>
+        <div class="field">
+          <label for="f-peserta">Jumlah peserta</label>
+          <input id="f-peserta" name="peserta" type="number" min="2" max="15" inputmode="numeric" placeholder="2 sampai 15 orang" />
+        </div>
         <fieldset class="field">
           <legend>Lokasi sesinya</legend>
           <div class="opts">
@@ -341,7 +334,7 @@ const steps = [
         v('nama')
           ? `Halo kak Aulia, saya ${v('nama')}. Saya tertarik dengan program percontohan training Claude yang gratis.`
           : 'Halo kak Aulia, saya tertarik dengan program percontohan training Claude yang gratis.',
-        `Pesertanya: ${v('peserta')}.`,
+        v('peserta') && `Jumlah peserta: ${v('peserta')} orang.`,
         `Lokasi: ${v('lokasi')}.`,
         v('kerja') && `Kerjaan yang ingin dipangkas waktunya: ${v('kerja')}.`,
         'Boleh tahu slot yang tersedia?',
@@ -516,7 +509,7 @@ const steps = [
   .form { background: var(--abu-0); color: var(--ink-900); border-radius: var(--radius-3); padding: clamp(18px, 4vw, 28px); display: grid; gap: 18px; min-width: 0; }
   .field { border: 0; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
   .field label, .field legend { font-size: 14px; font-weight: 600; color: var(--ink-800); padding: 0; margin-bottom: 2px; }
-  .field input[type='text'], .field select, .field textarea {
+  .field input[type='text'], .field input[type='number'], .field select, .field textarea {
     width: 100%; font: inherit; font-size: 16px; color: var(--ink-900); background: var(--abu-50);
     border: 1px solid var(--abu-300); border-radius: 10px; padding: 12px 14px; min-height: 48px;
   }
