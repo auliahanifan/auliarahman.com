@@ -315,6 +315,7 @@ const steps = [
         </a>
         <p class="form-note">Pesan tersusun otomatis, lalu terbuka di WhatsApp untuk Anda kirim.</p>
       </form>
+      <div id="toast" class="toast" role="status" aria-live="polite"></div>
     </div>
   </section>
 </Base>
@@ -339,6 +340,30 @@ const steps = [
       ].filter(Boolean);
       link.href = `${base}?text=${encodeURIComponent(lines.join('\n'))}`;
     };
+    const toast = document.querySelector<HTMLElement>('#toast');
+    let timer: number;
+    const warn = (msg: string, field: HTMLElement) => {
+      if (toast) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        clearTimeout(timer);
+        timer = window.setTimeout(() => toast.classList.remove('show'), 3500);
+      }
+      field.focus();
+    };
+    link.addEventListener('click', (e) => {
+      const f = form.elements as HTMLFormControlsCollection & Record<string, HTMLInputElement>;
+      const missing = (['nama', 'peserta', 'kerja'] as const).find((k) => !f[k].value.trim());
+      if (missing) {
+        e.preventDefault();
+        return warn('Anda belum mengisi semua kolom.', f[missing]);
+      }
+      const n = Number(f.peserta.value);
+      if (!(n >= 2 && n <= 15)) {
+        e.preventDefault();
+        warn('Jumlah peserta harus 2 sampai 15 orang.', f.peserta);
+      }
+    });
     form.addEventListener('input', build);
     form.addEventListener('submit', (e) => {
       e.preventDefault();
@@ -349,6 +374,9 @@ const steps = [
 </script>
 
 <style>
+  .toast { position: fixed; left: 50%; bottom: 24px; z-index: 20; max-width: calc(100vw - 32px); transform: translate(-50%, 16px); padding: 12px 18px; border-radius: var(--radius-pill); background: var(--ink-900); color: #fff; font-size: 15px; text-align: center; opacity: 0; pointer-events: none; transition: opacity var(--dur-fast) var(--ease-out), transform var(--dur-fast) var(--ease-out); }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+  @media (prefers-reduced-motion: reduce) { .toast { transition: none; } }
   h1, h2 { font-weight: 600; text-wrap: balance; }
   h2 { font-size: clamp(28px, 5vw, 36px); letter-spacing: var(--ls-heading); line-height: 1.1; }
   .mono { font-size: 14px; }
