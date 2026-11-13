@@ -112,7 +112,7 @@ const steps = [
       <h1>Belajar menggunakan Claude untuk pekerjaan sehari-hari</h1>
       <p class="lede">Training langsung di kantor Anda, dengan materi yang disesuaikan untuk tim. Selama 3 jam, peserta berpraktik dengan contoh dari pekerjaan mereka, seperti menulis email, membuat notulen rapat, dan menyusun laporan.</p>
       <div class="actions">
-        <a class="btn btn-accent" href={wa}>Ambil sesi gratis
+        <a class="btn btn-accent" href="#minta">Ambil sesi gratis
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
         <a class="btn btn-light" href="#agenda">Lihat agenda 3 jam</a>
@@ -286,9 +286,6 @@ const steps = [
         <span class="mono">Yogyakarta · Tatap muka</span>
         <h2>Daftar sesi gratis</h2>
         <p>Silakan ceritakan organisasi, jumlah peserta, dan pekerjaan yang ingin dipercepat. Jumlah sesi terbatas, sehingga saya akan mengabari lewat WhatsApp mengenai kecocokan dan jadwalnya.</p>
-        <a class="btn btn-dark" href={wa}>Atau hubungi langsung lewat WhatsApp
-          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
-        </a>
       </div>
       <form id="minta-form" class="form" autocomplete="off">
         <div class="field">
@@ -372,13 +369,11 @@ const steps = [
   .btn-accent .ic { transition: transform var(--dur-fast) var(--ease-out); }
   .btn-accent { background: rgba(58,91,255,.95); color: #fff; border: 1px solid rgba(255,255,255,.45); box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 8px 24px rgba(58,91,255,.28); }
   .btn-light { background: rgba(255,255,255,.55); color: var(--ink-900); border: 1px solid rgba(255,255,255,.9); box-shadow: inset 0 1px 0 rgba(255,255,255,.9), 0 6px 20px rgba(11,13,18,.08); }
-  .btn-dark { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.28); box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 8px 24px rgba(0,0,0,.3); }
-  .btn-accent:active, .btn-dark:active { color: #fff; }
+  .btn-accent:active { color: #fff; }
   .btn-light:active { color: var(--ink-900); }
   @media (hover: hover) and (pointer: fine) {
     .btn-accent:hover { background: var(--kobalt-600); color: #fff; }
     .btn-accent:hover:not(:focus-visible) .ic { transform: translateX(3px); }
-    .btn-dark:hover { background: rgba(255,255,255,.2); color: #fff; }
     .btn-light:hover { background: var(--abu-0); color: var(--ink-900); }
   }
   @media (prefers-reduced-motion: reduce) {
