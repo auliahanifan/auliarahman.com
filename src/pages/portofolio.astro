@@ -53,12 +53,20 @@ const beginnerPct = Math.round((beginners / registrants) * 100);
 >
   <section class="hero-band">
     <div class="hero wrap">
-      <img class="photo" src="/aulia.jpg" width="400" height="400" alt="Aulia Rahman Hanifan" fetchpriority="high" />
+      <div class="who">
+        <img class="photo" src="/aulia.jpg" width="400" height="400" alt="Aulia Rahman Hanifan" fetchpriority="high" />
+        <p class="who-text"><b>Aulia Rahman Hanifan</b><span>Corporate AI Trainer · Yogyakarta</span></p>
+      </div>
       <div class="hero-text">
         <h1>Mengajar AI untuk pekerjaan sehari-hari.</h1>
-        <p class="lede">Untuk perusahaan, saya mengajar tatap muka, salah satunya untuk karyawan sebuah grup pertambangan. Sejak Juni 2026, <b class="total">{total}</b> peserta dan alumni juga belajar bersama saya di tiga program publik online.</p>
+        <p class="lede">Training AI tatap muka untuk tim perusahaan, ditambah program publik online.</p>
+        <ul class="points">
+          <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span><b>{total}</b> peserta dan alumni di tiga program publik online</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Training tatap muka untuk karyawan grup pertambangan</span></li>
+          <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg><span>Sharing session untuk 22 peserta di Manohara Hotel</span></li>
+        </ul>
         <div class="actions">
-          <a class="btn btn-accent" href={wa}>Diskusikan training untuk tim Anda
+          <a class="btn btn-accent" href={wa}>Diskusi untuk tim Anda
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
           <a class="btn btn-light" href="#perusahaan">Lihat portofolio</a>
@@ -210,17 +218,39 @@ const beginnerPct = Math.round((beginners / registrants) * 100);
   /* hero */
   .hero-band { background: var(--surface-hero); border-bottom: 1px solid var(--abu-200); }
   .hero { padding-top: 24px; padding-bottom: 64px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
-  .photo { width: 72px; height: 72px; object-fit: cover; border-radius: 18px; box-shadow: var(--shadow-1); }
-  .hero-text { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+  .who { display: flex; align-items: center; gap: 14px; }
+  .photo { width: 64px; height: 64px; flex: none; object-fit: cover; border-radius: 16px; box-shadow: var(--shadow-1); }
+  .who-text { display: flex; flex-direction: column; gap: 2px; font-size: 14px; color: var(--ink-500); line-height: 1.3; }
+  .who-text b { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink-900); }
+  .hero-text { display: flex; flex-direction: column; gap: 20px; align-items: flex-start; }
   h1 { font-size: clamp(38px, 7.2vw, 88px); letter-spacing: var(--ls-display); line-height: 1; }
   .lede { font-size: clamp(17px, 2vw, 21px); line-height: 1.55; color: var(--ink-700); text-wrap: pretty; max-width: 34em; }
-  .total { color: var(--kobalt-600); font-size: 1.25em; font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
-  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .points { display: flex; flex-direction: column; gap: 12px; }
+  .points li { display: flex; gap: 10px; align-items: flex-start; font-size: 16px; line-height: 1.45; color: var(--ink-700); }
+  .points .ic { width: 20px; height: 20px; margin-top: 1px; color: var(--kobalt-600); }
+  .points b { color: var(--ink-900); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; align-self: stretch; }
+  @media (max-width: 519px) { .actions { flex-direction: column; } .actions .btn, .cta .btn { width: 100%; } }
   @media (min-width: 860px) {
     .hero { grid-template-columns: minmax(0, 1fr) auto; column-gap: 56px; padding-top: 56px; padding-bottom: 88px; align-items: center; }
-    .photo { grid-column: 2; grid-row: 1; width: clamp(240px, 24vw, 320px); height: auto; aspect-ratio: 1; border-radius: var(--radius-4); box-shadow: var(--shadow-2); }
+    .who { grid-column: 2; grid-row: 1; }
+    .who-text { display: none; }
+    .photo { width: clamp(240px, 24vw, 320px); height: auto; aspect-ratio: 1; border-radius: var(--radius-4); box-shadow: var(--shadow-2); }
     .hero-text { grid-column: 1; grid-row: 1; }
   }
+
+  /* hero masuk: satu kali saat dimuat, berurutan dari atas ke bawah */
+  @media (prefers-reduced-motion: no-preference) {
+    .who, .hero-text > * { animation: rise 520ms var(--ease-out) both; }
+    .hero-text > :nth-child(2) { animation-delay: 70ms; }
+    .hero-text > :nth-child(3) { animation-delay: 140ms; }
+    .hero-text > :nth-child(4) { animation-delay: 210ms; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .who, .hero-text > * { animation: fade 200ms ease both; }
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
+  @keyframes fade { from { opacity: 0; } }
 
   /* sections */
   .section { padding-top: 72px; display: flex; flex-direction: column; gap: 32px; }
