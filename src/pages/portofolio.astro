@@ -14,36 +14,58 @@ const max = Math.max(...programs.map((p) => p.n));
 
 const facts = [
   { b: '3', t: 'program publik online' },
-  { b: '3', t: 'penyelenggara berbeda' },
-  { b: '1', t: 'training korporat tatap muka' },
-  { b: 'Jun–Okt 2026', t: 'periode mengajar' },
+  { b: '3', t: 'penyelenggara' },
+  { b: '2', t: 'sesi tatap muka' },
+  { b: 'Juni–Nov 2026', t: 'periode mengajar' },
 ];
 
 // Klien sengaja anonim.
 const covered = [
-  'Mengenal kekuatan dan batasan Claude',
-  'Prompt yang efektif dan cara memeriksa hasil: halusinasi, angka, sumber',
-  'Memilih antara Chat dan Cowork',
-  'Skills, connectors, dan plugin untuk kerja berulang',
+  'Kekuatan dan batasan Claude',
+  'Prompt yang efektif, dan cara memeriksa hasil: halusinasi, angka, sumber',
+  'Kapan memakai Chat dan kapan memakai Cowork',
+  'Skills, connectors, dan plugin untuk pekerjaan berulang',
   'Data sensitif: kerangka hijau, kuning, merah, dan UU PDP',
+];
+
+const sharing = [
+  'Kekuatan dan batasan Claude',
+  'Prompt yang efektif, dan cara memeriksa hasil: halusinasi, angka, sumber',
+];
+
+// Dari formulir pendaftaran sharing session (37 pendaftar unik). Hanya angka gabungan, tanpa data pribadi.
+// Kebutuhan dihitung dari kata kunci di jawaban bebas, jadi labelnya perkiraan.
+const registrants = 37;
+// Pemula = belum pernah mencoba Skills, Connectors, Plugins, AskUserQuestion, maupun Claude Code.
+const beginners = 27;
+const needs = [
+  { label: 'Konten dan pemasaran', n: 12, text: 'sekitar 1/3' },
+  { label: 'Otomatisasi', n: 8, text: 'sekitar 1/5' },
+];
+const pctText = Math.round((beginners / registrants) * 100);
+const pct = (n: number) => `${((n / registrants) * 100).toFixed(1)}%`;
+
+const konsultasi = [
+  'Automation untuk konten, mulai dari riset, brand skills agar konsisten, sampai produksi di cloud',
+  'Cara vibe coding secara cerdas',
 ];
 ---
 
 <Base
   title="Portofolio Training AI · Aulia Rahman"
-  description="Portofolio training Claude dan AI oleh Aulia Rahman: 591 peserta dan alumni di tiga program publik, plus satu training korporat tatap muka."
+  description="Portofolio training Claude dan AI oleh Aulia Rahman: 591 peserta dan alumni dari tiga program publik, satu training untuk perusahaan, dan satu sharing session."
   lang="id"
 >
   <section class="hero-band">
     <div class="hero wrap">
       <div>
-        <div class="mono eyebrow">Portofolio training · Jun–Okt 2026</div>
-        <h1>Mengajarkan Claude dan AI kepada orang yang bekerja, bukan hanya yang coding.</h1>
-        <p class="lede">Tiga program publik online di tiga penyelenggara, ditambah satu training tatap muka untuk karyawan perusahaan.</p>
+        <div class="mono eyebrow">Portofolio training · Juni–November 2026</div>
+        <h1>Mengajar Claude dan AI untuk pekerjaan sehari-hari.</h1>
+        <p class="lede">Sejak Juni 2026 saya mengajar di tiga program publik online, satu training untuk karyawan perusahaan, dan satu sharing session.</p>
       </div>
       <div class="big">
         <b>{total}</b>
-        <span>peserta dan alumni<br />di tiga program publik</span>
+        <span>peserta dan alumni<br />dari tiga program publik</span>
       </div>
     </div>
   </section>
@@ -70,16 +92,16 @@ const covered = [
         </li>
       ))}
     </ul>
-    <p class="note">Panjang batang dihitung dari jumlah peserta, program terbesar sebagai 100%. Saya mengajar sebagai instruktur di seluruh program.</p>
+    <p class="note">Panjang batang menunjukkan jumlah peserta, dengan program terbesar sebagai 100%. Di semua program ini saya mengajar sebagai instruktur.</p>
   </section>
 
   <section class="wrap block">
-    <h2>Training korporat</h2>
+    <h2>Training untuk perusahaan</h2>
     <div class="card case">
       <div>
         <span class="tag">Tatap muka · 27 Oktober 2026</span>
-        <h3>Claude untuk karyawan sebuah grup pertambangan</h3>
-        <p>Training untuk staf lintas fungsi: HR, legal, dan operasional. Pesertanya bukan developer, jadi latihan dibuat di akun Claude milik peserta sendiri dan memakai contoh data yang sudah dianonimkan.</p>
+        <h3>Claude untuk karyawan grup pertambangan</h3>
+        <p>Pesertanya staf dari berbagai fungsi, yaitu HR, legal, dan operasional, bukan developer. Latihan dilakukan di akun Claude milik peserta sendiri, dengan contoh data yang sudah dianonimkan.</p>
         <p class="note">Nama klien tidak dicantumkan.</p>
       </div>
       <div>
@@ -87,10 +109,55 @@ const covered = [
         <ul class="list">
           {covered.map((c) => <li>{c}</li>)}
         </ul>
-        <h3 class="sub">Yang diserahkan</h3>
+        <h3 class="sub">Yang diberikan</h3>
         <ul class="list">
-          <li>Panduan prompt 5 halaman berisi 8 kebiasaan, dengan contoh pendek di HR, legal, dan operasional</li>
+          <li>Panduan prompt 5 halaman berisi 8 kebiasaan, lengkap dengan contoh singkat untuk HR, legal, dan operasional</li>
         </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap block">
+    <h2>Sharing session</h2>
+    <div class="card case">
+      <div>
+        <span class="tag">Tatap muka · 18 November 2026</span>
+        <h3>Sharing session di Manohara Hotel</h3>
+        <p>Diikuti 22 peserta. Gambaran pendaftar di bawah berasal dari formulir pendaftaran.</p>
+      </div>
+      <div>
+        <h3>Yang dibahas</h3>
+        <ul class="list">
+          {sharing.map((c) => <li>{c}</li>)}
+        </ul>
+        <h3 class="sub">Konsultasi</h3>
+        <ul class="list">
+          {konsultasi.map((c) => <li>{c}</li>)}
+        </ul>
+      </div>
+      <div class="viz">
+        <section class="chart">
+          <h3>Tingkat pengalaman pendaftar</h3>
+          <ul class="rows">
+            <li>
+              <div class="vl"><span>Pemula</span><b>{pctText}%</b></div>
+              <div class="vt" aria-hidden="true"><i style={`width:${pct(beginners)}`}></i></div>
+            </li>
+          </ul>
+          <p class="note">Pemula: belum pernah mencoba Skills, Connectors, Plugins, AskUserQuestion, maupun Claude Code.</p>
+        </section>
+        <section class="chart">
+          <h3>Yang ingin dibantu dengan AI</h3>
+          <ul class="rows">
+            {needs.map((d) => (
+              <li>
+                <div class="vl"><span>{d.label}</span><b>{d.text}</b></div>
+                <div class="vt" aria-hidden="true"><i style={`width:${pct(d.n)}`}></i></div>
+              </li>
+            ))}
+          </ul>
+          <p class="note">Dihitung dari jawaban bebas pendaftar, jadi angkanya perkiraan.</p>
+        </section>
       </div>
     </div>
   </section>
@@ -98,8 +165,8 @@ const covered = [
   <section class="wrap block last">
     <div class="contact">
       <div>
-        <b>Ingin training serupa untuk tim Anda?</b>
-        <p>Materi disesuaikan dengan fungsi dan data tim Anda.</p>
+        <b>Ingin training seperti ini untuk tim Anda?</b>
+        <p>Materinya disesuaikan dengan pekerjaan dan data tim Anda.</p>
       </div>
       <div class="links">
         <a href={whatsapp}>Hubungi lewat WhatsApp</a>
@@ -152,6 +219,15 @@ const covered = [
   .case p { color: var(--ink-700); text-wrap: pretty; }
   .case .note { color: var(--ink-500); }
   .sub { margin-top: 8px; }
+  .case > .viz { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; padding-top: 24px; border-top: 1px solid var(--abu-200); align-items: start; }
+  .chart { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .chart h3 { font-size: 16px; }
+  .rows { display: flex; flex-direction: column; gap: 10px; }
+  @media (max-width: 720px) { .case > .viz { grid-template-columns: minmax(0, 1fr); } }
+  .vl { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14px; color: var(--ink-700); }
+  .vl b { font-weight: 600; color: var(--ink-900); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .vt { height: 8px; margin-top: 4px; background: var(--abu-100); border-radius: var(--radius-pill); overflow: hidden; }
+  .vt i { display: block; height: 100%; background: var(--kobalt-500); border-radius: var(--radius-pill); }
   .list { display: flex; flex-direction: column; gap: 8px; color: var(--ink-700); }
   .list li { padding-left: 16px; position: relative; text-wrap: pretty; }
   .list li::before { content: ''; position: absolute; left: 0; top: .65em; width: 6px; height: 6px; border-radius: 50%; background: var(--kobalt-400); }
