@@ -1,23 +1,17 @@
 ---
 import Base from '../layouts/Base.astro';
 
-const whatsapp = 'https://wa.me/6285121038080';
+const whatsapp = 'https://wa.me/6285726317318';
+const wa = `${whatsapp}?text=${encodeURIComponent('Halo, saya sudah melihat portofolio training Anda dan ingin berdiskusi tentang training AI untuk tim kami.')}`;
 
-// Hanya program yang sudah dibawakan. Batang dihitung dari jumlah peserta, terbesar = 100%.
-const programs = [
-  { title: 'Claude untuk Profesional & Business Owner', org: 'Taalenta (PT Taalenta Digital Inteleksi)', date: '27–28 Juni 2026', place: 'Zoom', n: 278, unit: 'peserta & alumni' },
-  { title: 'Vibe Coding untuk Non-Developer', org: 'Taalenta (PT Taalenta Digital Inteleksi)', date: '6, 8, 10 Juli 2026', place: 'Zoom', n: 113, unit: 'peserta & alumni' },
-  { title: 'Webinar “Bikin Web-App Pakai Claude Code AI untuk Pemula”', org: 'Leviq', date: '22–23 Juli & 25–26 Agustus 2026 (2 batch)', place: 'Zoom', n: 200, unit: 'peserta' },
+// Program publik, urut kronologis. Batang dihitung dari jumlah peserta (terbesar = 100%).
+const publicPrograms = [
+  { month: 'Juni', days: '27–28', title: 'Claude untuk Profesional & Business Owner', org: 'Taalenta (PT Taalenta Digital Inteleksi)', n: 278, unit: 'peserta & alumni' },
+  { month: 'Juli', days: '6, 8, 10', title: 'Vibe Coding untuk Non-Developer', org: 'Taalenta (PT Taalenta Digital Inteleksi)', n: 113, unit: 'peserta & alumni' },
+  { month: 'Juli–Agustus', days: '22–23 Jul & 25–26 Agu', title: 'Webinar “Bikin Web-App Pakai Claude Code AI untuk Pemula”', org: 'Leviq · 2 batch', n: 200, unit: 'peserta' },
 ];
-const total = programs.reduce((s, p) => s + p.n, 0);
-const max = Math.max(...programs.map((p) => p.n));
-
-const facts = [
-  { b: '3', t: 'program publik online' },
-  { b: '3', t: 'penyelenggara' },
-  { b: '2', t: 'sesi tatap muka' },
-  { b: 'Juni–Nov 2026', t: 'periode mengajar' },
-];
+const total = publicPrograms.reduce((s, p) => s + p.n, 0);
+const max = Math.max(...publicPrograms.map((p) => p.n));
 
 // Klien sengaja anonim.
 const covered = [
@@ -33,6 +27,11 @@ const sharing = [
   'Prompt yang efektif, dan cara memeriksa hasil: halusinasi, angka, sumber',
 ];
 
+const konsultasi = [
+  'Automation untuk konten, mulai dari riset, brand skills agar konsisten, sampai produksi di cloud',
+  'Cara vibe coding secara cerdas',
+];
+
 // Dari formulir pendaftaran sharing session (37 pendaftar unik). Hanya angka gabungan, tanpa data pribadi.
 // Kebutuhan dihitung dari kata kunci di jawaban bebas, jadi labelnya perkiraan.
 const registrants = 37;
@@ -42,200 +41,255 @@ const needs = [
   { label: 'Konten dan pemasaran', n: 12, text: 'sekitar 1/3' },
   { label: 'Otomatisasi', n: 8, text: 'sekitar 1/5' },
 ];
-const pctText = Math.round((beginners / registrants) * 100);
-const pct = (n: number) => `${((n / registrants) * 100).toFixed(1)}%`;
-
-const konsultasi = [
-  'Automation untuk konten, mulai dari riset, brand skills agar konsisten, sampai produksi di cloud',
-  'Cara vibe coding secara cerdas',
-];
+const share = (n: number, of: number) => `${((n / of) * 100).toFixed(1)}%`;
+const beginnerPct = Math.round((beginners / registrants) * 100);
 ---
 
 <Base
   title="Portofolio Training AI · Aulia Rahman"
   description="Portofolio training AI oleh Aulia Rahman: 591 peserta dan alumni dari tiga program publik, satu training untuk perusahaan, dan satu sharing session."
   lang="id"
+  noindex
 >
   <section class="hero-band">
     <div class="hero wrap">
-      <div>
-        <div class="mono eyebrow">Portofolio training · Juni–November 2026</div>
+      <img class="photo" src="/aulia.jpg" width="400" height="400" alt="Aulia Rahman Hanifan" fetchpriority="high" />
+      <div class="hero-text">
         <h1>Mengajar AI untuk pekerjaan sehari-hari.</h1>
-        <p class="lede">Sejak Juni 2026 saya mengajar di tiga program publik online, satu training untuk karyawan perusahaan, dan satu sharing session.</p>
-      </div>
-      <div class="big">
-        <b>{total}</b>
-        <span>peserta dan alumni<br />dari tiga program publik</span>
+        <p class="lede">Untuk perusahaan, saya mengajar tatap muka, salah satunya untuk karyawan sebuah grup pertambangan. Sejak Juni 2026, <b class="total">{total}</b> peserta dan alumni juga belajar bersama saya di tiga program publik online.</p>
+        <div class="actions">
+          <a class="btn btn-accent" href={wa}>Diskusikan training untuk tim Anda
+            <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a class="btn btn-light" href="#perusahaan">Lihat portofolio</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="wrap block">
-    <ul class="facts">
-      {facts.map((f) => (
-        <li class="card fact"><b>{f.b}</b><span>{f.t}</span></li>
-      ))}
-    </ul>
-  </section>
-
-  <section class="wrap block">
-    <h2>Program publik</h2>
-    <ul class="programs">
-      {programs.map((p) => (
-        <li class="card program">
-          <h3>{p.title}</h3>
-          <p class="meta"><span>{p.org}</span><span>{p.date}</span><span>{p.place}</span></p>
-          <div class="bar">
-            <div class="track"><div class="fill" style={`width:${((p.n / max) * 100).toFixed(1)}%`}></div></div>
-            <div class="n">{p.n} <small>{p.unit}</small></div>
-          </div>
-        </li>
-      ))}
-    </ul>
-    <p class="note">Panjang batang menunjukkan jumlah peserta, dengan program terbesar sebagai 100%. Di semua program ini saya mengajar sebagai instruktur.</p>
-  </section>
-
-  <section class="wrap block">
-    <h2>Training untuk perusahaan</h2>
-    <div class="card case">
-      <div>
+  <section id="perusahaan" class="wrap section">
+    <header class="sec-head">
+      <h2>Training untuk perusahaan</h2>
+    </header>
+    <article class="session">
+      <div class="s-main">
         <span class="tag">Tatap muka · 27 Oktober 2026</span>
         <h3>Claude untuk karyawan grup pertambangan</h3>
         <p>Pesertanya staf dari berbagai fungsi, yaitu HR, legal, dan operasional, bukan developer. Latihan dilakukan di akun Claude milik peserta sendiri, dengan contoh data yang sudah dianonimkan.</p>
         <p class="note">Nama klien tidak dicantumkan.</p>
       </div>
-      <div>
-        <h3>Yang dibahas</h3>
+      <div class="s-side">
+        <h4>Yang dibahas</h4>
         <ul class="list">
           {covered.map((c) => <li>{c}</li>)}
         </ul>
-        <h3 class="sub">Yang diberikan</h3>
+        <h4>Yang diberikan</h4>
         <ul class="list">
           <li>Panduan prompt 5 halaman berisi 8 kebiasaan, lengkap dengan contoh singkat untuk HR, legal, dan operasional</li>
         </ul>
       </div>
-    </div>
+    </article>
   </section>
 
-  <section class="wrap block">
-    <h2>Sharing session</h2>
-    <div class="card case">
-      <div>
+  <section id="publik" class="wrap section">
+    <header class="sec-head">
+      <h2>Program publik</h2>
+      <p>{total} peserta dan alumni di tiga program online, bersama dua penyelenggara.</p>
+    </header>
+    <ol class="ledger">
+      {publicPrograms.map((s) => (
+        <li class="row">
+          <div class="when">
+            <b>{s.month}</b>
+            <span>{s.days}</span>
+          </div>
+          <div class="what">
+            <h3>{s.title}</h3>
+            <p class="meta">
+              <span>{s.org}</span>
+              <span class="chip">Zoom</span>
+            </p>
+          </div>
+          <div class="count">
+            <p class="num"><b>{s.n}</b><span>{s.unit}</span></p>
+            <div class="vt" aria-hidden="true"><i style={`width:${share(s.n, max)}`}></i></div>
+          </div>
+        </li>
+      ))}
+    </ol>
+    <p class="note">Panjang batang menunjukkan jumlah peserta, dengan yang terbesar sebagai 100%. Di semua program ini saya mengajar sebagai instruktur.</p>
+  </section>
+
+  <section id="sharing" class="wrap section">
+    <header class="sec-head">
+      <h2>Sharing session</h2>
+    </header>
+    <article class="session">
+      <div class="s-main">
         <span class="tag">Tatap muka · 18 November 2026</span>
-        <h3>Sharing session di Manohara Hotel</h3>
+        <h3>Di Manohara Hotel</h3>
         <p>Diikuti 22 peserta. Gambaran pendaftar di bawah berasal dari formulir pendaftaran.</p>
       </div>
-      <div>
-        <h3>Yang dibahas</h3>
+      <div class="s-side">
+        <h4>Yang dibahas</h4>
         <ul class="list">
           {sharing.map((c) => <li>{c}</li>)}
         </ul>
-        <h3 class="sub">Konsultasi</h3>
+        <h4>Konsultasi</h4>
         <ul class="list">
           {konsultasi.map((c) => <li>{c}</li>)}
         </ul>
       </div>
-      <div class="viz">
-        <section class="chart">
-          <h3>Tingkat pengalaman pendaftar</h3>
-          <ul class="rows">
-            <li>
-              <div class="vl"><span>Pemula</span><b>{pctText}%</b></div>
-              <div class="vt" aria-hidden="true"><i style={`width:${pct(beginners)}`}></i></div>
-            </li>
-          </ul>
+      <div class="insight">
+        <div class="ins-big">
+          <p class="pct"><b>{beginnerPct}%</b><span>pendaftar masih pemula</span></p>
+          <div class="vt" aria-hidden="true"><i style={`width:${share(beginners, registrants)}`}></i></div>
           <p class="note">Pemula: belum pernah mencoba Skills, Connectors, Plugins, AskUserQuestion, maupun Claude Code.</p>
-        </section>
-        <section class="chart">
-          <h3>Yang ingin dibantu dengan AI</h3>
+        </div>
+        <div class="ins-needs">
+          <h4>Yang ingin dibantu dengan AI</h4>
           <ul class="rows">
             {needs.map((d) => (
               <li>
                 <div class="vl"><span>{d.label}</span><b>{d.text}</b></div>
-                <div class="vt" aria-hidden="true"><i style={`width:${pct(d.n)}`}></i></div>
+                <div class="vt" aria-hidden="true"><i style={`width:${share(d.n, registrants)}`}></i></div>
               </li>
             ))}
           </ul>
           <p class="note">Dihitung dari jawaban bebas pendaftar, jadi angkanya perkiraan.</p>
-        </section>
+        </div>
       </div>
-    </div>
+    </article>
   </section>
 
-  <section class="wrap block last">
-    <div class="contact">
+  <section class="cta-band">
+    <div class="cta wrap">
       <div>
-        <b>Ingin training seperti ini untuk tim Anda?</b>
+        <h2>Ingin training seperti ini untuk tim Anda?</h2>
         <p>Materinya disesuaikan dengan pekerjaan dan data tim Anda.</p>
       </div>
-      <div class="links">
-        <a href={whatsapp}>Hubungi lewat WhatsApp</a>
-      </div>
+      <a class="btn btn-accent" href={wa}>Hubungi lewat WhatsApp
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </a>
     </div>
-    <p class="note">Yogyakarta, Indonesia · Diperbarui November 2026</p>
+    <p class="wrap cta-foot">Yogyakarta, Indonesia · Diperbarui November 2026</p>
   </section>
 </Base>
 
 <style>
   h1, h2 { font-weight: 600; text-wrap: balance; }
-  h2 { font-size: var(--fs-22); letter-spacing: var(--ls-heading); line-height: 1.1; }
-  h3 { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.3; }
-  ul { list-style: none; }
-  .mono { font-size: 14px; }
-  .eyebrow { color: var(--ink-500); margin-bottom: 16px; }
-  .note { font-size: 13.5px; color: var(--ink-500); }
-  .card { background: var(--abu-0); border-radius: var(--radius-3); box-shadow: var(--shadow-hairline); }
+  h3 { font-weight: 600; letter-spacing: -0.02em; line-height: 1.25; }
+  h4 { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; color: var(--ink-900); }
+  ul, ol { list-style: none; }
+  .ic { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .note { font-size: 13.5px; line-height: 1.5; color: var(--ink-500); text-wrap: pretty; }
 
+  /* buttons, sama dengan halaman lain */
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    min-height: 52px; padding: 12px 22px; border-radius: var(--radius-pill);
+    max-width: 100%; font-size: 17px; font-weight: 500; letter-spacing: -0.01em; text-align: center; text-wrap: balance;
+    transition: transform var(--dur-fast) var(--ease-out), background var(--dur-fast) var(--ease-out);
+  }
+  .btn:active { transform: scale(.98); }
+  .btn-accent { background: var(--kobalt-500); color: #fff; box-shadow: inset 0 1px 0 rgba(255,255,255,.4), 0 8px 24px rgba(58,91,255,.28); }
+  .btn-light { background: var(--abu-0); color: var(--ink-900); box-shadow: var(--shadow-hairline); }
+  .btn-accent:active { color: #fff; }
+  .btn-light:active { color: var(--ink-900); }
+  @media (hover: hover) and (pointer: fine) {
+    .btn-accent:hover { background: var(--kobalt-600); color: #fff; }
+    .btn-accent:hover .ic { transform: translateX(3px); }
+    .btn-light:hover { background: var(--abu-50); color: var(--ink-900); }
+  }
+  .btn-accent .ic { transition: transform var(--dur-fast) var(--ease-out); }
+  @media (prefers-reduced-motion: reduce) {
+    .btn, .btn-accent .ic { transition: none; }
+    .btn:active, .btn-accent:hover .ic { transform: none; }
+  }
+
+  /* hero */
   .hero-band { background: var(--surface-hero); border-bottom: 1px solid var(--abu-200); }
-  .hero { padding-top: 32px; padding-bottom: 56px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 24px 48px; align-items: end; }
-  h1 { font-size: clamp(30px, 4.6vw, 54px); letter-spacing: var(--ls-display); line-height: 1.04; }
-  .lede { margin-top: 16px; font-size: clamp(17px, 2vw, 20px); line-height: 1.55; color: var(--ink-700); text-wrap: pretty; max-width: 560px; }
-  .big { text-align: right; }
-  .big b { display: block; font-size: clamp(72px, 12vw, 120px); font-weight: 600; line-height: .9; letter-spacing: var(--ls-display); color: var(--kobalt-500); font-variant-numeric: tabular-nums; }
-  .big span { display: block; margin-top: 8px; font-size: 14px; color: var(--ink-500); }
-  @media (max-width: 720px) { .hero { grid-template-columns: minmax(0, 1fr); } .big { text-align: left; } }
+  .hero { padding-top: 24px; padding-bottom: 64px; display: grid; grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .photo { width: 72px; height: 72px; object-fit: cover; border-radius: 18px; box-shadow: var(--shadow-1); }
+  .hero-text { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; }
+  h1 { font-size: clamp(38px, 7.2vw, 88px); letter-spacing: var(--ls-display); line-height: 1; }
+  .lede { font-size: clamp(17px, 2vw, 21px); line-height: 1.55; color: var(--ink-700); text-wrap: pretty; max-width: 34em; }
+  .total { color: var(--kobalt-600); font-size: 1.25em; font-weight: 600; letter-spacing: -0.03em; font-variant-numeric: tabular-nums; }
+  .actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  @media (min-width: 860px) {
+    .hero { grid-template-columns: minmax(0, 1fr) auto; column-gap: 56px; padding-top: 56px; padding-bottom: 88px; align-items: center; }
+    .photo { grid-column: 2; grid-row: 1; width: clamp(240px, 24vw, 320px); height: auto; aspect-ratio: 1; border-radius: var(--radius-4); box-shadow: var(--shadow-2); }
+    .hero-text { grid-column: 1; grid-row: 1; }
+  }
 
-  .block { padding-top: 40px; display: flex; flex-direction: column; gap: 16px; }
-  .block.last { padding-bottom: 64px; }
+  /* sections */
+  .section { padding-top: 72px; display: flex; flex-direction: column; gap: 32px; }
+  .sec-head { display: flex; flex-direction: column; gap: 8px; }
+  h2 { font-size: clamp(28px, 4.4vw, 44px); letter-spacing: var(--ls-heading); line-height: 1.05; }
+  .sec-head p { color: var(--ink-500); font-size: 17px; }
 
-  .facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
-  .fact { padding: 16px 18px; display: flex; flex-direction: column; gap: 2px; }
-  .fact b { font-size: 24px; font-weight: 600; letter-spacing: var(--ls-heading); font-variant-numeric: tabular-nums; }
-  .fact span { font-size: 14px; color: var(--ink-500); }
+  /* ledger */
+  .ledger { border-bottom: 1px solid var(--abu-200); }
+  .row { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; padding: 24px 0; border-top: 1px solid var(--abu-200); }
+  .when { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; }
+  .when b { font-size: 22px; font-weight: 600; letter-spacing: -0.03em; color: var(--ink-900); }
+  .when span { font-size: 14px; color: var(--ink-500); font-variant-numeric: tabular-nums; }
+  .what { display: flex; flex-direction: column; gap: 8px; align-items: flex-start; min-width: 0; }
+  .what h3 { font-size: clamp(19px, 2.4vw, 24px); text-wrap: balance; }
+  .meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font-size: 14.5px; color: var(--ink-600); }
+  .chip { font-size: 12.5px; font-weight: 500; padding: 2px 10px; border-radius: var(--radius-pill); background: var(--abu-100); color: var(--ink-700); }
+  .count { display: flex; flex-direction: column; gap: 10px; align-self: end; }
+  .num { display: flex; align-items: baseline; gap: 8px; }
+  .num b { font-size: clamp(32px, 4vw, 44px); font-weight: 600; letter-spacing: var(--ls-heading); line-height: 1; font-variant-numeric: tabular-nums; color: var(--ink-900); }
+  .num span { font-size: 14px; color: var(--ink-500); }
+  .vt { height: 8px; background: var(--abu-100); border-radius: var(--radius-pill); overflow: hidden; }
+  .vt i { display: block; height: 100%; background: var(--kobalt-500); border-radius: var(--radius-pill); transform-origin: left; }
+  @media (min-width: 760px) {
+    .row { grid-template-columns: 150px minmax(0, 1fr) 230px; gap: 32px; padding: 32px 0; }
+    .when { flex-direction: column; align-items: flex-start; gap: 4px; }
+    .when b { font-size: 24px; }
+  }
 
-  .programs { display: flex; flex-direction: column; gap: 12px; }
-  .program { padding: 20px; display: flex; flex-direction: column; gap: 10px; }
-  .meta { font-size: 14px; color: var(--ink-500); display: flex; flex-wrap: wrap; gap: 2px 16px; }
-  .bar { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 12px; margin-top: 4px; }
-  .track { height: 8px; background: var(--kobalt-50); border-radius: var(--radius-pill); overflow: hidden; }
-  .fill { height: 100%; background: var(--kobalt-500); border-radius: var(--radius-pill); }
-  .n { font-weight: 600; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .n small { font-weight: 400; font-size: 13px; color: var(--ink-500); }
-  @media (max-width: 420px) { .bar { grid-template-columns: minmax(0, 1fr); gap: 8px; } }
+  /* sesi tatap muka */
+  .session { display: grid; grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .s-main, .s-side { display: flex; flex-direction: column; gap: 14px; align-items: flex-start; min-width: 0; }
+  .s-main h3 { font-size: clamp(24px, 3vw, 32px); letter-spacing: var(--ls-heading); text-wrap: balance; }
+  .s-main p:not(.note) { color: var(--ink-700); line-height: var(--lh-loose); text-wrap: pretty; max-width: 34em; }
+  .tag { background: var(--kobalt-50); color: var(--kobalt-700); font-size: 13px; font-weight: 500; padding: 3px 12px; border-radius: var(--radius-pill); }
+  .s-side h4 + .list { margin-bottom: 8px; }
+  .list { display: flex; flex-direction: column; gap: 10px; color: var(--ink-700); }
+  .list li { padding-left: 18px; position: relative; text-wrap: pretty; line-height: 1.5; }
+  .list li::before { content: ''; position: absolute; left: 0; top: .62em; width: 6px; height: 6px; border-radius: 50%; background: var(--kobalt-400); }
+  @media (min-width: 860px) {
+    .session { grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: 32px 56px; }
+  }
 
-  .case { padding: 24px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 28px; }
-  .case > div { display: flex; flex-direction: column; gap: 10px; align-items: flex-start; }
-  .tag { background: var(--kobalt-50); color: var(--kobalt-700); font-size: 13px; font-weight: 500; padding: 3px 10px; border-radius: var(--radius-pill); }
-  .case p { color: var(--ink-700); text-wrap: pretty; }
-  .case .note { color: var(--ink-500); }
-  .sub { margin-top: 8px; }
-  .case > .viz { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; padding-top: 24px; border-top: 1px solid var(--abu-200); align-items: start; }
-  .chart { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
-  .chart h3 { font-size: 16px; }
-  .rows { display: flex; flex-direction: column; gap: 10px; }
-  @media (max-width: 720px) { .case > .viz { grid-template-columns: minmax(0, 1fr); } }
-  .vl { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 14px; color: var(--ink-700); }
-  .vl b { font-weight: 600; color: var(--ink-900); font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .vt { height: 8px; margin-top: 4px; background: var(--abu-100); border-radius: var(--radius-pill); overflow: hidden; }
-  .vt i { display: block; height: 100%; background: var(--kobalt-500); border-radius: var(--radius-pill); }
-  .list { display: flex; flex-direction: column; gap: 8px; color: var(--ink-700); }
-  .list li { padding-left: 16px; position: relative; text-wrap: pretty; }
-  .list li::before { content: ''; position: absolute; left: 0; top: .65em; width: 6px; height: 6px; border-radius: 50%; background: var(--kobalt-400); }
-  @media (max-width: 720px) { .case { grid-template-columns: minmax(0, 1fr); padding: 20px; } }
+  /* gambaran pendaftar */
+  .insight { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr); gap: 32px; padding: 28px; background: var(--abu-0); border-radius: var(--radius-3); box-shadow: var(--shadow-hairline); }
+  .ins-big, .ins-needs { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+  .pct { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 14px; }
+  .pct b { font-size: clamp(40px, 6vw, 56px); font-weight: 600; letter-spacing: var(--ls-display); line-height: .95; font-variant-numeric: tabular-nums; color: var(--kobalt-600); }
+  .pct span { font-size: 17px; color: var(--ink-700); }
+  .rows { display: flex; flex-direction: column; gap: 14px; }
+  .vl { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; font-size: 15px; color: var(--ink-700); margin-bottom: 6px; }
+  .vl b { font-weight: 600; color: var(--ink-900); white-space: nowrap; }
+  @media (min-width: 860px) {
+    .insight { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 56px; padding: 36px; }
+  }
+  @media (max-width: 420px) { .insight { padding: 20px; } }
 
-  .contact { background: var(--kobalt-50); border-radius: var(--radius-3); padding: 22px 24px; display: flex; flex-wrap: wrap; gap: 16px 32px; align-items: center; justify-content: space-between; }
-  .contact b { font-size: 18px; font-weight: 600; letter-spacing: -0.02em; }
-  .contact p { color: var(--ink-600); }
-  .links { display: flex; flex-wrap: wrap; gap: 4px 24px; }
-  .links a { min-height: 44px; display: inline-flex; align-items: center; font-weight: 500; overflow-wrap: anywhere; }
+  /* penutup */
+  .cta-band { margin-top: 96px; background: var(--ink-900); color: var(--abu-0); padding: 72px 0 32px; }
+  .cta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 28px 48px; }
+  .cta h2 { max-width: 16em; }
+  .cta p { margin-top: 12px; color: var(--abu-300); font-size: 17px; }
+  .cta-foot { margin-top: 56px; font-size: 13.5px; color: var(--ink-400); }
+
+  /* satu momen: batang tumbuh saat masuk layar */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .vt i { animation: grow linear both; animation-timeline: view(); animation-range: entry 5% cover 28%; }
+    }
+  }
+  @keyframes grow { from { transform: scaleX(0); } }
 </style>
