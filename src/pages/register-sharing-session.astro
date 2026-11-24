@@ -4,7 +4,8 @@ import Base from '../layouts/Base.astro';
 // URL Web App dari scripts/register-sharing-session.gs (berakhiran /exec).
 const endpoint = 'https://script.google.com/macros/s/AKfycbyDeWfq-_4ZfCM7puTdT3iw9LvYJ1F4ZkUkB0qWFOsrLPFlJx8oMToS1RZgCs2vdgwPKA/exec';
 
-const info = ['Kamis, 26 November 2026', 'Pukul 18.30 sampai 21.30 WIB', 'Di Yogyakarta, tatap muka', 'Kuota 20 orang', 'Alamat tempat dikabari ke peserta terpilih'];
+const waGroup = 'https://chat.whatsapp.com/Btuj55J8iL70Zd7R38L6qt';
+const info =['Kamis, 26 November 2026', 'Pukul 18.30 sampai 21.30 WIB', 'Daerah Gejayan, Yogyakarta, tatap muka', 'Kuota 20 orang', 'Alamat lengkap dibagikan di grup WhatsApp'];
 const pekerjaanOpts = ['Pengusaha', 'Founder startup', 'Karyawan swasta', 'PNS atau BUMN', 'Freelancer', 'Mahasiswa', 'Lainnya'];
 const bidangOpts = ['Manajemen', 'HRD', 'Finance', 'Marketing', 'Sales', 'Operasional', 'IT', 'Desain dan kreatif', 'Pendidikan', 'Lainnya'];
 const pengalamanOpts = ['Belum pernah', 'Pernah coba-coba', 'Sudah rutin'];
@@ -86,6 +87,7 @@ const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Cursor', 'Lovable', 'Lainnya', '
         <label for="f-belajar">Apa yang ingin kamu pelajari?</label>
         <textarea id="f-belajar" name="belajar" rows="3" required maxlength="1000" placeholder="mis. bikin MVP untuk validasi ide tanpa developer"></textarea>
       </div>
+      <p class="note">Lokasi akan di-share di Grup WhatsApp AI Community. Silakan join grup setelah klik Daftar.</p>
       <button id="reg-submit" class="btn btn-accent" type="submit">Daftar
         <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </button>
@@ -95,7 +97,7 @@ const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Cursor', 'Lovable', 'Lainnya', '
     <div id="reg-done" class="form done" hidden tabindex="-1">
       <svg class="ic done-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
       <h2>Terima kasih, pendaftaranmu sudah masuk</h2>
-      <p>Kalau kamu terpilih, saya kabari alamat tempatnya lewat Threads atau WhatsApp sebelum 26 November.</p>
+      <p>Kamu sedang diarahkan ke Grup WhatsApp AI Community. Kalau tidak terbuka otomatis, <a href={waGroup}>klik di sini untuk join grup</a>.</p>
     </div>
   </section>
 </Base>
@@ -169,6 +171,7 @@ const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Cursor', 'Lovable', 'Lainnya', '
       form.hidden = true;
       done.hidden = false;
       done.focus();
+      location.href = done.querySelector('a')!.href;
     } catch {
       fail('Pendaftaran gagal terkirim. Coba lagi sebentar lagi.');
       btn.disabled = false;
@@ -217,6 +220,7 @@ const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Cursor', 'Lovable', 'Lainnya', '
   .opts input { accent-color: var(--kobalt-500); width: 16px; height: 16px; flex: none; }
   .opts label:has(input:checked) { border-color: var(--kobalt-500); background: var(--kobalt-50); color: var(--kobalt-700); }
   .opts label:has(input:focus-visible) { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+  .note { padding: 12px 14px; border-radius: 10px; background: var(--amber-50); border: 1px solid var(--amber-100); color: var(--amber-800); font-size: 15px; font-weight: 500; line-height: 1.45; text-wrap: balance; }
   .form-error { font-size: 14px; color: var(--koral-600); text-align: center; }
   .form-error:empty { display: none; }
 
@@ -225,6 +229,7 @@ const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Cursor', 'Lovable', 'Lainnya', '
   .done-ic { width: 40px; height: 40px; padding: 8px; border-radius: 50%; background: var(--mint-50); color: var(--mint-600); }
   .done h2 { font-size: clamp(24px, 4vw, 30px); font-weight: 600; letter-spacing: var(--ls-heading); line-height: 1.15; text-wrap: balance; }
   .done p { font-size: 16px; line-height: 1.55; color: var(--ink-700); }
+  .done a { color: var(--fg-link); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
 
   @media (max-width: 860px) {
     .reg { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-bottom: 48px; }
