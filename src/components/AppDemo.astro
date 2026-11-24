@@ -4,19 +4,15 @@
 const apps = [
   {
     id: 'pos', name: 'Kasir', hint: 'Kedai kopi', icon: '<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"/>', url: 'kedailereng.app/kasir',
-    prompt: 'Buatkan aplikasi kasir untuk kedai kopi saya. Ada daftar menu per kategori, pilihan ukuran dan gula untuk minuman, diskon member 10%, pajak 10%, bayar tunai atau QRIS dengan hitungan kembalian, lalu struk setelah bayar.',
   },
   {
     id: 'dash', name: 'Dashboard', hint: 'Penjualan dan stok', icon: '<path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-6"/>', url: 'kedailereng.app/ringkasan',
-    prompt: 'Saya ingin melihat kondisi kedai dalam satu layar: omzet, jumlah transaksi, grafik dibanding periode sebelumnya, metode bayar, jam paling ramai, menu terlaris, transaksi terbaru, dan bahan yang hampir habis.',
   },
   {
     id: 'book', name: 'Booking', hint: 'Barbershop', icon: '<rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 10h18"/>', url: 'cukurkidul.app/jadwal',
-    prompt: 'Buatkan jadwal booking untuk barbershop dengan tiga kapster. Tampilkan per kolom kapster dari jam 10 sampai 20, bisa klik jam kosong untuk booking baru, dan ubah status pelanggan dari terjadwal, sedang dilayani, sampai selesai.',
   },
   {
     id: 'crm', name: 'Pelanggan', hint: 'Katering', icon: '<rect x="3" y="3" width="5" height="18" rx="1.5"/><rect x="10" y="3" width="5" height="12" rx="1.5"/><rect x="17" y="3" width="4" height="8" rx="1.5"/>', url: 'dapurratna.app/pipeline',
-    prompt: 'Usaha katering saya sering lupa follow-up calon pelanggan. Buatkan papan kanban dengan status baru, follow-up, negosiasi, dan deal yang bisa digeser, plus template pesan WhatsApp yang tinggal disalin.',
   },
 ];
 ---
@@ -25,7 +21,7 @@ const apps = [
   <div class="demo-tabs" role="tablist" aria-label="Contoh aplikasi">
     <span class="tab-ind" aria-hidden="true"></span>
     {apps.map((a, i) => (
-      <button type="button" role="tab" id={`tab-${a.id}`} aria-controls={`app-${a.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-tab={a.id} data-url={a.url} data-prompt={a.prompt}>
+      <button type="button" role="tab" id={`tab-${a.id}`} aria-controls={`app-${a.id}`} aria-selected={i === 0 ? 'true' : 'false'} tabindex={i === 0 ? 0 : -1} data-tab={a.id} data-url={a.url}>
         <span class="tab-ic"><svg viewBox="0 0 24 24" aria-hidden="true" set:html={a.icon} /></span>
         <span class="tab-tx"><strong>{a.name}</strong><span>{a.hint}</span></span>
       </button>
@@ -43,10 +39,6 @@ const apps = [
         <div class="app" role="tabpanel" id={`app-${a.id}`} aria-labelledby={`tab-${a.id}`} data-app={a.id} hidden={i !== 0}></div>
       ))}
     </div>
-  </div>
-  <div class="prompt">
-    <span class="prompt-ic" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3c.5 4 2 5.5 6 6-4 .5-5.5 2-6 6-.5-4-2-5.5-6-6 4-.5 5.5-2 6-6z"/></svg></span>
-    <div><span class="mono">Contoh permintaan ke AI</span><p class="prompt-t">“{apps[0].prompt}”</p></div>
   </div>
 </div>
 
@@ -67,7 +59,6 @@ const apps = [
     const tabs = [...list.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
     const ind = list.querySelector<HTMLElement>('.tab-ind')!;
     const url = root.querySelector<HTMLElement>('.url-t')!;
-    const prompt = root.querySelector<HTMLElement>('.prompt-t')!;
     let seen = false;
 
     const place = (t: HTMLElement, animate = true) => {
@@ -92,8 +83,6 @@ const apps = [
       root.dataset.active = id;
       place(t);
       url.textContent = t.dataset.url ?? '';
-      prompt.textContent = `“${t.dataset.prompt}”`;
-      replay(prompt, 'swap');
       replay(panel(id), 'enter');
       seen = true;
       apps[id].show();
@@ -717,14 +706,6 @@ const apps = [
   .dr-foot { position: sticky; bottom: 0; margin: 0 -22px; padding: 14px 22px 22px; background: linear-gradient(rgba(255,255,255,0), #fff 28%); }
   .dr-foot .btn .i { width: 18px; height: 18px; }
 
-  /* ---------- prompt ---------- */
-  .prompt { display: flex; gap: 14px; padding: 18px 20px; border-radius: 18px; background: rgba(255,255,255,.06); box-shadow: inset 0 0 0 1px rgba(255,255,255,.1); -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px); }
-  .prompt-ic { width: 36px; height: 36px; flex: none; display: grid; place-items: center; border-radius: 11px; background: var(--glow); color: #fff; }
-  .prompt-ic svg { width: 18px; height: 18px; fill: currentColor; }
-  .prompt .mono { font-size: 13px; color: rgba(255,255,255,.6); }
-  .prompt-t { margin-top: 4px; font-size: 16px; line-height: 1.55; color: rgba(255,255,255,.92); text-wrap: pretty; }
-  .prompt-t.swap { animation: swap .5s cubic-bezier(.2,.8,.2,1); }
-
   /* ---------- ukuran area aplikasi ---------- */
   @container app (max-width: 900px) {
     .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -805,8 +786,6 @@ const apps = [
     .tab-tx span { font-size: 11.5px; }
     .topbar { padding: 10px 14px; gap: 8px; }
     .win-bar { padding: 8px 12px; gap: 10px; }
-    .prompt { padding: 16px; }
-    .prompt-t { font-size: 15px; }
   }
   @media (max-width: 360px) { .win-bar .dots { display: none; } .win-bar { grid-template-columns: minmax(0, 1fr); } }
 
