@@ -3,6 +3,7 @@ interface Props {
   title: string;
   description: string;
   noindex?: boolean;
+  hideNav?: boolean;
   lang?: string;
   ogImage?: string;
   ogImageAlt?: string;
@@ -12,6 +13,7 @@ const {
   title,
   description,
   noindex = false,
+  hideNav = false,
   lang = 'en',
   ogImage: ogImagePath = '/og.jpg',
   ogImageAlt = 'Aulia Rahman Hanifan: Corporate AI Trainer, Tech & AI Consultant, Senior Product Engineer',
@@ -78,11 +80,13 @@ const person = {
       <a href="/" class="sig" aria-label="Aulia Rahman, home">
         <img src="/signature.svg" width="112" height="72" alt="" />
       </a>
-      <nav aria-label="Main navigation">
-        <a href="/#services">Services</a>
-        <a href="/#work">Work</a>
-        <a href="/#contact">Contact</a>
-      </nav>
+      {!hideNav && (
+        <nav aria-label="Main navigation">
+          <a href="/#services">Services</a>
+          <a href="/#work">Work</a>
+          <a href="/#contact">Contact</a>
+        </nav>
+      )}
     </header>
     <main id="main-content" tabindex="-1">
       <slot />
