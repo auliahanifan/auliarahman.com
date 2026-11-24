@@ -1,0 +1,238 @@
+---
+import Base from '../layouts/Base.astro';
+
+// URL Web App dari scripts/register-sharing-session.gs (berakhiran /exec).
+const endpoint = 'https://script.google.com/macros/s/AKfycbyDeWfq-_4ZfCM7puTdT3iw9LvYJ1F4ZkUkB0qWFOsrLPFlJx8oMToS1RZgCs2vdgwPKA/exec';
+
+const info = ['Kamis, 26 November 2026', 'Pukul 18.30 sampai 21.30 WIB', 'Di Yogyakarta, tatap muka', 'Kuota 20 orang', 'Alamat tempat dikabari ke peserta terpilih'];
+const pekerjaanOpts = ['Pengusaha', 'Founder startup', 'Karyawan swasta', 'PNS atau BUMN', 'Freelancer', 'Mahasiswa', 'Lainnya'];
+const bidangOpts = ['Manajemen', 'HRD', 'Finance', 'Marketing', 'Sales', 'Operasional', 'IT', 'Desain dan kreatif', 'Pendidikan', 'Lainnya'];
+const pengalamanOpts = ['Belum pernah', 'Pernah coba-coba', 'Sudah rutin'];
+const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Cursor', 'Lovable', 'Lainnya', 'Belum langganan'];
+---
+
+<Base
+  title="Daftar Sharing Session Vibe Coding for Founders · Aulia Rahman"
+  description="Pendaftaran sharing session Vibe Coding for Founders, 26 November 2026. Kuota 20 orang."
+  lang="id"
+  noindex
+>
+  <section class="wrap reg">
+    <div class="intro">
+      <span class="mono">Sharing session · Gratis</span>
+      <h1>Vibe Coding for Founders</h1>
+      <p>Isi form ini untuk mendaftar. Karena kuotanya terbatas, peserta akan dipilih dari jawaban di bawah. Kalau terpilih, saya kabari lewat Threads atau WhatsApp.</p>
+      <ul class="info">
+        {info.map((t) => <li>{t}</li>)}
+      </ul>
+    </div>
+
+    <form id="reg-form" class="form" novalidate data-endpoint={endpoint}>
+      <div class="field">
+        <label for="f-nama">Nama</label>
+        <input id="f-nama" name="nama" type="text" autocomplete="name" required maxlength="120" />
+      </div>
+      <fieldset class="field">
+        <legend>Pekerjaan</legend>
+        <div class="opts">
+          {pekerjaanOpts.map((o) => (
+            <label><input type="radio" name="pekerjaan" value={o} required /><span>{o}</span></label>
+          ))}
+        </div>
+        <input id="f-pekerjaan-lain" name="pekerjaanLain" type="text" maxlength="120" placeholder="Tulis pekerjaan kamu" aria-label="Pekerjaan lainnya" hidden />
+      </fieldset>
+      <fieldset class="field">
+        <legend>Bidang pekerjaan</legend>
+        <div class="opts">
+          {bidangOpts.map((o) => (
+            <label><input type="radio" name="bidang" value={o} required /><span>{o}</span></label>
+          ))}
+        </div>
+        <input id="f-bidang-lain" name="bidangLain" type="text" maxlength="120" placeholder="Tulis bidang pekerjaan kamu" aria-label="Bidang pekerjaan lainnya" hidden />
+      </fieldset>
+      <div class="field">
+        <label for="f-instansi">Instansi</label>
+        <input id="f-instansi" name="instansi" type="text" required maxlength="120" placeholder="mis. Kopi Senja" />
+      </div>
+      <fieldset class="field">
+        <legend>Kontak</legend>
+        <div class="pair">
+          <input id="f-threads" name="threads" type="text" maxlength="60" placeholder="@username Threads" aria-label="Username Threads" autocapitalize="off" />
+          <input id="f-wa" name="wa" type="tel" maxlength="20" inputmode="tel" autocomplete="tel" placeholder="Nomor WhatsApp" aria-label="Nomor WhatsApp" />
+        </div>
+        <small>Isi minimal salah satu. Nomor WhatsApp diawali 08 atau +62.</small>
+      </fieldset>
+      <fieldset class="field">
+        <legend>Pernah vibe coding?</legend>
+        <div class="opts">
+          {pengalamanOpts.map((o) => (
+            <label><input type="radio" name="pengalaman" value={o} required /><span>{o}</span></label>
+          ))}
+        </div>
+      </fieldset>
+      <div class="field" id="kendala-field" hidden>
+        <label for="f-kendala">Kendalanya apa?</label>
+        <textarea id="f-kendala" name="kendala" rows="3" maxlength="1000" placeholder="mis. bingung saat deploy, hasilnya sering error"></textarea>
+      </div>
+      <fieldset class="field">
+        <legend>Langganan AI berbayar apa saja?</legend>
+        <div class="opts">
+          {aiOpts.map((o) => (
+            <label><input type="checkbox" name="ai" value={o} /><span>{o}</span></label>
+          ))}
+        </div>
+      </fieldset>
+      <div class="field">
+        <label for="f-belajar">Apa yang ingin kamu pelajari?</label>
+        <textarea id="f-belajar" name="belajar" rows="3" required maxlength="1000" placeholder="mis. bikin MVP untuk validasi ide tanpa developer"></textarea>
+      </div>
+      <button id="reg-submit" class="btn btn-accent" type="submit">Daftar
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+      <p id="reg-error" class="form-error" role="alert"></p>
+    </form>
+
+    <div id="reg-done" class="form done" hidden tabindex="-1">
+      <svg class="ic done-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      <h2>Terima kasih, pendaftaranmu sudah masuk</h2>
+      <p>Kalau kamu terpilih, saya kabari alamat tempatnya lewat Threads atau WhatsApp sebelum 26 November.</p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#reg-form')!;
+  const btn = document.querySelector<HTMLButtonElement>('#reg-submit')!;
+  const err = document.querySelector<HTMLElement>('#reg-error')!;
+  const done = document.querySelector<HTMLElement>('#reg-done')!;
+  const kendala = document.querySelector<HTMLElement>('#kendala-field')!;
+  const el = (n: string) => form.elements.namedItem(n) as HTMLInputElement;
+
+  const pekerjaanLain = el('pekerjaanLain');
+  const bidangLain = el('bidangLain');
+  form.addEventListener('change', () => {
+    const d = new FormData(form);
+    const p = d.get('pengalaman');
+    kendala.hidden = !p || p === 'Belum pernah';
+    pekerjaanLain.hidden = d.get('pekerjaan') !== 'Lainnya';
+    bidangLain.hidden = d.get('bidang') !== 'Lainnya';
+  });
+
+  const fail = (msg: string, focus?: HTMLElement) => {
+    err.textContent = msg;
+    focus?.focus();
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const v = (k: string) => String(d.get(k) ?? '').trim();
+    if (!v('nama')) return fail('Nama belum diisi.', el('nama'));
+    if (!v('pekerjaan')) return fail('Pilih pekerjaan kamu.', form.querySelector<HTMLInputElement>('[name=pekerjaan]')!);
+    const pekerjaan = v('pekerjaan') === 'Lainnya' ? v('pekerjaanLain') : v('pekerjaan');
+    if (!pekerjaan) return fail('Tulis pekerjaan kamu.', pekerjaanLain);
+    if (!v('bidang')) return fail('Pilih bidang pekerjaan kamu.', form.querySelector<HTMLInputElement>('[name=bidang]')!);
+    const bidang = v('bidang') === 'Lainnya' ? v('bidangLain') : v('bidang');
+    if (!bidang) return fail('Tulis bidang pekerjaan kamu.', bidangLain);
+    if (!v('instansi')) return fail('Instansi belum diisi.', el('instansi'));
+    if (!v('threads') && !v('wa')) return fail('Isi username Threads atau nomor WhatsApp.', el('threads'));
+    const threads = v('threads') && '@' + v('threads').replace(/^@/, '');
+    const wa = v('wa').replace(/[\s-]/g, '');
+    if (threads && !/^@[a-zA-Z0-9._]{1,30}$/.test(threads)) return fail('Username Threads hanya boleh huruf, angka, titik, dan garis bawah.', el('threads'));
+    if (wa && !/^(\+62|62|0)8\d{7,12}$/.test(wa)) return fail('Nomor WhatsApp belum valid. Contoh: 081234567890.', el('wa'));
+    if (!v('pengalaman')) return fail('Pilih pengalaman vibe coding kamu.', form.querySelector<HTMLInputElement>('[name=pengalaman]')!);
+    const ai = d.getAll('ai').map(String);
+    if (!ai.length) return fail('Pilih minimal satu langganan AI, atau "Belum langganan".', form.querySelector<HTMLInputElement>('[name=ai]')!);
+    if (!v('belajar')) return fail('Tulis apa yang ingin kamu pelajari.', el('belajar'));
+
+    const payload = {
+      nama: v('nama'),
+      pekerjaan,
+      bidang,
+      instansi: v('instansi'),
+      threads,
+      wa,
+      pengalaman: v('pengalaman'),
+      kendala: kendala.hidden ? '' : v('kendala'),
+      ai: ai.join(', '),
+      belajar: v('belajar'),
+    };
+
+    err.textContent = '';
+    btn.disabled = true;
+    btn.firstChild!.textContent = 'Mengirim… ';
+    try {
+      // text/plain supaya tidak ada preflight CORS ke Apps Script.
+      const res = await fetch(form.dataset.endpoint || '', { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
+      const out = await res.json();
+      if (!out.ok) throw new Error(out.error);
+      form.hidden = true;
+      done.hidden = false;
+      done.focus();
+    } catch {
+      fail('Pendaftaran gagal terkirim. Coba lagi sebentar lagi.');
+      btn.disabled = false;
+      btn.firstChild!.textContent = 'Daftar ';
+    }
+  });
+</script>
+
+<style>
+  .reg { padding-top: 24px; padding-bottom: 72px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 48px; align-items: start; }
+  .intro { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 24px; }
+  .mono { font-size: 14px; color: var(--kobalt-700); }
+  h1 { font-size: clamp(36px, 6vw, 56px); font-weight: 600; letter-spacing: var(--ls-display); line-height: 1.05; text-wrap: balance; }
+  .intro p { font-size: 18px; line-height: 1.55; color: var(--ink-700); text-wrap: pretty; max-width: 520px; }
+  .info { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-top: 4px; }
+  .info li { display: flex; align-items: center; gap: 10px; font-size: 15px; color: var(--ink-800); text-wrap: pretty; }
+  .info li::before { content: ''; width: 8px; height: 8px; border-radius: 50%; background: var(--kobalt-500); flex: none; }
+
+  .ic { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+    min-height: 52px; padding: 12px 22px; border-radius: var(--radius-pill); font: inherit;
+    font-size: 17px; font-weight: 500; letter-spacing: -0.01em; cursor: pointer;
+    -webkit-tap-highlight-color: transparent; transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .btn:active { transform: scale(.98); }
+  .btn:disabled { opacity: .7; cursor: progress; }
+  .btn-accent { background: rgba(58,91,255,.95); color: #fff; border: 1px solid rgba(255,255,255,.45); box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 8px 24px rgba(58,91,255,.28); }
+  @media (hover: hover) and (pointer: fine) { .btn-accent:hover:not(:disabled) { background: var(--kobalt-600); } }
+  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:active { transform: none; } }
+
+  .form { background: var(--abu-0); border-radius: var(--radius-4); box-shadow: var(--shadow-1), var(--shadow-hairline); padding: clamp(18px, 4vw, 32px); display: grid; gap: 20px; min-width: 0; }
+  .field { border: 0; min-width: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .field[hidden] { display: none; }
+  .field label, .field legend { font-size: 14px; font-weight: 600; color: var(--ink-800); padding: 0; margin-bottom: 2px; }
+  .field input[type='text'], .field input[type='tel'], .field textarea {
+    width: 100%; font: inherit; font-size: 16px; color: var(--ink-900); background: var(--abu-50);
+    border: 1px solid var(--abu-300); border-radius: 10px; padding: 12px 14px; min-height: 48px;
+  }
+  .field textarea { min-height: 92px; resize: vertical; line-height: 1.45; }
+  .field input:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-color: var(--kobalt-500); }
+  .field small { font-size: 13px; line-height: 1.4; color: var(--ink-500); }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opts label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 14px; border: 1px solid var(--abu-300); border-radius: 10px; background: var(--abu-50); font-size: 15px; font-weight: 500; color: var(--ink-800); cursor: pointer; margin: 0; }
+  .opts input { accent-color: var(--kobalt-500); width: 16px; height: 16px; flex: none; }
+  .opts label:has(input:checked) { border-color: var(--kobalt-500); background: var(--kobalt-50); color: var(--kobalt-700); }
+  .opts label:has(input:focus-visible) { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+  .form-error { font-size: 14px; color: var(--koral-600); text-align: center; }
+  .form-error:empty { display: none; }
+
+  .done { justify-items: start; gap: 12px; outline: none; }
+  .form[hidden] { display: none; }
+  .done-ic { width: 40px; height: 40px; padding: 8px; border-radius: 50%; background: var(--mint-50); color: var(--mint-600); }
+  .done h2 { font-size: clamp(24px, 4vw, 30px); font-weight: 600; letter-spacing: var(--ls-heading); line-height: 1.15; text-wrap: balance; }
+  .done p { font-size: 16px; line-height: 1.55; color: var(--ink-700); }
+
+  @media (max-width: 860px) {
+    .reg { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-bottom: 48px; }
+    .intro { position: static; }
+  }
+  @media (max-width: 480px) {
+    .wrap.reg { padding-left: 16px; padding-right: 16px; }
+    .pair { grid-template-columns: 1fr; }
+    .form { padding: 16px; }
+  }
+</style>
