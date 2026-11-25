@@ -14,6 +14,8 @@ const work = [
 
 const whatsapp = 'https://wa.me/6285121038080';
 const whatsappTraining = `${whatsapp}?text=${encodeURIComponent('AI training for our team')}`;
+// Semua link ber-data-need membuka form dulu (lihat #inquiry); href wa.me tetap jadi fallback tanpa JS.
+const needs = ['AI training for my team', 'Tech & AI consulting', 'Product engineering role', 'Collaboration or coffee', 'Something else'];
 
 // Semua poin dari fakta yang sudah dikonfirmasi (program training, tawaran dashboard, riwayat kerja).
 const offers = [
@@ -28,7 +30,7 @@ const offers = [
     layer: 'ungu', icon: 'consulting', for: 'For companies without an in-house tech team', title: 'Tech & AI Consulting',
     desc: 'Practical help deciding what to fix first, and getting it done.',
     points: ['Scattered data pulled into one dashboard', 'Where AI is worth using, and what to build or buy', 'Getting employees ready to use AI'],
-    cta: { label: 'Discuss your situation', href: `${whatsapp}?text=${encodeURIComponent('Tech & AI consulting')}` },
+    cta: { label: 'Discuss your situation', href: `${whatsapp}?text=${encodeURIComponent('Tech & AI consulting')}`, need: needs[1] },
   },
   {
     layer: 'mint', icon: 'engineering', for: 'For startups, from seed to scale', title: 'Product Engineering',
@@ -53,10 +55,10 @@ const offers = [
       <h1>Complex made clear.<br /> Costly made cheap.</h1>
       <p class="lede">I help teams use AI safely at work, help companies get their data in order, and build products at scale. Seven years at startups.</p>
       <div class="actions">
-        <a class="btn btn-accent" href={whatsappTraining}>Discuss training for your team
+        <a class="btn btn-accent" href={whatsappTraining} data-need={needs[0]}>Discuss training for your team
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-        <a class="btn btn-light" href={whatsapp}>
+        <a class="btn btn-light" href={whatsapp} data-need="">
           <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.4 8.4 0 0 1-3.8-.9L3 21l1.9-5.7a8.4 8.4 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.4 8.4 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 8 8v.5z"/></svg>
           Chat on WhatsApp
         </a>
@@ -88,7 +90,7 @@ const offers = [
               <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{pt}</li>
             ))}
           </ul>
-          <a class="offer-cta" href={o.cta.href}>{o.cta.label} <span aria-hidden="true">→</span></a>
+          <a class="offer-cta" href={o.cta.href} data-need={o.cta.need}>{o.cta.label} <span aria-hidden="true">→</span></a>
         </div>
       ))}
     </div>
@@ -106,7 +108,7 @@ const offers = [
           ))}
         </ul>
         <div class="program-actions">
-          <a class="btn btn-accent" href={whatsappTraining}>Discuss training for your team
+          <a class="btn btn-accent" href={whatsappTraining} data-need={needs[0]}>Discuss training for your team
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
           <a class="btn btn-light" href="/aulia-rahman-ai-training-program.pdf" download>
@@ -196,7 +198,7 @@ const offers = [
         <div class="path">
           <h3>For companies</h3>
           <p>Discuss AI training or consulting for your team.</p>
-          <a class="btn btn-accent" href={whatsappTraining}>Discuss training
+          <a class="btn btn-accent" href={whatsappTraining} data-need={needs[0]}>Discuss training
             <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
         </div>
@@ -204,7 +206,7 @@ const offers = [
           <h3>For recruiters and fellow builders</h3>
           <p>Product engineering roles, collaboration, or coffee in Jogja.</p>
           <div class="path-actions">
-            <a class="btn btn-dark" href={whatsapp}>Chat on WhatsApp
+            <a class="btn btn-dark" href={whatsapp} data-need="">Chat on WhatsApp
               <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
             </a>
             <a class="btn btn-dark" href="https://www.linkedin.com/in/hanifan/">LinkedIn
@@ -215,7 +217,78 @@ const offers = [
       </div>
     </div>
   </section>
+
+  <dialog id="inquiry" aria-labelledby="inquiry-title">
+    <form class="inquiry" data-base={whatsapp}>
+      <div class="inquiry-head">
+        <h2 id="inquiry-title">What do you need?</h2>
+        <button type="button" class="inquiry-close" aria-label="Close">
+          <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+        </button>
+      </div>
+      <fieldset class="field">
+        <legend>I’m looking for</legend>
+        <div class="opts">
+          {needs.map((n) => (
+            <label><input type="radio" name="need" value={n} required /><span>{n}</span></label>
+          ))}
+        </div>
+      </fieldset>
+      <label class="field">
+        <span>Your name</span>
+        <input name="name" type="text" autocomplete="name" required maxlength="120" />
+      </label>
+      <label class="field">
+        <span>Company or organization <small>(optional)</small></span>
+        <input name="company" type="text" autocomplete="organization" maxlength="120" />
+      </label>
+      <label class="field">
+        <span>Tell me a bit about it</span>
+        <textarea name="details" rows="3" required maxlength="1000" placeholder="e.g. what you want to fix, how many people are involved, and your timeline"></textarea>
+      </label>
+      <button type="submit" class="btn btn-accent">Continue to WhatsApp
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+      <p class="inquiry-note">Your answers open as a WhatsApp message. Just hit send.</p>
+    </form>
+  </dialog>
 </Base>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('#inquiry')!;
+  const form = dialog.querySelector('form')!;
+  const texts = [...form.querySelectorAll<HTMLInputElement | HTMLTextAreaElement>('[required]:not([type=radio])')];
+
+  document.querySelectorAll<HTMLAnchorElement>('a[data-need]').forEach((a) => {
+    a.addEventListener('click', (e) => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey) return;
+      e.preventDefault();
+      form.querySelectorAll<HTMLInputElement>('[name=need]').forEach((r) => (r.checked = r.value === a.dataset.need));
+      dialog.showModal();
+    });
+  });
+
+  dialog.querySelector('.inquiry-close')!.addEventListener('click', () => dialog.close());
+  // klik backdrop: form menutupi seluruh isi dialog, jadi target = dialog hanya terjadi di luar kotak
+  dialog.addEventListener('click', (e) => e.target === dialog && dialog.close());
+
+  // required meloloskan isian yang cuma spasi
+  texts.forEach((t) => t.addEventListener('input', () => t.setCustomValidity(t.value && !t.value.trim() ? 'Please fill out this field.' : '')));
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const v = (k: string) => String(d.get(k) ?? '').trim();
+    const message = [
+      `Hi Aulia, I’m ${v('name')}${v('company') ? ` from ${v('company')}` : ''}.`,
+      `I’m looking for: ${v('need')}`,
+      '',
+      v('details'),
+    ].join('\n');
+    dialog.close();
+    location.href = `${form.dataset.base}?text=${encodeURIComponent(message)}`;
+  });
+</script>
 
 <style>
   h1, h2 { font-weight: 600; text-wrap: balance; }
@@ -392,6 +465,36 @@ const offers = [
   .path-actions { display: flex; flex-wrap: wrap; gap: 10px; }
   .path p { margin-bottom: 8px; }
   .contact p { max-width: 560px; font-size: 18px; line-height: 1.55; color: var(--abu-200); text-wrap: pretty; }
+
+  /* form sebelum WhatsApp */
+  #inquiry { margin: auto; width: min(560px, calc(100% - 24px)); max-height: calc(100dvh - 24px); border: 0; border-radius: var(--radius-4); background: var(--abu-0); color: var(--ink-900); box-shadow: var(--shadow-2); overflow-y: auto; overscroll-behavior: contain; }
+  #inquiry::backdrop { background: rgba(11,13,18,.55); }
+  :global(html:has(#inquiry[open])) { overflow: hidden; }
+  .inquiry { display: grid; gap: 16px; padding: 24px; }
+  .inquiry-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+  .inquiry-head h2 { font-size: 24px; }
+  .inquiry-close { width: 44px; height: 44px; flex: none; display: grid; place-items: center; border: 0; border-radius: 50%; background: var(--abu-100); color: var(--ink-800); cursor: pointer; }
+  .field { border: 0; min-width: 0; display: flex; flex-direction: column; gap: 6px; }
+  .field > span, .field legend { font-size: 14px; font-weight: 600; color: var(--ink-800); margin-bottom: 2px; }
+  .field small { font-size: 13px; font-weight: 400; color: var(--ink-500); }
+  .field > input, .field textarea { width: 100%; font: inherit; font-size: 16px; color: var(--ink-900); background: var(--abu-50); border: 1px solid var(--abu-300); border-radius: 10px; padding: 11px 14px; min-height: 48px; }
+  .field textarea { min-height: 92px; resize: vertical; line-height: 1.45; }
+  .field > input:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-color: var(--kobalt-500); }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opts label { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 12px; border: 1px solid var(--abu-300); border-radius: 10px; background: var(--abu-50); font-size: 15px; line-height: 1.3; color: var(--ink-800); cursor: pointer; }
+  .opts input { accent-color: var(--kobalt-500); width: 16px; height: 16px; flex: none; }
+  .opts label:has(input:checked) { border-color: var(--kobalt-500); background: var(--kobalt-50); color: var(--kobalt-700); }
+  .opts label:has(input:focus-visible) { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+  .inquiry .btn { font-family: inherit; cursor: pointer; width: 100%; }
+  .inquiry-note { font-size: 13px; line-height: 1.4; color: var(--ink-500); text-align: center; text-wrap: balance; }
+
+  @media (max-height: 740px) {
+    .inquiry { gap: 14px; }
+  }
+  @media (max-width: 400px) {
+    .inquiry { padding: 16px; }
+    .opts label { flex: 1 1 100%; }
+  }
 
   @media (max-width: 760px) {
     .hero { grid-template-columns: minmax(0, 1fr); }
