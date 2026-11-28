@@ -1,0 +1,464 @@
+---
+import Base from '../layouts/Base.astro';
+
+// URL Web App dari scripts/ai-mentorship/Code.gs (berakhiran /exec). Kosong = form belum aktif.
+const endpoint = 'https://script.google.com/macros/s/AKfycbwtUmuF9QEofkTUns5DS0U_bTJ5fwQ3vS2YIFKkewZVepx-cFtjZ465VOobaTHJiAC1/exec';
+
+// Ganti sebelum halaman dibagikan.
+const rekening = { bank: 'NAMA BANK', no: '0000000000', nama: 'Nama Pemilik Rekening' };
+
+const whatsapp = 'https://wa.me/6285121038080';
+
+// Harus sama dengan TRACKS di scripts/ai-mentorship/Code.gs.
+// close: pendaftaran ditutup mulai tanggal ini 00.00 WIB, yaitu hari pertemuan pertama.
+const tracks = [
+  { id: 'finance', name: 'Finance, accounting, tax', when: 'Rabu, 2 dan 9 Desember', close: '2026-12-02', free: 2, paid: 4 },
+  { id: 'marketing', name: 'Marketing, content, sales', when: 'Selasa, 1 dan 8 Desember', close: '2026-12-01', free: 2, paid: 4 },
+  { id: 'hr', name: 'HR', when: 'Kamis, 3 dan 10 Desember', close: '2026-12-03', free: 2, paid: 4 },
+  { id: 'management', name: 'Management, direksi, business owner', when: 'Senin, 30 November dan 7 Desember', close: '2026-11-30', free: 0, paid: 6 },
+];
+
+const heroPoints = ['2 pertemuan, pukul 19.00 sampai 21.30 WIB', 'Tatap muka di area Gejayan atau Jakal bawah', 'Maksimal 6 peserta per track'];
+
+const topics = [
+  { title: 'Setup Claude, ChatGPT, atau Gemini dengan benar', desc: 'Pengaturan akun, project, memory, dan privasi, supaya AI-nya paham konteks pekerjaanmu sejak awal.' },
+  { title: 'Prompt yang efektif', desc: 'Cara memberi instruksi yang hasilnya bisa langsung dipakai, dan cara memeriksa jawaban yang keliru.' },
+  { title: 'Skills', desc: 'Simpan cara kerja dan standarmu sekali, supaya tidak perlu mengulang instruksi yang sama.' },
+  { title: 'Connectors dan plugins', desc: 'Hubungkan AI ke aplikasi yang kamu pakai setiap hari, seperti Google Drive dan Gmail.' },
+  { title: 'Cowork dan Claude Code', desc: 'Kapan cukup pakai chat, kapan lebih cocok menyuruh AI mengerjakan tugas berlangkah langsung di file.' },
+  { title: 'Workflow dan otomasi', desc: 'Merangkai semuanya untuk satu pekerjaan rutinmu, sampai jalan dengan sedikit campur tangan.' },
+];
+
+const steps = [
+  'Transfer Rp200.000 ke rekening yang tertera di bagian pendaftaran.',
+  'Isi form dan unggah bukti transfer.',
+  'Kamu diarahkan ke WhatsApp untuk konfirmasi. Lokasi lengkap dikirim lewat sana.',
+  'Pendaftar jalur free mendapat kabar hasil seleksi paling lambat H-1.',
+];
+
+const yoeOpts = ['Kurang dari 2 tahun', '2 sampai 5 tahun', '5 sampai 10 tahun', 'Lebih dari 10 tahun'];
+const pengalamanOpts = ['Belum pernah', 'Pernah coba-coba', 'Sudah rutin'];
+const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Lainnya', 'Belum langganan'];
+---
+
+<Base
+  title="AI Mentorship · Aulia Rahman"
+  description="Mentorship AI tatap muka di Yogyakarta untuk finance, marketing, HR, dan management. 2 pertemuan malam hari."
+  lang="id"
+  noindex
+>
+  <section class="wrap hero">
+    <span class="mono">AI Mentorship · Yogyakarta · Tatap muka</span>
+    <h1>Belajar pakai AI untuk pekerjaanmu, dalam 2 malam</h1>
+    <p class="lede">Mentorship kelompok kecil yang dibagi per bidang kerja. Kita setup AI-nya dengan benar, lalu praktik langsung dengan pekerjaanmu sendiri: dari prompt, skills, dan connectors sampai workflow otomatis.</p>
+    <ul class="points">
+      {heroPoints.map((p) => <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{p}</li>)}
+    </ul>
+    <a class="btn btn-accent hero-cta" href="#daftar">Daftar sekarang
+      <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+    </a>
+  </section>
+
+  <section class="wrap sec">
+    <span class="mono">Yang dibahas</span>
+    <h2>Materinya</h2>
+    <ol class="topics">
+      {topics.map((t, i) => (
+        <li class="card topic">
+          <span class="mono num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+          <strong>{t.title}</strong>
+          <span>{t.desc}</span>
+        </li>
+      ))}
+    </ol>
+  </section>
+
+  <section class="wrap sec">
+    <span class="mono">Jadwal</span>
+    <h2>Pilih track sesuai bidangmu</h2>
+    <p class="sub">Tiap track punya kelas sendiri, jadi contoh dan latihannya sesuai pekerjaan di bidang itu. Pendaftaran tiap track ditutup H-1 pertemuan pertama.</p>
+    <ul class="tracks">
+      {tracks.map((t) => (
+        <li class="card track" data-track={t.id}>
+          <strong>{t.name}</strong>
+          <span class="when">{t.when}</span>
+          <span class="mono">19.00 sampai 21.30 WIB</span>
+          <span class="seats">
+            {t.free > 0 && <span class="seat">{t.free} kursi free, diseleksi</span>}
+            <span class="seat" data-paid={t.paid}>{t.paid} kursi berbayar</span>
+          </span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <section class="wrap sec">
+    <span class="mono">Biaya</span>
+    <h2>Dua jalur, sama-sama Rp200.000</h2>
+    <div class="paths">
+      <div class="card path">
+        <span class="mono">Jalur free · diseleksi</span>
+        <strong>Commitment fee Rp200.000, dikembalikan penuh</strong>
+        <ul class="ticks">
+          <li>Uangnya dikembalikan kalau kamu hadir di kedua pertemuan.</li>
+          <li>Kalau tidak lolos seleksi, uangnya juga dikembalikan.</li>
+          <li>2 kursi per track. Tidak tersedia untuk track management.</li>
+        </ul>
+      </div>
+      <div class="card path">
+        <span class="mono">Jalur berbayar · tanpa seleksi</span>
+        <strong>Rp200.000, langsung dapat kursi</strong>
+        <ul class="ticks">
+          <li>Kursi langsung jadi milikmu selama masih tersedia.</li>
+          <li>Kalau kursi penuh, kamu masuk waiting list. Uangnya dikembalikan kalau tidak ada kursi yang terbuka.</li>
+          <li>Biaya tidak dikembalikan setelah kamu dapat kursi.</li>
+        </ul>
+      </div>
+    </div>
+    <ol class="steps">
+      {steps.map((s) => <li>{s}</li>)}
+    </ol>
+  </section>
+
+  <section id="daftar" class="wrap reg">
+    <div class="intro">
+      <span class="mono">Pendaftaran</span>
+      <h2>Daftar AI Mentorship</h2>
+      <p>Transfer dulu Rp200.000, lalu isi form ini dan unggah bukti transfernya. Setelah klik Daftar, kamu diarahkan ke WhatsApp untuk konfirmasi.</p>
+      <div class="bank">
+        <span class="mono">Rekening tujuan</span>
+        <strong>{rekening.bank} · {rekening.no}</strong>
+        <span>a.n. {rekening.nama}</span>
+      </div>
+    </div>
+
+    <form id="reg-form" class="form" novalidate data-endpoint={endpoint} data-wa={whatsapp}>
+      <fieldset class="field">
+        <legend>Track</legend>
+        <div class="opts col">
+          {tracks.map((t) => (
+            <label data-track={t.id}>
+              <input type="radio" name="track" value={t.id} data-close={t.close} data-free={t.free} data-paid={t.paid} data-name={t.name} required />
+              <span class="opt-text"><span>{t.name}</span><small>{t.when}</small></span>
+            </label>
+          ))}
+        </div>
+      </fieldset>
+      <fieldset class="field">
+        <legend>Jalur</legend>
+        <div class="opts">
+          <label><input type="radio" name="jalur" value="free" required /><span>Free, diseleksi</span></label>
+          <label><input type="radio" name="jalur" value="berbayar" required /><span>Berbayar, tanpa seleksi</span></label>
+        </div>
+        <small id="jalur-note">Jalur free tidak tersedia untuk track management.</small>
+      </fieldset>
+      <p id="waitlist-note" class="note" hidden>Kursi berbayar track ini sudah penuh. Kamu tetap bisa daftar dan masuk waiting list. Kalau tidak ada kursi yang terbuka, uangnya dikembalikan.</p>
+      <div class="field">
+        <label for="f-nama">Nama</label>
+        <input id="f-nama" name="nama" type="text" autocomplete="name" required maxlength="120" />
+      </div>
+      <div class="field">
+        <label for="f-wa">Nomor WhatsApp</label>
+        <input id="f-wa" name="wa" type="tel" maxlength="20" inputmode="tel" autocomplete="tel" required placeholder="081234567890" />
+      </div>
+      <div class="pair">
+        <div class="field">
+          <label for="f-jabatan">Jabatan</label>
+          <input id="f-jabatan" name="jabatan" type="text" required maxlength="120" placeholder="mis. Staf pajak" />
+        </div>
+        <div class="field">
+          <label for="f-perusahaan">Perusahaan</label>
+          <input id="f-perusahaan" name="perusahaan" type="text" required maxlength="120" placeholder="mis. Kopi Senja" />
+        </div>
+      </div>
+      <fieldset class="field">
+        <legend>Pengalaman kerja</legend>
+        <div class="opts">
+          {yoeOpts.map((o) => <label><input type="radio" name="yoe" value={o} required /><span>{o}</span></label>)}
+        </div>
+      </fieldset>
+      <fieldset class="field">
+        <legend>Seberapa sering pakai AI untuk kerja?</legend>
+        <div class="opts">
+          {pengalamanOpts.map((o) => <label><input type="radio" name="pengalaman" value={o} required /><span>{o}</span></label>)}
+        </div>
+      </fieldset>
+      <fieldset class="field">
+        <legend>Langganan AI berbayar apa saja?</legend>
+        <div class="opts">
+          {aiOpts.map((o) => <label><input type="checkbox" name="ai" value={o} /><span>{o}</span></label>)}
+        </div>
+      </fieldset>
+      <div class="field">
+        <label for="f-rutin">Pekerjaan rutin apa yang ingin kamu percepat dengan AI?</label>
+        <textarea id="f-rutin" name="rutin" rows="3" required maxlength="1000" placeholder="mis. rekap faktur pajak bulanan dari email vendor"></textarea>
+      </div>
+      <div class="field">
+        <label for="f-bukti">Bukti transfer Rp200.000</label>
+        <input id="f-bukti" name="bukti" type="file" accept="image/jpeg,image/png,image/webp,image/heic,application/pdf" required />
+        <small>Foto atau PDF, maksimal 5 MB. Rekening tujuan: {rekening.bank} {rekening.no} a.n. {rekening.nama}.</small>
+      </div>
+      <div class="field" id="rekening-field" hidden>
+        <label for="f-rekening">Rekening untuk pengembalian dana</label>
+        <input id="f-rekening" name="rekening" type="text" maxlength="200" placeholder="Bank, nomor rekening, atas nama" />
+      </div>
+      <button id="reg-submit" class="btn btn-accent" type="submit">Daftar
+        <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+      </button>
+      <p id="reg-error" class="form-error" role="alert"></p>
+    </form>
+
+    <div id="reg-done" class="form done" hidden tabindex="-1">
+      <svg class="ic done-ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+      <h2>Terima kasih, pendaftaranmu sudah masuk</h2>
+      <p>Kamu sedang diarahkan ke WhatsApp untuk konfirmasi. Kalau tidak terbuka otomatis, <a id="done-wa" href={whatsapp}>klik di sini</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#reg-form')!;
+  const btn = document.querySelector<HTMLButtonElement>('#reg-submit')!;
+  const err = document.querySelector<HTMLElement>('#reg-error')!;
+  const done = document.querySelector<HTMLElement>('#reg-done')!;
+  const rekeningField = document.querySelector<HTMLElement>('#rekening-field')!;
+  const waitlistNote = document.querySelector<HTMLElement>('#waitlist-note')!;
+  const el = (n: string) => form.elements.namedItem(n) as HTMLInputElement;
+  const first = (n: string) => form.querySelector<HTMLInputElement>(`[name=${n}]`)!;
+  const endpoint = form.dataset.endpoint || '';
+  const trackInputs = [...form.querySelectorAll<HTMLInputElement>('[name=track]')];
+  const freeInput = form.querySelector<HTMLInputElement>('[name=jalur][value=free]')!;
+
+  // Kursi berbayar terpakai per track, dari Sheet. Kosong kalau gagal dimuat: form tetap jalan, server yang menentukan waiting list.
+  let paidUsed: Record<string, number> = {};
+  const isFull = (t: HTMLInputElement) => (paidUsed[t.value] ?? 0) >= Number(t.dataset.paid);
+
+  // Tutup track mulai hari pertemuan pertama (WIB).
+  for (const t of trackInputs) {
+    if (Date.now() >= new Date(t.dataset.close + 'T00:00:00+07:00').getTime()) {
+      t.disabled = true;
+      t.closest('label')!.querySelector('small')!.textContent = 'Pendaftaran ditutup';
+      document.querySelector(`.track[data-track=${t.value}]`)?.classList.add('closed');
+    }
+  }
+
+  if (endpoint) {
+    fetch(endpoint)
+      .then((r) => r.json())
+      .then((out) => {
+        if (!out.ok) return;
+        paidUsed = out.paid;
+        document.querySelectorAll<HTMLElement>('.track').forEach((card) => {
+          const seat = card.querySelector<HTMLElement>('[data-paid]')!;
+          const left = Math.max(0, Number(seat.dataset.paid) - (paidUsed[card.dataset.track!] ?? 0));
+          seat.textContent = left ? `Sisa ${left} dari ${seat.dataset.paid} kursi berbayar` : 'Kursi berbayar penuh, buka waiting list';
+          seat.classList.toggle('full', !left);
+        });
+        sync();
+      })
+      .catch(() => {});
+  }
+
+  const sync = () => {
+    const track = trackInputs.find((t) => t.checked);
+    const noFree = track?.dataset.free === '0';
+    freeInput.disabled = noFree;
+    if (noFree && freeInput.checked) freeInput.checked = false;
+    const jalur = new FormData(form).get('jalur');
+    const waitlist = !!track && jalur === 'berbayar' && isFull(track);
+    waitlistNote.hidden = !waitlist;
+    rekeningField.hidden = !(jalur === 'free' || waitlist);
+  };
+  form.addEventListener('change', sync);
+
+  const fail = (msg: string, focus?: HTMLElement) => {
+    err.textContent = msg;
+    focus?.focus();
+  };
+
+  const readFile = (f: File) =>
+    new Promise<string>((ok, no) => {
+      const r = new FileReader();
+      r.onload = () => ok(String(r.result).split(',')[1]);
+      r.onerror = no;
+      r.readAsDataURL(f);
+    });
+
+  const errors: Record<string, string> = {
+    closed: 'Pendaftaran track ini sudah ditutup.',
+    bukti: 'Bukti transfer belum valid. Unggah foto atau PDF maksimal 5 MB.',
+    rekening: 'Isi rekening untuk pengembalian dana.',
+    contact: 'Nomor WhatsApp belum valid. Contoh: 081234567890.',
+  };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const d = new FormData(form);
+    const v = (k: string) => String(d.get(k) ?? '').trim();
+    const track = trackInputs.find((t) => t.checked);
+    if (!track) return fail('Pilih track kamu.', first('track'));
+    if (!v('jalur')) return fail('Pilih jalur pendaftaran.', first('jalur'));
+    if (!v('nama')) return fail('Nama belum diisi.', el('nama'));
+    const wa = v('wa').replace(/[\s-]/g, '');
+    if (!/^(\+62|62|0)8\d{7,12}$/.test(wa)) return fail('Nomor WhatsApp belum valid. Contoh: 081234567890.', el('wa'));
+    if (!v('jabatan')) return fail('Jabatan belum diisi.', el('jabatan'));
+    if (!v('perusahaan')) return fail('Perusahaan belum diisi.', el('perusahaan'));
+    if (!v('yoe')) return fail('Pilih lama pengalaman kerja kamu.', first('yoe'));
+    if (!v('pengalaman')) return fail('Pilih seberapa sering kamu pakai AI.', first('pengalaman'));
+    const ai = d.getAll('ai').map(String);
+    if (!ai.length) return fail('Pilih minimal satu langganan AI, atau "Belum langganan".', first('ai'));
+    if (!v('rutin')) return fail('Tulis pekerjaan rutin yang ingin kamu percepat.', el('rutin'));
+    const file = el('bukti').files?.[0];
+    if (!file) return fail('Unggah bukti transfer.', el('bukti'));
+    if (file.size > 5 * 1024 * 1024) return fail('Ukuran bukti transfer maksimal 5 MB.', el('bukti'));
+    if (!rekeningField.hidden && !v('rekening')) return fail('Isi rekening untuk pengembalian dana.', el('rekening'));
+    if (!endpoint) return fail('Form belum aktif. Hubungi Aulia lewat WhatsApp.');
+
+    err.textContent = '';
+    btn.disabled = true;
+    btn.firstChild!.textContent = 'Mengirim… ';
+    try {
+      const payload = {
+        track: track.value,
+        jalur: v('jalur'),
+        nama: v('nama'),
+        wa,
+        jabatan: v('jabatan'),
+        perusahaan: v('perusahaan'),
+        yoe: v('yoe'),
+        pengalaman: v('pengalaman'),
+        ai: ai.join(', '),
+        rutin: v('rutin'),
+        rekening: rekeningField.hidden ? '' : v('rekening'),
+        bukti: { name: file.name, type: file.type, data: await readFile(file) },
+      };
+      // text/plain supaya tidak ada preflight CORS ke Apps Script.
+      const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify(payload) });
+      const out = await res.json();
+      if (!out.ok) throw new Error(out.error);
+      const jalur = payload.jalur === 'free' ? 'free' : 'berbayar';
+      const msg = `Halo Aulia, saya ${payload.nama} sudah daftar AI Mentorship track ${track.dataset.name}, jalur ${jalur}${out.status === 'waiting list' ? ' (waiting list)' : ''}.`;
+      const link = document.querySelector<HTMLAnchorElement>('#done-wa')!;
+      link.href = `${form.dataset.wa}?text=${encodeURIComponent(msg)}`;
+      form.hidden = true;
+      done.hidden = false;
+      done.focus();
+      location.href = link.href;
+    } catch (ex) {
+      fail(errors[(ex as Error).message] || 'Pendaftaran gagal terkirim. Coba lagi sebentar lagi.');
+      btn.disabled = false;
+      btn.firstChild!.textContent = 'Daftar ';
+    }
+  });
+</script>
+
+<style>
+  .hero { padding-top: 32px; padding-bottom: 40px; display: flex; flex-direction: column; gap: 16px; align-items: flex-start; }
+  .mono { font-size: 14px; color: var(--kobalt-700); }
+  h1 { font-size: clamp(34px, 6vw, 60px); font-weight: 600; letter-spacing: var(--ls-display); line-height: 1.05; text-wrap: balance; max-width: 900px; }
+  h2 { font-size: clamp(26px, 4vw, 38px); font-weight: 600; letter-spacing: var(--ls-heading); line-height: 1.1; text-wrap: balance; }
+  .lede { font-size: 19px; line-height: 1.55; color: var(--ink-700); text-wrap: pretty; max-width: 680px; }
+  .points { list-style: none; display: flex; flex-wrap: wrap; gap: 10px 20px; }
+  .points li { display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--ink-800); }
+  .points .ic { color: var(--mint-600); width: 18px; height: 18px; }
+  .btn.hero-cta { width: auto; margin-top: 8px; }
+
+  .sec { padding-top: 40px; padding-bottom: 40px; display: flex; flex-direction: column; gap: 12px; }
+  .sub { font-size: 17px; line-height: 1.55; color: var(--ink-700); max-width: 680px; text-wrap: pretty; }
+  .card { background: var(--abu-0); border-radius: var(--radius-4); box-shadow: var(--shadow-1), var(--shadow-hairline); }
+
+  .topics { list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 8px; }
+  .topic { padding: 20px; display: flex; flex-direction: column; gap: 6px; }
+  .topic strong { font-size: 17px; font-weight: 600; color: var(--ink-900); text-wrap: balance; }
+  .topic > span:last-child { font-size: 15px; line-height: 1.5; color: var(--ink-700); text-wrap: pretty; }
+  .num { font-size: 13px; }
+
+  .tracks { list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 8px; }
+  .track { padding: 20px; display: flex; flex-direction: column; gap: 6px; }
+  .track strong { font-size: 17px; font-weight: 600; color: var(--ink-900); text-wrap: balance; }
+  .when { font-size: 15px; color: var(--ink-800); }
+  .seats { display: flex; flex-direction: column; gap: 6px; margin-top: auto; padding-top: 10px; }
+  .seat { font-size: 13px; font-weight: 500; padding: 6px 10px; border-radius: 8px; background: var(--kobalt-50); color: var(--kobalt-700); width: fit-content; }
+  .seat.full { background: var(--amber-50); color: var(--amber-800); }
+  .track.closed { opacity: .55; }
+  .track.closed .seats::after { content: 'Pendaftaran ditutup'; font-size: 13px; font-weight: 600; color: var(--ink-700); }
+
+  .paths { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin-top: 8px; }
+  .path { padding: 24px; display: flex; flex-direction: column; gap: 10px; }
+  .path strong { font-size: 19px; font-weight: 600; color: var(--ink-900); text-wrap: balance; }
+  .ticks { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .ticks li { position: relative; padding-left: 18px; font-size: 15px; line-height: 1.5; color: var(--ink-700); text-wrap: pretty; }
+  .ticks li::before { content: ''; position: absolute; left: 0; top: .6em; width: 7px; height: 7px; border-radius: 50%; background: var(--kobalt-500); }
+  .steps { margin-top: 12px; padding-left: 22px; display: flex; flex-direction: column; gap: 6px; font-size: 16px; line-height: 1.5; color: var(--ink-800); }
+
+  .reg { padding-top: 40px; padding-bottom: 72px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 48px; align-items: start; scroll-margin-top: 16px; }
+  .intro { display: flex; flex-direction: column; gap: 16px; position: sticky; top: 24px; }
+  .intro p { font-size: 17px; line-height: 1.55; color: var(--ink-700); text-wrap: pretty; max-width: 520px; }
+  .bank { display: flex; flex-direction: column; gap: 4px; padding: 16px; border-radius: 12px; background: var(--kobalt-50); border: 1px solid var(--kobalt-100); }
+  .bank strong { font-size: 18px; font-weight: 600; color: var(--ink-900); overflow-wrap: anywhere; }
+  .bank > span:last-child { font-size: 15px; color: var(--ink-800); }
+
+  .ic { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+    min-height: 52px; padding: 12px 22px; border-radius: var(--radius-pill); font: inherit;
+    font-size: 17px; font-weight: 500; letter-spacing: -0.01em; cursor: pointer; text-decoration: none;
+    -webkit-tap-highlight-color: transparent; transition: transform var(--dur-fast) var(--ease-out);
+  }
+  .btn:active { transform: scale(.98); }
+  .btn:disabled { opacity: .7; cursor: progress; }
+  .btn-accent { background: rgba(58,91,255,.95); color: #fff; border: 1px solid rgba(255,255,255,.45); box-shadow: inset 0 1px 0 rgba(255,255,255,.55), 0 8px 24px rgba(58,91,255,.28); }
+  @media (hover: hover) and (pointer: fine) { .btn-accent:hover:not(:disabled) { background: var(--kobalt-600); } }
+  @media (prefers-reduced-motion: reduce) { .btn { transition: none; } .btn:active { transform: none; } }
+
+  .form { background: var(--abu-0); border-radius: var(--radius-4); box-shadow: var(--shadow-1), var(--shadow-hairline); padding: clamp(18px, 4vw, 32px); display: grid; gap: 20px; min-width: 0; }
+  .field { border: 0; min-width: 0; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+  .field[hidden], .note[hidden] { display: none; }
+  .field label, .field legend { font-size: 14px; font-weight: 600; color: var(--ink-800); padding: 0; margin-bottom: 2px; }
+  .field input[type='text'], .field input[type='tel'], .field textarea {
+    width: 100%; font: inherit; font-size: 16px; color: var(--ink-900); background: var(--abu-50);
+    border: 1px solid var(--abu-300); border-radius: 10px; padding: 12px 14px; min-height: 48px;
+  }
+  .field input[type='file'] { font: inherit; font-size: 15px; color: var(--ink-800); padding: 10px; border: 1px dashed var(--abu-300); border-radius: 10px; background: var(--abu-50); min-width: 0; max-width: 100%; }
+  .field textarea { min-height: 92px; resize: vertical; line-height: 1.45; }
+  .field input:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 2px; border-color: var(--kobalt-500); }
+  .field small { font-size: 13px; line-height: 1.4; color: var(--ink-500); text-wrap: pretty; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; gap: 20px 12px; }
+  .opts { display: flex; flex-wrap: wrap; gap: 8px; }
+  .opts.col { flex-direction: column; }
+  .opts label { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 8px 14px; border: 1px solid var(--abu-300); border-radius: 10px; background: var(--abu-50); font-size: 15px; font-weight: 500; color: var(--ink-800); cursor: pointer; margin: 0; }
+  .opts input { accent-color: var(--kobalt-500); width: 16px; height: 16px; flex: none; }
+  .opts label:has(input:checked) { border-color: var(--kobalt-500); background: var(--kobalt-50); color: var(--kobalt-700); }
+  .opts label:has(input:focus-visible) { outline: 2px solid var(--focus-ring); outline-offset: 2px; }
+  .opts label:has(input:disabled) { opacity: .5; cursor: not-allowed; }
+  .opt-text { display: flex; flex-direction: column; gap: 2px; }
+  .opt-text small { font-size: 13px; font-weight: 400; color: var(--ink-500); }
+  .note { padding: 12px 14px; border-radius: 10px; background: var(--amber-50); border: 1px solid var(--amber-100); color: var(--amber-800); font-size: 15px; font-weight: 500; line-height: 1.45; text-wrap: pretty; }
+  .form-error { font-size: 14px; color: var(--koral-600); text-align: center; }
+  .form-error:empty { display: none; }
+
+  .done { justify-items: start; gap: 12px; outline: none; }
+  .form[hidden] { display: none; }
+  .done-ic { width: 40px; height: 40px; padding: 8px; border-radius: 50%; background: var(--mint-50); color: var(--mint-600); }
+  .done p { font-size: 16px; line-height: 1.55; color: var(--ink-700); }
+  .done a { color: var(--fg-link); font-weight: 500; text-decoration: underline; text-underline-offset: 3px; }
+
+  @media (max-width: 1100px) {
+    .tracks { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 860px) {
+    .topics { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .paths { grid-template-columns: minmax(0, 1fr); }
+    .reg { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-bottom: 48px; }
+    .intro { position: static; }
+  }
+  @media (max-width: 560px) {
+    .topics, .tracks { grid-template-columns: minmax(0, 1fr); }
+    .btn.hero-cta { width: 100%; }
+  }
+  @media (max-width: 480px) {
+    .wrap.hero, .wrap.sec, .wrap.reg { padding-left: 16px; padding-right: 16px; }
+    .pair { grid-template-columns: 1fr; }
+    .form { padding: 16px; }
+  }
+</style>
