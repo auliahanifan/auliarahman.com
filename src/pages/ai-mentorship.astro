@@ -1,5 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
+// Copy halaman ditulis Gemini (gemini-api CLI), lalu dicek terhadap fakta program sebelum dipasang.
+import c from '../data/ai-mentorship-copy.json';
 
 // URL Web App dari scripts/ai-mentorship/Code.gs (berakhiran /exec). Kosong = form belum aktif.
 const endpoint = 'https://script.google.com/macros/s/AKfycbwtUmuF9QEofkTUns5DS0U_bTJ5fwQ3vS2YIFKkewZVepx-cFtjZ465VOobaTHJiAC1/exec';
@@ -18,29 +20,6 @@ const tracks = [
   { id: 'management', name: 'Management, direksi, business owner', when: 'Senin, 30 November dan 7 Desember', close: '2026-11-30', free: 0, paid: 6 },
 ];
 
-const heroPoints = ['2 malam, pukul 19.00 sampai 21.30 WIB', 'Tatap muka di area Gejayan atau Jakal bawah', 'Maksimal 6 orang per kelas'];
-
-const pains = [
-  'Instruksi yang sama kamu ketik ulang hampir setiap hari.',
-  'Hasilnya rapi, tapi tidak sesuai format dan standar kantormu, jadi tetap kamu edit sendiri.',
-  'File kerjamu ada di Drive dan email, sementara AI-nya hanya tahu apa yang kamu tempel ke chat.',
-];
-
-// Contoh pekerjaan per track, dipakai sebagai bahan latihan di kelas.
-const examples: Record<string, string> = {
-  finance: 'Rekap pengeluaran dari file mentah, draf laporan bulanan, penjelasan aturan pajak untuk klien.',
-  marketing: 'Rencana konten sebulan, variasi caption, rangkuman riset kompetitor, draf penawaran.',
-  hr: 'Job description, ringkasan CV pelamar, draf SOP dan pengumuman internal.',
-  management: 'Rangkuman laporan tim, bahan rapat, analisis cepat sebelum mengambil keputusan.',
-};
-
-const stack = [
-  { title: '2 pertemuan tatap muka, total 5 jam', desc: 'Satu kelas berisi maksimal 6 orang dari bidang yang sama, jadi contohnya relevan dan setiap orang sempat dibantu.' },
-  { title: 'AI-mu di-setup sampai beres, di laptopmu sendiri', desc: 'Project, memory, instruksi, dan pengaturan privasi diatur bersama di kelas. Kamu pulang dengan AI yang sudah siap dipakai.' },
-  { title: 'Praktik dengan pekerjaanmu sendiri', desc: 'Prompt, skills, connectors, plugins, Cowork, dan workflow dicoba langsung pada tugas yang biasa kamu kerjakan.' },
-  { title: 'Bonus: review 1:1 selama 30 menit', desc: 'Online, dalam 2 minggu setelah pertemuan kedua. Kita cek bersama setup dan workflow yang sudah kamu jalankan.' },
-];
-
 // ponytail: logo diduplikasi dari free-training-claude.astro; pindah ke data bersama kalau daftar ini berubah
 const logos = [
   { name: 'Noice', src: '/logos/noice.svg', h: 24 },
@@ -50,22 +29,7 @@ const logos = [
   { name: 'Alterra', src: '/logos/alterra.svg', h: 26 },
 ];
 
-const topics = [
-  { title: 'Setup Claude, ChatGPT, atau Gemini dengan benar', desc: 'Pengaturan akun, project, memory, dan privasi, supaya AI-nya paham konteks pekerjaanmu sejak awal.' },
-  { title: 'Prompt yang efektif', desc: 'Cara memberi instruksi yang hasilnya bisa langsung dipakai, dan cara memeriksa jawaban yang keliru.' },
-  { title: 'Skills', desc: 'Simpan cara kerja dan standarmu sekali, supaya tidak perlu mengulang instruksi yang sama.' },
-  { title: 'Connectors dan plugins', desc: 'Hubungkan AI ke aplikasi yang kamu pakai setiap hari, seperti Google Drive dan Gmail.' },
-  { title: 'Cowork dan Claude Code', desc: 'Kapan cukup pakai chat, kapan lebih cocok menyuruh AI mengerjakan tugas berlangkah langsung di file.' },
-  { title: 'Workflow dan otomasi', desc: 'Merangkai semuanya untuk satu pekerjaan rutinmu, sampai jalan dengan sedikit campur tangan.' },
-];
-
-const steps = [
-  'Transfer Rp200.000 ke rekening yang tertera di bagian pendaftaran.',
-  'Isi form dan unggah bukti transfer.',
-  'Kamu diarahkan ke WhatsApp untuk konfirmasi. Lokasi lengkap dikirim lewat sana.',
-  'Pendaftar jalur free mendapat kabar hasil seleksi paling lambat H-1.',
-];
-
+const { heroPoints, pains, examples, stack, topics, steps } = c;
 const yoeOpts = ['Kurang dari 2 tahun', '2 sampai 5 tahun', '5 sampai 10 tahun', 'Lebih dari 10 tahun'];
 const pengalamanOpts = ['Belum pernah', 'Pernah coba-coba', 'Sudah rutin'];
 const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Lainnya', 'Belum langganan'];
@@ -79,29 +43,29 @@ const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Lainnya', 'Belum langganan'];
 >
   <section class="wrap hero">
     <span class="mono">AI Mentorship · Yogyakarta · Tatap muka</span>
-    <h1>Dua malam untuk membuat AI benar-benar paham pekerjaanmu</h1>
-    <p class="lede">Kamu sudah pakai ChatGPT, Claude, atau Gemini. Tapi setiap membuka chat baru, kamu menjelaskan lagi siapa kamu, kerja di mana, dan formatnya seperti apa. Di mentorship ini, kita setup AI-mu bersama sampai ia mengenal konteks kerjamu, langsung di laptopmu sendiri.</p>
+    <h1>{c.h1}</h1>
+    <p class="lede">{c.lede}</p>
     <ul class="points">
       {heroPoints.map((p) => <li><svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>{p}</li>)}
     </ul>
-    <a class="btn btn-accent hero-cta" href="#daftar">Amankan kursimu
+    <a class="btn btn-accent hero-cta" href="#daftar">{c.cta}
       <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
     </a>
-    <small class="hero-meta">Rp200.000 · Garansi uang kembali · Pendaftaran tiap track tutup H-1</small>
+    <small class="hero-meta">{c.heroMeta}</small>
   </section>
 
   <section class="wrap sec">
     <span class="mono">Yang sering terjadi</span>
-    <h2>AI-nya pintar, tapi belum kenal kamu</h2>
+    <h2>{c.painsH2}</h2>
     <ul class="pains">
       {pains.map((p) => <li>{p}</li>)}
     </ul>
-    <p class="sub">Semua itu soal setup. Begitu diatur dengan benar, AI ingat siapa kamu, memakai standar kerjamu, dan bisa membuka file yang kamu izinkan. Bayangkan pagi hari setelah pertemuan kedua: kamu cukup mengetik satu kalimat, dan AI menyusun draf sesuai format kantormu dari file yang memang ada di Drive-mu.</p>
+    <p class="sub">{c.painsAfter}</p>
   </section>
 
   <section class="wrap sec">
     <span class="mono">Selama 2 malam</span>
-    <h2>Yang kita kerjakan bersama</h2>
+    <h2>{c.topicsH2}</h2>
     <ol class="topics">
       {topics.map((t, i) => (
         <li class="card topic">
@@ -115,15 +79,15 @@ const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Lainnya', 'Belum langganan'];
 
   <section class="wrap sec">
     <span class="mono">Jadwal</span>
-    <h2>Pilih track sesuai bidangmu</h2>
-    <p class="sub">Tiap track punya kelas sendiri, jadi latihannya memakai pekerjaan yang memang ada di bidang itu. Sisa kursi di bawah diperbarui langsung dari daftar pendaftar. Pendaftaran tiap track ditutup H-1 pertemuan pertama.</p>
+    <h2>{c.tracksH2}</h2>
+    <p class="sub">{c.tracksSub} Pendaftaran tiap track ditutup H-1 pertemuan pertama.</p>
     <ul class="tracks">
       {tracks.map((t) => (
         <li class="card track" data-track={t.id}>
           <strong>{t.name}</strong>
           <span class="when">{t.when}</span>
           <span class="mono">19.00 sampai 21.30 WIB</span>
-          <span class="ex">Contoh latihan: {examples[t.id]}</span>
+          <span class="ex">Contoh latihan: {examples[t.id as keyof typeof examples]}</span>
           <span class="seats">
             {t.free > 0 && <span class="seat">{t.free} kursi free, diseleksi</span>}
             <span class="seat" data-paid={t.paid}>{t.paid} kursi berbayar</span>
@@ -135,7 +99,7 @@ const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Lainnya', 'Belum langganan'];
 
   <section class="wrap sec">
     <span class="mono">Yang kamu dapat</span>
-    <h2>Semua ini, Rp200.000</h2>
+    <h2>{c.stackH2}</h2>
     <ol class="card stack">
       {stack.map((s) => (
         <li>
@@ -144,29 +108,23 @@ const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Lainnya', 'Belum langganan'];
         </li>
       ))}
     </ol>
-    <p class="anchor">Materi serupa saya bawakan untuk perusahaan lewat training inhouse seharga <strong>Rp15 juta per sesi 3 jam</strong>. Di mentorship ini kamu belajar dalam kelompok kecil, dengan biaya Rp200.000.</p>
+    <p class="anchor">{c.anchor}</p>
   </section>
 
   <section class="wrap sec">
     <span class="mono">Biaya dan garansi</span>
-    <h2>Dua jalur, dua-duanya bisa uang kembali</h2>
+    <h2>{c.pathsH2}</h2>
     <div class="paths">
       <div class="card path">
-        <span class="mono">Jalur free · diseleksi</span>
-        <strong>Commitment fee Rp200.000, dikembalikan penuh</strong>
+        <strong>{c.freeTitle}</strong>
         <ul class="ticks">
-          <li>Uangnya dikembalikan kalau kamu hadir di kedua pertemuan.</li>
-          <li>Kalau tidak lolos seleksi, uangnya juga dikembalikan.</li>
-          <li>2 kursi per track. Tidak tersedia untuk track management.</li>
+          {c.freeBullets.map((b) => <li>{b}</li>)}
         </ul>
       </div>
       <div class="card path">
-        <span class="mono">Jalur berbayar · tanpa seleksi</span>
-        <strong>Rp200.000, langsung dapat kursi</strong>
+        <strong>{c.paidTitle}</strong>
         <ul class="ticks">
-          <li>Kursi langsung jadi milikmu selama masih tersedia.</li>
-          <li>Garansi: kalau setelah mentorship selesai kamu merasa tidak puas, uangnya dikembalikan penuh.</li>
-          <li>Kalau kursi penuh, kamu masuk waiting list. Uangnya dikembalikan kalau tidak ada kursi yang terbuka.</li>
+          {c.paidBullets.map((b) => <li>{b}</li>)}
         </ul>
       </div>
     </div>
@@ -177,7 +135,7 @@ const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Lainnya', 'Belum langganan'];
     <div class="mentor-text">
       <span class="mono">Yang mendampingi</span>
       <h2>Aulia Rahman Hanifan</h2>
-      <p class="sub">Corporate AI trainer dan product engineer. Tujuh tahun membangun produk di startup, dan sekarang melatih tim perusahaan memakai AI untuk pekerjaan sehari-hari. Lebih dari 500 orang sudah ikut webinar AI yang saya bawakan.</p>
+      <p class="sub">{c.mentorBio}</p>
       <ul class="logos" aria-label="Tempat saya pernah bekerja">
         {logos.map((l) => <li><img src={l.src} alt={l.name} height={l.h} style={`height:${l.h}px`} loading="lazy" /></li>)}
       </ul>
@@ -186,7 +144,7 @@ const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Lainnya', 'Belum langganan'];
 
   <section class="wrap sec">
     <span class="mono">Cara daftar</span>
-    <h2>Empat langkah untuk mengamankan kursimu</h2>
+    <h2>{c.stepsH2}</h2>
     <ol class="steps">
       {steps.map((s) => <li>{s}</li>)}
     </ol>
@@ -196,7 +154,7 @@ const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Lainnya', 'Belum langganan'];
     <div class="intro">
       <span class="mono">Pendaftaran</span>
       <h2>Daftar AI Mentorship</h2>
-      <p>Transfer dulu Rp200.000, lalu isi form ini dan unggah bukti transfernya. Setelah klik Daftar, kamu diarahkan ke WhatsApp untuk konfirmasi.</p>
+      <p>{c.regIntro}</p>
       <div class="bank">
         <span class="mono">Rekening tujuan</span>
         <strong>{rekening.bank} · {rekening.no}</strong>
@@ -431,8 +389,8 @@ const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Lainnya', 'Belum langganan'];
   h2 { font-size: clamp(26px, 4vw, 38px); font-weight: 600; letter-spacing: var(--ls-heading); line-height: 1.1; text-wrap: balance; }
   .lede { font-size: 19px; line-height: 1.55; color: var(--ink-700); text-wrap: pretty; max-width: 680px; }
   .points { list-style: none; display: flex; flex-wrap: wrap; gap: 10px 20px; }
-  .points li { display: flex; align-items: center; gap: 8px; font-size: 15px; color: var(--ink-800); }
-  .points .ic { color: var(--mint-600); width: 18px; height: 18px; }
+  .points li { display: flex; align-items: flex-start; gap: 8px; line-height: 1.45; font-size: 15px; color: var(--ink-800); }
+  .points .ic { color: var(--mint-600); width: 18px; height: 18px; margin-top: 2px; }
   .btn.hero-cta { width: auto; margin-top: 8px; }
   .hero-meta { font-size: 14px; color: var(--ink-500); }
 
@@ -497,7 +455,7 @@ const aiOpts = ['ChatGPT', 'Claude', 'Gemini', 'Lainnya', 'Belum langganan'];
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
     min-height: 52px; padding: 12px 22px; border-radius: var(--radius-pill); font: inherit;
-    font-size: 17px; font-weight: 500; letter-spacing: -0.01em; cursor: pointer; text-decoration: none;
+    font-size: 17px; font-weight: 500; letter-spacing: -0.01em; cursor: pointer; text-decoration: none; text-align: center; text-wrap: balance;
     -webkit-tap-highlight-color: transparent; transition: transform var(--dur-fast) var(--ease-out);
   }
   .btn:active { transform: scale(.98); }

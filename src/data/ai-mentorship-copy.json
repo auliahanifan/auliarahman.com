@@ -1,0 +1,95 @@
+{
+  "anchor": "Untuk perusahaan, saya membawakan materi serupa lewat training inhouse dengan biaya Rp15 juta per sesi 3 jam. Di kelas mentorship ini, kamu mendapatkan 5 jam pertemuan tatap muka plus sesi review 1:1 dengan biaya Rp200.000 saja.",
+  "cta": "Daftar dan amankan kursimu sekarang",
+  "examples": {
+    "finance": "Menyusun rekap pengeluaran dari file mentah, menyiapkan draf laporan bulanan, hingga merumuskan penjelasan aturan pajak yang mudah dipahami klien.",
+    "hr": "Menulis job description yang rapi, merangkum CV para pelamar, serta menyusun draf SOP dan pengumuman internal perusahaan.",
+    "management": "Merangkum laporan dari berbagai tim, menyiapkan bahan rapat, dan menyusun analisis cepat sebelum kamu mengambil keputusan.",
+    "marketing": "Menyusun rencana konten untuk sebulan, membuat variasi caption, merangkum hasil riset kompetitor, dan menyiapkan draf penawaran."
+  },
+  "freeBullets": [
+    "Bayar commitment fee Rp200.000 saat mendaftar, lalu uang dikembalikan penuh setelah kamu hadir di kedua pertemuan.",
+    "Jika belum lolos seleksi, commitment fee Rp200.000 juga dikembalikan penuh.",
+    "Tersedia 2 kursi per track, khusus untuk track Finance, Marketing, dan HR (tidak tersedia untuk track Management)."
+  ],
+  "freeTitle": "Jalur gratis, dengan seleksi",
+  "h1": "Buat AI di laptopmu paham kerjamu dalam dua malam",
+  "heroMeta": "Biaya Rp200.000 (tersedia jalur gratis), garansi uang kembali penuh jika tidak puas, pendaftaran tutup H-1.",
+  "heroPoints": [
+    "Tatap muka di Jogja (Gejayan atau Jakal bawah), dua malam sepulang kerja pukul 19.00 sampai 21.30 WIB.",
+    "Kelas kecil maksimal 6 orang per track, langsung praktik memakai file dan pekerjaanmu sendiri.",
+    "Termasuk bonus sesi review online 1:1 selama 30 menit agar setup di laptopmu benar-benar berjalan."
+  ],
+  "lede": "Kamu sudah terbiasa memakai ChatGPT, Claude, atau Gemini, tetapi setiap membuka chat baru kamu tetap harus menjelaskan ulang peranmu, alur kerjamu, dan format yang kamu butuhkan. Di mentorship tatap muka di Jogja ini, saya dampingi kamu langsung menata setup AI di laptopmu sendiri menggunakan pekerjaanmu sehari-hari. Begitu setup ini rapi, banyak sekali hal dalam pekerjaanmu yang ikut terbuka.",
+  "mentorBio": "Saya Aulia Rahman Hanifan, corporate AI trainer dan product engineer dengan pengalaman 7 tahun membangun produk di berbagai startup, termasuk Noice, Delegasi, BukuWarung, Traveloka, dan Alterra. Lebih dari 500 orang pernah mengikuti webinar AI yang saya bawakan, dan saat ini saya aktif melatih tim di berbagai perusahaan untuk memakai AI dalam pekerjaan sehari-hari.",
+  "paidBullets": [
+    "Biaya Rp200.000 tanpa seleksi, kamu langsung mengamankan kursi selama kuota track pilihanmu masih tersedia.",
+    "Garansi puas: jika setelah mentorship selesai kamu merasa tidak puas, uangmu dikembalikan penuh.",
+    "Jika kelas sudah penuh, kamu masuk waiting list dan uang dikembalikan penuh bila tidak ada kursi yang terbuka."
+  ],
+  "paidTitle": "Jalur berbayar, tanpa seleksi",
+  "pains": [
+    "Hampir setiap hari kamu mengetik ulang instruksi dan konteks yang sama setiap kali membuka jendela chat baru.",
+    "Hasilnya kelihatan rapi, tetapi format, istilah, dan standarnya meleset dari kebiasaan kantormu, sehingga akhirnya kamu perbaiki lagi dari awal.",
+    "Dokumen kerjamu tersebar di Google Drive dan email, sedangkan AI hanya tahu potongan teks yang sempat kamu salin ke chat."
+  ],
+  "painsAfter": "Begitu project, memory, instruksi, dan koneksinya ke alat kerjamu tersusun rapi di laptopmu sendiri, banyak sekali hal baru yang langsung terbuka. Bayangkan ketika kamu membuka laptop sepulang kelas nanti, menuliskan arahan singkat, dan AI sudah mengerti peranmu, standar format kantormu, serta dokumen rujukanmu tanpa perlu dijelaskan ulang dari awal.",
+  "painsH2": "AI kamu pintar, tapi belum kenal pekerjaanmu",
+  "pathsH2": "Dua jalur daftar, risiko saya yang tanggung",
+  "regIntro": "Pilih track yang paling dekat dengan pekerjaanmu dan amankan kursimu sebelum pendaftaran ditutup H-1 pertemuan pertama. Setiap kelas dibatasi maksimal 6 orang agar kita bisa fokus membereskan setup di laptopmu masing-masing. Cek sisa kursi yang tersedia sekarang, lalu lengkapi pendaftaranmu di bawah ini.",
+  "stack": [
+    {
+      "desc": "Total 5 jam belajar langsung pada malam hari sepulang kerja, pukul 19.00 sampai 21.30 WIB, di area Gejayan atau Jakal bawah. Kelas kecil maksimal 6 orang sehingga setiap pertanyaanmu kebagian ruang.",
+      "title": "2 pertemuan tatap muka di Jogja"
+    },
+    {
+      "desc": "Kita atur langsung project, memory, instruksi, privasi, sampai koneksi ke alat kerjamu di perangkat yang kamu pakai setiap hari. Selesai kelas, semuanya sudah terpasang dan siap kamu gunakan.",
+      "title": "Setup AI rapi di laptopmu sendiri"
+    },
+    {
+      "desc": "Kita tidak memakai studi kasus fiktif yang jauh dari keseharianmu. Bawa tugas dan file kerjamu sendiri supaya hasil latihan selama dua malam bisa langsung kamu pakai keesokan harinya.",
+      "title": "Praktik langsung memakai pekerjaanmu sendiri"
+    },
+    {
+      "desc": "Dalam dua minggu setelah pertemuan kedua, kita bertemu empat mata secara online selama 30 menit. Saya bantu cek setup AI-mu setelah kamu pakai bekerja, sekaligus membereskan kendala yang muncul.",
+      "title": "Bonus: sesi review online 1:1 (30 menit)"
+    }
+  ],
+  "stackH2": "Apa saja yang kamu dapatkan",
+  "steps": [
+    "Transfer Rp200.000 ke nomor rekening yang tertera di bagian pendaftaran di bawah ini.",
+    "Isi formulir pendaftaran sesuai track pilihanmu, lalu unggah bukti transfernya.",
+    "Setelah formulir terkirim, kamu akan diarahkan ke WhatsApp untuk konfirmasi pendaftaran sekaligus menerima lokasi pasti pertemuan.",
+    "Jika kamu memilih jalur gratis, hasil seleksi akan saya kabarkan melalui WhatsApp paling lambat H-1 sebelum pertemuan pertama."
+  ],
+  "stepsH2": "Cara mendaftar dalam empat langkah",
+  "topics": [
+    {
+      "desc": "Menata Claude, ChatGPT, atau Gemini di laptopmu lewat pengaturan project, memory, instruksi khusus, dan setelan privasi agar AI paham konteks kerjamu dengan aman.",
+      "title": "Setup AI dari fondasi"
+    },
+    {
+      "desc": "Menyusun instruksi yang jelas dan terstruktur supaya keluaran AI langsung mendekati format dan standar yang biasa kamu pakai di kantor.",
+      "title": "Prompt yang efektif"
+    },
+    {
+      "desc": "Menyimpan pola tugas yang sering kamu ulang menjadi skills siap pakai, jadi kamu tidak perlu menulis arahan panjang setiap kali mengerjakannya.",
+      "title": "Membangun skills"
+    },
+    {
+      "desc": "Menghubungkan AI dengan alat kerja harianmu seperti Google Drive dan Gmail agar AI bisa membaca referensi langsung tanpa proses salin tempel.",
+      "title": "Connectors dan plugins"
+    },
+    {
+      "desc": "Mengenal cara kerja Cowork dan Claude Code untuk menangani pekerjaan yang lebih kompleks langsung bersama file di perangkatmu.",
+      "title": "Cowork dan Claude Code"
+    },
+    {
+      "desc": "Merangkai langkah-langkah kerjamu yang berulang menjadi alur kerja dan otomasi yang lebih rapi serta terhubung dari awal sampai akhir.",
+      "title": "Workflow dan otomasi"
+    }
+  ],
+  "topicsH2": "Enam hal yang kita kerjakan bersama",
+  "tracksH2": "Empat track terpisah sesuai bidang kerjamu",
+  "tracksSub": "Supaya diskusi dan latihanmu nyambung dengan keseharian, setiap bidang belajar di kelas yang terpisah. Maksimal 6 orang per track, dua malam pukul 19.00 sampai 21.30 WIB, dengan sisa kursi yang tampil langsung di halaman ini."
+}
